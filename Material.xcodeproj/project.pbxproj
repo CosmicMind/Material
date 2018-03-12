@@ -411,7 +411,10 @@
 				96D88BF41C1328D800B91418 /* Sources */,
 				963832371B88DFD80015F710 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
 		};
 		963832371B88DFD80015F710 /* Products */ = {
 			isa = PBXGroup;

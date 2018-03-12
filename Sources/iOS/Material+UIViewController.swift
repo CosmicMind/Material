@@ -31,36 +31,36 @@
 import UIKit
 
 internal extension UIViewController {
-    /**
-     Finds a view controller with a given type based on
-     the view controller subclass.
-     - Returns: An optional of type T.
-     */
-    func traverseViewControllerHierarchyForClassType<T: UIViewController>() -> T? {
-        var v: UIViewController? = self
-        while nil != v {
-            if v is T {
-                return v as? T
-            }
-            
-            v = v?.parent
-        }
-        
-        return Application.rootViewController?.traverseTransitionViewControllerHierarchyForClassType()
+  /**
+   Finds a view controller with a given type based on
+   the view controller subclass.
+   - Returns: An optional of type T.
+   */
+  func traverseViewControllerHierarchyForClassType<T: UIViewController>() -> T? {
+    var v: UIViewController? = self
+    while nil != v {
+      if v is T {
+        return v as? T
+      }
+      
+      v = v?.parent
     }
     
-    /**
-     Traverses the child view controllers to find the correct view controller type T.
-     - Returns: An optional of type T.
-     */
-    func traverseTransitionViewControllerHierarchyForClassType<T: UIViewController>() -> T? {
-        if let v = self as? T {
-            return v
-            
-        } else if let v = self as? TransitionController {
-            return v.rootViewController.traverseTransitionViewControllerHierarchyForClassType()
-        }
-        
-        return nil
+    return Application.rootViewController?.traverseTransitionViewControllerHierarchyForClassType()
+  }
+  
+  /**
+   Traverses the child view controllers to find the correct view controller type T.
+   - Returns: An optional of type T.
+   */
+  func traverseTransitionViewControllerHierarchyForClassType<T: UIViewController>() -> T? {
+    if let v = self as? T {
+      return v
+      
+    } else if let v = self as? TransitionController {
+      return v.rootViewController.traverseTransitionViewControllerHierarchyForClassType()
     }
+    
+    return nil
+  }
 }

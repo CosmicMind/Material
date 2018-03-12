@@ -220,7 +220,7 @@ open class TabBar: Bar {
             layoutSubviews()
         }
     }
-
+    
     /// A reference to the line UIView.
     open let line = UIView()
     

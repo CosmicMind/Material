@@ -33,91 +33,91 @@ import UIKit
 public protocol CollectionViewDelegate: UICollectionViewDelegate {}
 
 public protocol CollectionViewDataSource: UICollectionViewDataSource {
-    /**
-     Retrieves the data source items for the collectionView.
-     - Returns: An Array of DataSourceItem objects.
-     */
-    var dataSourceItems: [DataSourceItem] { get }
+  /**
+   Retrieves the data source items for the collectionView.
+   - Returns: An Array of DataSourceItem objects.
+   */
+  var dataSourceItems: [DataSourceItem] { get }
 }
 
 extension UIViewController {
-    /**
-     A convenience property that provides access to the CollectionViewController.
-     This is the recommended method of accessing the CollectionViewController
-     through child UIViewControllers.
-     */
-    public var collectionViewController: CollectionViewController? {
-        return traverseViewControllerHierarchyForClassType()
-    }
+  /**
+   A convenience property that provides access to the CollectionViewController.
+   This is the recommended method of accessing the CollectionViewController
+   through child UIViewControllers.
+   */
+  public var collectionViewController: CollectionViewController? {
+    return traverseViewControllerHierarchyForClassType()
+  }
 }
 
 open class CollectionViewController: UIViewController {
-    /// A reference to a Reminder.
-    open let collectionView = CollectionView()
-    
-    open var dataSourceItems = [DataSourceItem]()
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        prepare()
-    }
-    
-    open override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        layoutSubviews()
-    }
-    
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepareView method
-     to initialize property values and other setup operations.
-     The super.prepareView method should always be called immediately
-     when subclassing.
-     */
-    open func prepare() {
-        view.clipsToBounds = true
-        view.backgroundColor = .white
-        view.contentScaleFactor = Screen.scale
-        prepareCollectionView()
-    }
-    
-    /// Calls the layout functions for the view heirarchy.
-    open func layoutSubviews() {
-        layoutCollectionView()
-    }
+  /// A reference to a Reminder.
+  open let collectionView = CollectionView()
+  
+  open var dataSourceItems = [DataSourceItem]()
+  
+  open override func viewDidLoad() {
+    super.viewDidLoad()
+    prepare()
+  }
+  
+  open override func viewWillLayoutSubviews() {
+    super.viewWillLayoutSubviews()
+    layoutSubviews()
+  }
+  
+  /**
+   Prepares the view instance when intialized. When subclassing,
+   it is recommended to override the prepareView method
+   to initialize property values and other setup operations.
+   The super.prepareView method should always be called immediately
+   when subclassing.
+   */
+  open func prepare() {
+    view.clipsToBounds = true
+    view.backgroundColor = .white
+    view.contentScaleFactor = Screen.scale
+    prepareCollectionView()
+  }
+  
+  /// Calls the layout functions for the view heirarchy.
+  open func layoutSubviews() {
+    layoutCollectionView()
+  }
 }
 
 extension CollectionViewController {
-    /// Prepares the collectionView.
-    fileprivate func prepareCollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        view.layout(collectionView).edges()
-    }
+  /// Prepares the collectionView.
+  fileprivate func prepareCollectionView() {
+    collectionView.delegate = self
+    collectionView.dataSource = self
+    view.layout(collectionView).edges()
+  }
 }
 
 extension CollectionViewController {
-    /// Sets the frame for the collectionView.
-    fileprivate func layoutCollectionView() {
-        collectionView.frame = view.bounds
-    }
+  /// Sets the frame for the collectionView.
+  fileprivate func layoutCollectionView() {
+    collectionView.frame = view.bounds
+  }
 }
 
 extension CollectionViewController: CollectionViewDelegate {}
 
 extension CollectionViewController: CollectionViewDataSource {
-    @objc
-    open func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    @objc
-    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSourceItems.count
-    }
-
-    @objc
-    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath)
-    }
+  @objc
+  open func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return 1
+  }
+  
+  @objc
+  open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return dataSourceItems.count
+  }
+  
+  @objc
+  open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    return collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath)
+  }
 }

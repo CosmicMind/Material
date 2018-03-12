@@ -31,8 +31,8 @@
 import UIKit
 
 open class FlatButton: Button {
-	open override func prepare() {
-		super.prepare()
-		cornerRadiusPreset = .cornerRadius1
-	}
+  open override func prepare() {
+    super.prepare()
+    cornerRadiusPreset = .cornerRadius1
+  }
 }

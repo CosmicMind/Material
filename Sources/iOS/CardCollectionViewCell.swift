@@ -31,21 +31,21 @@
 import UIKit
 
 open class CardCollectionViewCell: CollectionViewCell {
-    /// An optional reference to the card being displayed in the cell.
-    open var card: Card? {
-        didSet {
-            oldValue?.removeFromSuperview()
-            
-            guard let v = card else {
-                return
-            }
-            
-            contentView.addSubview(v)
-        }
+  /// An optional reference to the card being displayed in the cell.
+  open var card: Card? {
+    didSet {
+      oldValue?.removeFromSuperview()
+      
+      guard let v = card else {
+        return
+      }
+      
+      contentView.addSubview(v)
     }
-    
-    open override func prepare() {
-        super.prepare()
-        pulseAnimation = .none
-    }
+  }
+  
+  open override func prepare() {
+    super.prepare()
+    pulseAnimation = .none
+  }
 }

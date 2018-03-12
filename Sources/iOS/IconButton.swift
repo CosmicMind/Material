@@ -31,8 +31,8 @@
 import UIKit
 
 open class IconButton: Button {
-    open override func prepare() {
-		super.prepare()
-		pulseAnimation = .center
-	}
+  open override func prepare() {
+    super.prepare()
+    pulseAnimation = .center
+  }
 }

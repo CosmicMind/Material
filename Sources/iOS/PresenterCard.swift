@@ -31,56 +31,56 @@
 import UIKit
 
 open class PresenterCard: Card {
-    /// A preset wrapper around presenterViewEdgeInsets.
-    open var presenterViewEdgeInsetsPreset = EdgeInsetsPreset.none {
-        didSet {
-            presenterViewEdgeInsets = EdgeInsetsPresetToValue(preset: presenterViewEdgeInsetsPreset)
-        }
+  /// A preset wrapper around presenterViewEdgeInsets.
+  open var presenterViewEdgeInsetsPreset = EdgeInsetsPreset.none {
+    didSet {
+      presenterViewEdgeInsets = EdgeInsetsPresetToValue(preset: presenterViewEdgeInsetsPreset)
+    }
+  }
+  
+  /// A reference to presenterViewEdgeInsets.
+  @IBInspectable
+  open var presenterViewEdgeInsets = EdgeInsets.zero {
+    didSet {
+      layoutSubviews()
+    }
+  }
+  
+  /// A reference to the presenterView.
+  @IBInspectable
+  open var presenterView: UIView? {
+    didSet {
+      oldValue?.removeFromSuperview()
+      
+      if let v = presenterView {
+        v.clipsToBounds = true
+        container.addSubview(v)
+      }
+      
+      layoutSubviews()
+    }
+  }
+  
+  open override func reload() {
+    var h: CGFloat = 0
+    
+    if let v = toolbar {
+      h = prepare(view: v, with: toolbarEdgeInsets, from: h)
     }
     
-    /// A reference to presenterViewEdgeInsets.
-    @IBInspectable
-    open var presenterViewEdgeInsets = EdgeInsets.zero {
-        didSet {
-            layoutSubviews()
-        }
+    if let v = presenterView {
+      h = prepare(view: v, with: presenterViewEdgeInsets, from: h)
     }
     
-    /// A reference to the presenterView.
-    @IBInspectable
-    open var presenterView: UIView? {
-        didSet {
-            oldValue?.removeFromSuperview()
-            
-            if let v = presenterView {
-                v.clipsToBounds = true
-                container.addSubview(v)
-            }
-            
-            layoutSubviews()
-        }
+    if let v = contentView {
+      h = prepare(view: v, with: contentViewEdgeInsets, from: h)
     }
     
-    open override func reload() {
-        var h: CGFloat = 0
-        
-        if let v = toolbar {
-            h = prepare(view: v, with: toolbarEdgeInsets, from: h)
-        }
-        
-        if let v = presenterView {
-            h = prepare(view: v, with: presenterViewEdgeInsets, from: h)
-        }
-        
-        if let v = contentView {
-            h = prepare(view: v, with: contentViewEdgeInsets, from: h)
-        }
-        
-        if let v = bottomBar {
-            h = prepare(view: v, with: bottomBarEdgeInsets, from: h)
-        }
-        
-        container.frame.size.height = h
-        bounds.size.height = h
+    if let v = bottomBar {
+      h = prepare(view: v, with: bottomBarEdgeInsets, from: h)
     }
+    
+    container.frame.size.height = h
+    bounds.size.height = h
+  }
 }

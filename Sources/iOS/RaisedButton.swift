@@ -31,10 +31,10 @@
 import UIKit
 
 open class RaisedButton: Button {
-	open override func prepare() {
-		super.prepare()
-		depthPreset = .depth1
-		cornerRadiusPreset = .cornerRadius1
-		backgroundColor = .white
-	}
+  open override func prepare() {
+    super.prepare()
+    depthPreset = .depth1
+    cornerRadiusPreset = .cornerRadius1
+    backgroundColor = .white
+  }
 }

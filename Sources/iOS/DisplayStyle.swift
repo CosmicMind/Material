@@ -32,6 +32,6 @@ import UIKit
 
 @objc(DisplayStyle)
 public enum DisplayStyle: Int {
-    case partial
-    case full
+  case partial
+  case full
 }

@@ -31,11 +31,11 @@
 import UIKit
 
 open class FABButton: Button {
-	open override func prepare() {
-		super.prepare()
-		depthPreset = .depth1
-		shapePreset = .circle
-		pulseAnimation = .centerWithBacking
-        backgroundColor = .white
-	}
+  open override func prepare() {
+    super.prepare()
+    depthPreset = .depth1
+    shapePreset = .circle
+    pulseAnimation = .centerWithBacking
+    backgroundColor = .white
+  }
 }

@@ -33,25 +33,25 @@ import UIKit
 public typealias Offset = UIOffset
 
 extension CGSize {
-    /// Returns an Offset version of the CGSize.
-    public var asOffset: Offset {
-        return Offset(size: self)
-    }
+  /// Returns an Offset version of the CGSize.
+  public var asOffset: Offset {
+    return Offset(size: self)
+  }
 }
 
 extension Offset {
-    /**
-     Initializer that accepts a CGSize value.
-     - Parameter size: A CGSize value.
-     */
-    public init(size: CGSize) {
-        self.init(horizontal: size.width, vertical: size.height)
-    }
+  /**
+   Initializer that accepts a CGSize value.
+   - Parameter size: A CGSize value.
+   */
+  public init(size: CGSize) {
+    self.init(horizontal: size.width, vertical: size.height)
+  }
 }
 
 extension Offset {
-    /// Returns a CGSize version of the Offset.
-    public var asSize: CGSize {
-        return CGSize(width: horizontal, height: vertical)
-    }
+  /// Returns a CGSize version of the Offset.
+  public var asSize: CGSize {
+    return CGSize(width: horizontal, height: vertical)
+  }
 }
