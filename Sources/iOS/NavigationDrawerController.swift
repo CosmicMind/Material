@@ -227,6 +227,24 @@ open class NavigationDrawerController: TransitionController {
   }
   
   /**
+   A Boolean property that enables and disabled the dim from
+   rootViewController. Defaults to true
+   */
+  open var isDimEnabled = true {
+    didSet {
+      if isDimEnabled {
+        if isRightViewOpened || isLeftViewOpened {
+          self.rootViewController.view.alpha = 0.5
+        } else {
+          self.rootViewController.view.alpha = 1.0
+        }
+      } else {
+        self.rootViewController.view.alpha = 1.0
+      }
+    }
+  }
+  
+  /**
    A Boolean property that enables and disables the leftView from
    opening and closing. Defaults to true.
    */
@@ -530,7 +548,7 @@ open class NavigationDrawerController: TransitionController {
                         
                         v.bounds.size.width = width
                         v.layer.position.x = -width / 2
-                        self.rootViewController.view.alpha = 1
+                        if isDimEnabled { self.rootViewController.view.alpha = 1 }
                         
         }) { [weak self, v = v] _ in
           guard let `self` = self else {
@@ -551,7 +569,7 @@ open class NavigationDrawerController: TransitionController {
                         
                         v.bounds.size.width = width
                         v.layer.position.x = width / 2
-                        self.rootViewController.view.alpha = 0.5
+                        if isDimEnabled { self.rootViewController.view.alpha = 0.5 }
                         
         }) { [weak self, v = v] _ in
           guard let `self` = self else {
@@ -569,12 +587,12 @@ open class NavigationDrawerController: TransitionController {
       if hide {
         hideView(container: v)
         v.layer.position.x = -v.bounds.width / 2
-        rootViewController.view.alpha = 1
+        if isDimEnabled { rootViewController.view.alpha = 1 }
         
       } else {
         showView(container: v)
         v.layer.position.x = width / 2
-        rootViewController.view.alpha = 0.5
+        if isDimEnabled { rootViewController.view.alpha = 0.5 }
       }
       
       layoutSubviews()
@@ -616,7 +634,7 @@ open class NavigationDrawerController: TransitionController {
                         
                         v.bounds.size.width = width
                         v.layer.position.x = self.view.bounds.width + width / 2
-                        self.rootViewController.view.alpha = 1
+                        if isDimEnabled { self.rootViewController.view.alpha = 1 }
                         
         }) { [weak self, v = v] _ in
           guard let `self` = self else {
@@ -637,7 +655,7 @@ open class NavigationDrawerController: TransitionController {
                         
                         v.bounds.size.width = width
                         v.layer.position.x = self.view.bounds.width - width / 2
-                        self.rootViewController.view.alpha = 0.5
+                        if isDimEnabled { self.rootViewController.view.alpha = 0.5 }
                         
         }) { [weak self, v = v] _ in
           guard let `self` = self else {
@@ -655,12 +673,12 @@ open class NavigationDrawerController: TransitionController {
       if hide {
         hideView(container: v)
         v.layer.position.x = view.bounds.width + v.bounds.width / 2
-        rootViewController.view.alpha = 1
+        if isDimEnabled { rootViewController.view.alpha = 1 }
         
       } else {
         showView(container: v)
         v.layer.position.x = view.bounds.width - width / 2
-        rootViewController.view.alpha = 0.5
+        if isDimEnabled { rootViewController.view.alpha = 0.5 }
       }
       
       layoutSubviews()
@@ -724,7 +742,7 @@ open class NavigationDrawerController: TransitionController {
                     }
                     
                     v.layer.position.x = v.bounds.width / 2
-                    self.rootViewController.view.alpha = 0.5
+                    if isDimEnabled { self.rootViewController.view.alpha = 0.5 }
                     
     }) { [weak self] _ in
       guard let `self` = self else {
@@ -771,7 +789,7 @@ open class NavigationDrawerController: TransitionController {
                     }
                     
                     v.layer.position.x = self.view.bounds.width - v.bounds.width / 2
-                    self.rootViewController.view.alpha = 0.5
+                    if isDimEnabled { self.rootViewController.view.alpha = 0.5 }
                     
     }) { [weak self] _ in
       guard let `self` = self else {
@@ -814,7 +832,7 @@ open class NavigationDrawerController: TransitionController {
                     }
                     
                     v.layer.position.x = -v.bounds.width / 2
-                    self.rootViewController.view.alpha = 1
+                    if isDimEnabled { self.rootViewController.view.alpha = 1 }
                     
     }) { [weak self, v = v] _ in
       guard let `self` = self else {
@@ -861,7 +879,7 @@ open class NavigationDrawerController: TransitionController {
                     }
                     
                     v.layer.position.x = self.view.bounds.width + v.bounds.width / 2
-                    self.rootViewController.view.alpha = 1
+                    if isDimEnabled { self.rootViewController.view.alpha = 1 }
                     
     }) { [weak self, v = v] _ in
       guard let `self` = self else {
@@ -1196,8 +1214,10 @@ extension NavigationDrawerController: UIGestureRecognizerDelegate {
       
       v.layer.position.x = originalX + translationX > (w / 2) ? (w / 2) : originalX + translationX
       
-      let a = 1 - v.layer.position.x / v.bounds.width
-      rootViewController.view.alpha = 0.5 < a && v.layer.position.x <= v.bounds.width / 2 ? a : 0.5
+      if isDimEnabled {
+        let a = 1 - v.layer.position.x / v.bounds.width
+        rootViewController.view.alpha = 0.5 < a && v.layer.position.x <= v.bounds.width / 2 ? a : 0.5
+      }
       
       if translationX >= leftThreshold {
         hideStatusBar()
@@ -1253,8 +1273,10 @@ extension NavigationDrawerController: UIGestureRecognizerDelegate {
       
       v.layer.position.x = originalX + translationX < view.bounds.width - (w / 2) ? view.bounds.width - (w / 2) : originalX + translationX
       
-      let a = 1 - (view.bounds.width - v.layer.position.x) / v.bounds.width
-      rootViewController.view.alpha = 0.5 < a && v.layer.position.x >= v.bounds.width / 2 ? a : 0.5
+      if isDimEnabled {
+        let a = 1 - (view.bounds.width - v.layer.position.x) / v.bounds.width
+        rootViewController.view.alpha = 0.5 < a && v.layer.position.x >= v.bounds.width / 2 ? a : 0.5
+      }
       
       if translationX <= -rightThreshold {
         hideStatusBar()
