@@ -232,15 +232,20 @@ open class NavigationDrawerController: TransitionController {
    */
   open var isDimEnabled = true {
     didSet {
-      if isDimEnabled {
-        if isRightViewOpened || isLeftViewOpened {
-          self.rootViewController.view.alpha = 0.5
-        } else {
-          self.rootViewController.view.alpha = 1.0
-        }
-      } else {
-        self.rootViewController.view.alpha = 1.0
+      self.updateDim()
+    }
+  }
+  
+  /**
+   The alpha value of the rootViewController when left/right drawer
+   is presented, the value should be between 0.0 - 1.0. Defaults is 0.5
+  */
+  open var dimAmount: CGFloat = 0.5 {
+    didSet {
+      if dimAmount < 0.0 || dimAmount > 1.0 {
+        dimAmount = 0.5
       }
+      self.updateDim()
     }
   }
   
@@ -548,7 +553,7 @@ open class NavigationDrawerController: TransitionController {
                         
                         v.bounds.size.width = width
                         v.layer.position.x = -width / 2
-                        if isDimEnabled { self.rootViewController.view.alpha = 1 }
+                        self.updateDim()
                         
         }) { [weak self, v = v] _ in
           guard let `self` = self else {
@@ -569,7 +574,7 @@ open class NavigationDrawerController: TransitionController {
                         
                         v.bounds.size.width = width
                         v.layer.position.x = width / 2
-                        if isDimEnabled { self.rootViewController.view.alpha = 0.5 }
+                        self.updateDim()
                         
         }) { [weak self, v = v] _ in
           guard let `self` = self else {
@@ -587,13 +592,13 @@ open class NavigationDrawerController: TransitionController {
       if hide {
         hideView(container: v)
         v.layer.position.x = -v.bounds.width / 2
-        if isDimEnabled { rootViewController.view.alpha = 1 }
         
       } else {
         showView(container: v)
         v.layer.position.x = width / 2
-        if isDimEnabled { rootViewController.view.alpha = 0.5 }
       }
+      
+      self.updateDim()
       
       layoutSubviews()
     }
@@ -634,7 +639,7 @@ open class NavigationDrawerController: TransitionController {
                         
                         v.bounds.size.width = width
                         v.layer.position.x = self.view.bounds.width + width / 2
-                        if isDimEnabled { self.rootViewController.view.alpha = 1 }
+                        self.updateDim()
                         
         }) { [weak self, v = v] _ in
           guard let `self` = self else {
@@ -655,7 +660,7 @@ open class NavigationDrawerController: TransitionController {
                         
                         v.bounds.size.width = width
                         v.layer.position.x = self.view.bounds.width - width / 2
-                        if isDimEnabled { self.rootViewController.view.alpha = 0.5 }
+                        self.updateDim()
                         
         }) { [weak self, v = v] _ in
           guard let `self` = self else {
@@ -673,14 +678,13 @@ open class NavigationDrawerController: TransitionController {
       if hide {
         hideView(container: v)
         v.layer.position.x = view.bounds.width + v.bounds.width / 2
-        if isDimEnabled { rootViewController.view.alpha = 1 }
         
       } else {
         showView(container: v)
         v.layer.position.x = view.bounds.width - width / 2
-        if isDimEnabled { rootViewController.view.alpha = 0.5 }
       }
       
+      self.updateDim()
       layoutSubviews()
     }
   }
@@ -742,7 +746,7 @@ open class NavigationDrawerController: TransitionController {
                     }
                     
                     v.layer.position.x = v.bounds.width / 2
-                    if isDimEnabled { self.rootViewController.view.alpha = 0.5 }
+                    self.updateDim()
                     
     }) { [weak self] _ in
       guard let `self` = self else {
@@ -789,7 +793,7 @@ open class NavigationDrawerController: TransitionController {
                     }
                     
                     v.layer.position.x = self.view.bounds.width - v.bounds.width / 2
-                    if isDimEnabled { self.rootViewController.view.alpha = 0.5 }
+                    self.updateDim()
                     
     }) { [weak self] _ in
       guard let `self` = self else {
@@ -832,7 +836,7 @@ open class NavigationDrawerController: TransitionController {
                     }
                     
                     v.layer.position.x = -v.bounds.width / 2
-                    if isDimEnabled { self.rootViewController.view.alpha = 1 }
+                    self.updateDim()
                     
     }) { [weak self, v = v] _ in
       guard let `self` = self else {
@@ -879,7 +883,7 @@ open class NavigationDrawerController: TransitionController {
                     }
                     
                     v.layer.position.x = self.view.bounds.width + v.bounds.width / 2
-                    if isDimEnabled { self.rootViewController.view.alpha = 1 }
+                    self.updateDim()
                     
     }) { [weak self, v = v] _ in
       guard let `self` = self else {
@@ -1052,6 +1056,21 @@ open class NavigationDrawerController: TransitionController {
   fileprivate func hideView(container: UIView) {
     container.depthPreset = .none
     container.isHidden = true
+  }
+  
+  /**
+   A method to update rootViewController dim value
+  */
+  fileprivate func updateDim() {
+    if isDimEnabled {
+      if isOpened {
+        self.rootViewController.view.alpha = 1.0
+      } else {
+        self.rootViewController.view.alpha = self.dimAmount
+      }
+      return
+    }
+    self.rootViewController.view.alpha = 1.0
   }
 }
 
