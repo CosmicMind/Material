@@ -50,7 +50,7 @@ extension UIViewController {
 open class FABMenuController: TransitionController {
   /// Reference to the MenuView.
   @IBInspectable
-  open let fabMenu = FABMenu()
+  open var fabMenu = FABMenu()
   
   /// A FABMenuBacking value type.
   open var fabMenuBacking = FABMenuBacking.blur
