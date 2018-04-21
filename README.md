@@ -32,10 +32,10 @@ Take a look at [Sample Projects](https://github.com/CosmicMind/Samples) to get y
 - [x] FABMenu
 - [x] Icons
 - [x] TextField
-- [X] Snackbar
+- [x] Snackbar
 - [x] Tabs
 - [x] Chips
-- [X] SearchBar
+- [x] SearchBar
 - [x] NavigationController
 - [x] NavigationDrawer
 - [x] BottomNavigationBar
@@ -200,7 +200,7 @@ So much more inside. Enjoy!
 
 ## License
 
-Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>. All rights reserved.
+Copyright (C) 2015 - 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
