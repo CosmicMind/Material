@@ -186,7 +186,7 @@ open class FABMenu: View {
   
   
   /// A reference to the SpringAnimation object.
-  internal let spring = SpringAnimation()
+  let spring = SpringAnimation()
   
   open var fabMenuDirection: FABMenuDirection {
     get {
