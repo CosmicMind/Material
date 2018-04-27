@@ -1,6 +1,6 @@
 ## 2.15.0
 
-* [issue-1057](https://github.com/CosmicMind/Material/issues/1057): Added image states for TabItems used in TabBar and TabsController
+* [issue-1057](https://github.com/CosmicMind/Material/issues/1057): Added image states for TabItems used in TabBar and TabsController.
 
 ## 2.14.0
 
