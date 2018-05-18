@@ -69,6 +69,11 @@ open class NavigationController: UINavigationController {
     super.init(navigationBarClass: NavigationBar.self, toolbarClass: nil)
     setViewControllers([rootViewController], animated: false)
   }
+    
+    public init(rootViewController: UIViewController, navigationBarClass: Swift.AnyClass?) {
+        super.init(navigationBarClass: navigationBarClass, toolbarClass: nil)
+        setViewControllers([rootViewController], animated: false)
+    }
   
   open override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
