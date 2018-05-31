@@ -268,7 +268,7 @@ open class TextField: UITextField {
   @IBInspectable
   open var detailVerticalOffset: CGFloat = 8 {
     didSet {
-      layoutDetailLabel()
+      layoutSubviews()
     }
   }
   
@@ -412,7 +412,7 @@ open class TextField: UITextField {
     super.layoutSubviews()
     layoutShape()
     layoutPlaceholderLabel()
-    layoutDetailLabel()
+    layoutBottomLabel(label: detailLabel, verticalOffset: detailVerticalOffset)
     layoutButton(button: clearIconButton)
     layoutButton(button: visibilityIconButton)
     layoutDivider()
@@ -573,16 +573,7 @@ fileprivate extension TextField {
     
     placeholderLabel.frame.origin.y = -placeholderLabel.bounds.height + placeholderVerticalOffset
   }
-  
-  /// Layout the detailLabel.
-  func layoutDetailLabel() {
-    let c = dividerContentEdgeInsets
-    detailLabel.frame.size.height = detailLabel.sizeThatFits(CGSize(width: bounds.width, height: .greatestFiniteMagnitude)).height
-    detailLabel.frame.origin.x = c.left
-    detailLabel.frame.origin.y = bounds.height + detailVerticalOffset
-    detailLabel.frame.size.width = bounds.width - c.left - c.right
-  }
-  
+
   /// Layout the a button.
   func layoutButton(button: UIButton?) {
     button?.frame = CGRect(x: bounds.width - bounds.height, y: 0, width: bounds.height, height: bounds.height)
@@ -597,6 +588,17 @@ fileprivate extension TextField {
     let w = leftViewWidth
     v.frame = CGRect(x: 0, y: 0, width: w, height: bounds.height)
     dividerContentEdgeInsets.left = w
+  }
+}
+
+internal extension TextField {
+  /// Layout given label at the bottom with the vertical offset provided.
+  func layoutBottomLabel(label: UILabel, verticalOffset: CGFloat) {
+    let c = dividerContentEdgeInsets
+    label.frame.origin.x = c.left
+    label.frame.origin.y = bounds.height + verticalOffset
+    label.frame.size.width = bounds.width - c.left - c.right
+    label.frame.size.height = label.sizeThatFits(CGSize(width: label.bounds.width, height: .greatestFiniteMagnitude)).height
   }
 }
 
