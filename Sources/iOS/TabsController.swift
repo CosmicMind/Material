@@ -245,9 +245,10 @@ fileprivate extension TabsController {
       
       completion?(isFinishing)
       
-      if isTriggeredByUserInteraction {
-        s.delegate?.tabsController?(tabsController: s, didSelect: viewController)
-      }
+//       if isTriggeredByUserInteraction {
+      s.delegate?.tabsController?(tabsController: s, didSelect: viewController)
+//       }
+                                          
     }
   }
 }
