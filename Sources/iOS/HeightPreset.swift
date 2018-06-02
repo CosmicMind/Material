@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,14 +32,14 @@ import UIKit
 
 @objc(HeightPreset)
 public enum HeightPreset: Int {
-    case none = 0
-    case tiny = 20
-    case xsmall = 28
-    case small = 36
-    case `default` = 44
-    case normal = 49
-    case medium = 52
-    case large = 60
-    case xlarge = 68
-    case xxlarge = 104
+  case none = 0
+  case tiny = 20
+  case xsmall = 28
+  case small = 36
+  case `default` = 44
+  case normal = 49
+  case medium = 52
+  case large = 60
+  case xlarge = 68
+  case xxlarge = 104
 }

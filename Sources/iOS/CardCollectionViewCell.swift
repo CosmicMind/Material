@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,21 +31,21 @@
 import UIKit
 
 open class CardCollectionViewCell: CollectionViewCell {
-    /// An optional reference to the card being displayed in the cell.
-    open var card: Card? {
-        didSet {
-            oldValue?.removeFromSuperview()
-            
-            guard let v = card else {
-                return
-            }
-            
-            contentView.addSubview(v)
-        }
+  /// An optional reference to the card being displayed in the cell.
+  open var card: Card? {
+    didSet {
+      oldValue?.removeFromSuperview()
+      
+      guard let v = card else {
+        return
+      }
+      
+      contentView.addSubview(v)
     }
-    
-    open override func prepare() {
-        super.prepare()
-        pulseAnimation = .none
-    }
+  }
+  
+  open override func prepare() {
+    super.prepare()
+    pulseAnimation = .none
+  }
 }

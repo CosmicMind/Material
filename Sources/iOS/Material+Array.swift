@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,35 +29,35 @@
  */
 
 extension Array where Element: Equatable {
-    /**
-     Slices a out a segment of an array based on the start
-     and end positions.
-     - Parameter start: A start index.
-     - Parameter end: An end index.
-     - Returns: A segmented array based on the start and end
-     indices.
-     */
-    public func slice(start: Int, end: Int?) -> [Element] {
-        var e = end ?? count - 1
-        if e >= count {
-            e = count - 1
-        }
-        
-        guard -1 < start else {
-            fatalError("Range out of bounds for \(start) - \(end ?? 0), should be 0 - \(count).")
-        }
-        
-        var diff = abs(e - start)
-        guard count > diff else {
-            return self
-        }
-        
-        var ret = [Element]()
-        while -1 < diff {
-            ret.insert(self[start + diff], at: 0)
-            diff -= 1
-        }
-        
-        return ret
+  /**
+   Slices a out a segment of an array based on the start
+   and end positions.
+   - Parameter start: A start index.
+   - Parameter end: An end index.
+   - Returns: A segmented array based on the start and end
+   indices.
+   */
+  public func slice(start: Int, end: Int?) -> [Element] {
+    var e = end ?? count - 1
+    if e >= count {
+      e = count - 1
     }
+    
+    guard -1 < start else {
+      fatalError("Range out of bounds for \(start) - \(end ?? 0), should be 0 - \(count).")
+    }
+    
+    var diff = abs(e - start)
+    guard count > diff else {
+      return self
+    }
+    
+    var ret = [Element]()
+    while -1 < diff {
+      ret.insert(self[start + diff], at: 0)
+      diff -= 1
+    }
+    
+    return ret
+  }
 }

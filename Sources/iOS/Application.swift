@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,61 +31,61 @@
 import UIKit
 
 public struct Application {
-    /// An optional reference to the main UIWindow.
-    public static var keyWindow: UIWindow? {
-        return UIApplication.shared.keyWindow
+  /// An optional reference to the main UIWindow.
+  public static var keyWindow: UIWindow? {
+    return UIApplication.shared.keyWindow
+  }
+  
+  /// An optional reference to the top most view controller.
+  public static var rootViewController: UIViewController? {
+    return keyWindow?.rootViewController
+  }
+  
+  /// A boolean indicating if the device is in Landscape mode.
+  public static var isLandscape: Bool {
+    return UIApplication.shared.statusBarOrientation.isLandscape
+  }
+  
+  /// A boolean indicating if the device is in Portrait mode.
+  public static var isPortrait: Bool {
+    return !isLandscape
+  }
+  
+  /// The current UIInterfaceOrientation value.
+  public static var orientation: UIInterfaceOrientation {
+    return UIApplication.shared.statusBarOrientation
+  }
+  
+  /// Retrieves the device status bar style.
+  public static var statusBarStyle: UIStatusBarStyle {
+    get {
+      return UIApplication.shared.statusBarStyle
     }
-    
-    /// An optional reference to the top most view controller.
-    public static var rootViewController: UIViewController? {
-        return keyWindow?.rootViewController
+    set(value) {
+      UIApplication.shared.statusBarStyle = value
     }
-    
-    /// A boolean indicating if the device is in Landscape mode.
-    public static var isLandscape: Bool {
-        return UIApplication.shared.statusBarOrientation.isLandscape
+  }
+  
+  /// Retrieves the device status bar hidden state.
+  public static var isStatusBarHidden: Bool {
+    get {
+      return UIApplication.shared.isStatusBarHidden
     }
-    
-    /// A boolean indicating if the device is in Portrait mode.
-    public static var isPortrait: Bool {
-        return !isLandscape
+    set(value) {
+      UIApplication.shared.isStatusBarHidden = value
     }
-    
-    /// The current UIInterfaceOrientation value.
-    public static var orientation: UIInterfaceOrientation {
-        return UIApplication.shared.statusBarOrientation
-    }
-    
-    /// Retrieves the device status bar style.
-    public static var statusBarStyle: UIStatusBarStyle {
-        get {
-            return UIApplication.shared.statusBarStyle
-        }
-        set(value) {
-            UIApplication.shared.statusBarStyle = value
-        }
-    }
-    
-    /// Retrieves the device status bar hidden state.
-    public static var isStatusBarHidden: Bool {
-        get {
-            return UIApplication.shared.isStatusBarHidden
-        }
-        set(value) {
-            UIApplication.shared.isStatusBarHidden = value
-        }
-    }
-    
-    /**
-     A boolean that indicates based on iPhone rules if the
-     status bar should be shown.
-     */
-    public static var shouldStatusBarBeHidden: Bool {
-        return isLandscape && .phone == Device.userInterfaceIdiom
-    }
-    
-    /// A reference to the user interface layout direction.
-    public static var userInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
-        return UIApplication.shared.userInterfaceLayoutDirection
-    }
+  }
+  
+  /**
+   A boolean that indicates based on iPhone rules if the
+   status bar should be shown.
+   */
+  public static var shouldStatusBarBeHidden: Bool {
+    return isLandscape && .phone == Device.userInterfaceIdiom
+  }
+  
+  /// A reference to the user interface layout direction.
+  public static var userInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
+    return UIApplication.shared.userInterfaceLayoutDirection
+  }
 }

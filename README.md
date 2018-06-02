@@ -6,7 +6,7 @@ Welcome to **Material,** a UI/UX framework for creating beautiful applications. 
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-Compatible-brightgreen.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Version](https://img.shields.io/cocoapods/v/Material.svg?style=flat)](http://cocoapods.org/pods/Material)
-[![License](https://img.shields.io/cocoapods/l/Material.svg?style=flat)](https://github.com/lkzhao/Material/blob/master/LICENSE?raw=true)
+[![License](https://img.shields.io/cocoapods/l/Material.svg?style=flat)](https://github.com/CosmicMind/Material/blob/master/LICENSE.md)
 ![Xcode 8.2+](https://img.shields.io/badge/Xcode-8.2%2B-blue.svg)
 ![iOS 8.0+](https://img.shields.io/badge/iOS-8.0%2B-blue.svg)
 ![Swift 4.0+](https://img.shields.io/badge/Swift-4.0%2B-orange.svg)
@@ -32,10 +32,10 @@ Take a look at [Sample Projects](https://github.com/CosmicMind/Samples) to get y
 - [x] FABMenu
 - [x] Icons
 - [x] TextField
-- [X] Snackbar
+- [x] Snackbar
 - [x] Tabs
 - [x] Chips
-- [X] SearchBar
+- [x] SearchBar
 - [x] NavigationController
 - [x] NavigationDrawer
 - [x] BottomNavigationBar
@@ -200,7 +200,7 @@ So much more inside. Enjoy!
 
 ## License
 
-Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>. All rights reserved.
+Copyright (C) 2015 - 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 

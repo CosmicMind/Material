@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,37 +32,37 @@ import UIKit
 
 @objc(DynamicFontTypeDelegate)
 public protocol DynamicFontTypeDelegate {
-    /**
-     A delegation method that is executed when the dynamic type
-     is changed.
-     - Parameter dynamicFontType: A DynamicFontType.
-     */
-    func dynamicFontType(dynamicFontType: DynamicFontType)
+  /**
+   A delegation method that is executed when the dynamic type
+   is changed.
+   - Parameter dynamicFontType: A DynamicFontType.
+   */
+  func dynamicFontType(dynamicFontType: DynamicFontType)
 }
 
 @objc(DynamicFontType)
 open class DynamicFontType: NSObject {
-    /// A weak reference to a DynamicFontTypeDelegate.
-    open weak var delegate: DynamicFontTypeDelegate?
-    
-    /// Initializer.
-    public override init() {
-        super.init()
-        prepare()
-    }
-    
-    @objc
-    internal func handleContentSizeChange() {
-        delegate?.dynamicFontType(dynamicFontType: self)
-    }
-    
-    /// Prepare the instance object.
-    private func prepare() {
-        prepareContentSizeObservation()
-    }
-    
-    /// Prepares observation for content size changes.
-    private func prepareContentSizeObservation() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleContentSizeChange), name: .UIContentSizeCategoryDidChange, object: nil)
-    }
+  /// A weak reference to a DynamicFontTypeDelegate.
+  open weak var delegate: DynamicFontTypeDelegate?
+  
+  /// Initializer.
+  public override init() {
+    super.init()
+    prepare()
+  }
+  
+  @objc
+  internal func handleContentSizeChange() {
+    delegate?.dynamicFontType(dynamicFontType: self)
+  }
+  
+  /// Prepare the instance object.
+  private func prepare() {
+    prepareContentSizeObservation()
+  }
+  
+  /// Prepares observation for content size changes.
+  private func prepareContentSizeObservation() {
+    NotificationCenter.default.addObserver(self, selector: #selector(handleContentSizeChange), name: .UIContentSizeCategoryDidChange, object: nil)
+  }
 }

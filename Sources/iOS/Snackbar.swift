@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,81 +32,81 @@ import UIKit
 
 @objc(SnackbarStatus)
 public enum SnackbarStatus: Int {
-    case visible
-    case hidden
+  case visible
+  case hidden
 }
 
 open class Snackbar: Bar {
-    /// A convenience property to set the titleLabel text.
-    open var text: String? {
-        get {
-            return textLabel.text
-        }
-        set(value) {
-            textLabel.text = value
-            layoutSubviews()
-        }
+  /// A convenience property to set the titleLabel text.
+  open var text: String? {
+    get {
+      return textLabel.text
+    }
+    set(value) {
+      textLabel.text = value
+      layoutSubviews()
+    }
+  }
+  
+  /// A convenience property to set the titleLabel attributedText.
+  open var attributedText: NSAttributedString? {
+    get {
+      return textLabel.attributedText
+    }
+    set(value) {
+      textLabel.attributedText = value
+      layoutSubviews()
+    }
+  }
+  
+  /// Text label.
+  @IBInspectable
+  open let textLabel = UILabel()
+  
+  open override var intrinsicContentSize: CGSize {
+    return CGSize(width: bounds.width, height: 49)
+  }
+  
+  /// The status of the snackbar.
+  open internal(set) var status = SnackbarStatus.hidden
+  
+  open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    for v in subviews {
+      let p = v.convert(point, from: self)
+      if v.bounds.contains(p) {
+        return v.hitTest(p, with: event)
+      }
     }
     
-    /// A convenience property to set the titleLabel attributedText.
-    open var attributedText: NSAttributedString? {
-        get {
-            return textLabel.attributedText
-        }
-        set(value) {
-            textLabel.attributedText = value
-            layoutSubviews()
-        }
+    return super.hitTest(point, with: event)
+  }
+  
+  open override func layoutSubviews() {
+    super.layoutSubviews()
+    guard willLayout else {
+      return
     }
     
-    /// Text label.
-    @IBInspectable
-    open let textLabel = UILabel()
-    
-    open override var intrinsicContentSize: CGSize {
-        return CGSize(width: bounds.width, height: 49)
-    }
-    
-    /// The status of the snackbar.
-    open internal(set) var status = SnackbarStatus.hidden
-    
-    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        for v in subviews {
-            let p = v.convert(point, from: self)
-            if v.bounds.contains(p) {
-                return v.hitTest(p, with: event)
-            }
-        }
-        
-        return super.hitTest(point, with: event)
-    }
-    
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        guard willLayout else {
-            return
-        }
-        
-        centerViews = [textLabel]
-    }
-    
-    open override func prepare() {
-        super.prepare()
-        depthPreset = .none
-        interimSpacePreset = .interimSpace8
-        contentEdgeInsets.left = interimSpace
-        contentEdgeInsets.right = interimSpace
-        backgroundColor = Color.grey.darken3
-        clipsToBounds = false
-        prepareTextLabel()
-    }
-    
-    /// Prepares the textLabel.
-    private func prepareTextLabel() {
-        textLabel.contentScaleFactor = Screen.scale
-        textLabel.font = RobotoFont.medium(with: 14)
-        textLabel.textAlignment = .left
-        textLabel.textColor = .white
-        textLabel.numberOfLines = 0
-    }
+    centerViews = [textLabel]
+  }
+  
+  open override func prepare() {
+    super.prepare()
+    depthPreset = .none
+    interimSpacePreset = .interimSpace8
+    contentEdgeInsets.left = interimSpace
+    contentEdgeInsets.right = interimSpace
+    backgroundColor = Color.grey.darken3
+    clipsToBounds = false
+    prepareTextLabel()
+  }
+  
+  /// Prepares the textLabel.
+  private func prepareTextLabel() {
+    textLabel.contentScaleFactor = Screen.scale
+    textLabel.font = RobotoFont.medium(with: 14)
+    textLabel.textAlignment = .left
+    textLabel.textColor = .white
+    textLabel.numberOfLines = 0
+  }
 }

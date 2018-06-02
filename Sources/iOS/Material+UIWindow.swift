@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,15 +31,15 @@
 import UIKit
 
 extension UIWindow {
-    /**
-     Captures a screenshot of the contents in the apps keyWindow.
-     - Returns: An optional UIImage.
-     */
-    open func capture() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(frame.size, isOpaque, Screen.scale)
-        layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
-    }
+  /**
+   Captures a screenshot of the contents in the apps keyWindow.
+   - Returns: An optional UIImage.
+   */
+  open func capture() -> UIImage? {
+    UIGraphicsBeginImageContextWithOptions(frame.size, isOpaque, Screen.scale)
+    layer.render(in: UIGraphicsGetCurrentContext()!)
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return image
+  }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,28 +32,28 @@ import UIKit
 import Motion
 
 public extension MotionAnimation {
-    /**
-     Animates the view's current shadow offset to the given one.
-     - Parameter offset: A CGSize.
-     - Returns: A MotionAnimation.
-     */
-    static func shadow(offset: Offset) -> MotionAnimation {
-        return .shadow(offset: offset.asSize)
-    }
-    
-    /**
-     Animates the views shadow offset, opacity, and radius using a DepthPreset.
-     - Parameter _ preset: A DepthPreset.
-     */
-    static func depth(_ preset: DepthPreset) -> MotionAnimation {
-        return .depth(DepthPresetToValue(preset: preset).rawValue)
-    }
-    
-    /**
-     Animates the views shadow offset, opacity, and radius using a given Depth.
-     - Parameter _ preset: A Depth.
-     */
-    static func depth(_ depth: Depth) -> MotionAnimation {
-        return .depth(depth.rawValue)
-    }
+  /**
+   Animates the view's current shadow offset to the given one.
+   - Parameter offset: A CGSize.
+   - Returns: A MotionAnimation.
+   */
+  static func shadow(offset: Offset) -> MotionAnimation {
+    return .shadow(offset: offset.asSize)
+  }
+  
+  /**
+   Animates the views shadow offset, opacity, and radius using a DepthPreset.
+   - Parameter _ preset: A DepthPreset.
+   */
+  static func depth(_ preset: DepthPreset) -> MotionAnimation {
+    return .depth(DepthPresetToValue(preset: preset).rawValue)
+  }
+  
+  /**
+   Animates the views shadow offset, opacity, and radius using a given Depth.
+   - Parameter _ preset: A Depth.
+   */
+  static func depth(_ depth: Depth) -> MotionAnimation {
+    return .depth(depth.rawValue)
+  }
 }

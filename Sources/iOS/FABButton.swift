@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,11 +31,11 @@
 import UIKit
 
 open class FABButton: Button {
-	open override func prepare() {
-		super.prepare()
-		depthPreset = .depth1
-		shapePreset = .circle
-		pulseAnimation = .centerWithBacking
-        backgroundColor = .white
-	}
+  open override func prepare() {
+    super.prepare()
+    depthPreset = .depth1
+    shapePreset = .circle
+    pulseAnimation = .centerWithBacking
+    backgroundColor = .white
+  }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,82 +33,82 @@ import UIKit
 public protocol TableViewDelegate: UITableViewDelegate {}
 
 public protocol TableViewDataSource: UITableViewDataSource {
-    /**
-     Retrieves the data source items for the tableView.
-     - Returns: An Array of DataSourceItem objects.
-     */
-    var dataSourceItems: [DataSourceItem] { get }
+  /**
+   Retrieves the data source items for the tableView.
+   - Returns: An Array of DataSourceItem objects.
+   */
+  var dataSourceItems: [DataSourceItem] { get }
 }
 
 extension UIViewController {
-    /**
-     A convenience property that provides access to the TableViewController.
-     This is the recommended method of accessing the TableViewController
-     through child UIViewControllers.
-     */
-    public var tableViewController: TableViewController? {
-        var viewController: UIViewController? = self
-        while nil != viewController {
-            if viewController is TableViewController {
-                return viewController as? TableViewController
-            }
-            viewController = viewController?.parent
-        }
-        return nil
+  /**
+   A convenience property that provides access to the TableViewController.
+   This is the recommended method of accessing the TableViewController
+   through child UIViewControllers.
+   */
+  public var tableViewController: TableViewController? {
+    var viewController: UIViewController? = self
+    while nil != viewController {
+      if viewController is TableViewController {
+        return viewController as? TableViewController
+      }
+      viewController = viewController?.parent
     }
+    return nil
+  }
 }
 
 open class TableViewController: UIViewController {
-    /// A reference to a Reminder.
-    open let tableView = TableView()
-    
-    /// An Array of DataSourceItems.
-    open var dataSourceItems = [DataSourceItem]()
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        prepare()
-    }
-    
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepareView method
-     to initialize property values and other setup operations.
-     The super.prepareView method should always be called immediately
-     when subclassing.
-     */
-    open func prepare() {
-        view.clipsToBounds = true
-        view.backgroundColor = .white
-        view.contentScaleFactor = Screen.scale
-        prepareTableView()
-    }
+  /// A reference to a Reminder.
+  open let tableView = TableView()
+  
+  /// An Array of DataSourceItems.
+  open var dataSourceItems = [DataSourceItem]()
+  
+  open override func viewDidLoad() {
+    super.viewDidLoad()
+    prepare()
+  }
+  
+  /**
+   Prepares the view instance when intialized. When subclassing,
+   it is recommended to override the prepareView method
+   to initialize property values and other setup operations.
+   The super.prepareView method should always be called immediately
+   when subclassing.
+   */
+  open func prepare() {
+    view.clipsToBounds = true
+    view.backgroundColor = .white
+    view.contentScaleFactor = Screen.scale
+    prepareTableView()
+  }
 }
 
 extension TableViewController {
-    /// Prepares the tableView.
-    fileprivate func prepareTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        view.layout(tableView).edges()
-    }
+  /// Prepares the tableView.
+  fileprivate func prepareTableView() {
+    tableView.delegate = self
+    tableView.dataSource = self
+    view.layout(tableView).edges()
+  }
 }
 
 extension TableViewController: TableViewDelegate {}
 
 extension TableViewController: TableViewDataSource {
-    @objc
-    open func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    @objc
-    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSourceItems.count
-    }
-    
-    @objc
-    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
-    }
+  @objc
+  open func numberOfSections(in tableView: UITableView) -> Int {
+    return 1
+  }
+  
+  @objc
+  open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return dataSourceItems.count
+  }
+  
+  @objc
+  open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    return UITableViewCell()
+  }
 }

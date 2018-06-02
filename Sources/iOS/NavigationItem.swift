@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,105 +36,105 @@ fileprivate var NavigationItemKey: UInt8 = 0
 fileprivate var NavigationItemContext: UInt8 = 0
 
 fileprivate class NavigationItem: NSObject {
-    /// A reference to the toolbar.
-    @objc
-    let toolbar = Toolbar()
-    
-	/// Back Button.
-    lazy var backButton = IconButton()
-	
-    /// An optional reference to the NavigationBar.
-    var navigationBar: NavigationBar? {
-        var v = toolbar.contentView.superview
-        while nil != v {
-            if let navigationBar = v as? NavigationBar {
-                return navigationBar
-            }
-            v = v?.superview
-        }
-        return nil
+  /// A reference to the toolbar.
+  @objc
+  let toolbar = Toolbar()
+  
+  /// Back Button.
+  lazy var backButton = IconButton()
+  
+  /// An optional reference to the NavigationBar.
+  var navigationBar: NavigationBar? {
+    var v = toolbar.contentView.superview
+    while nil != v {
+      if let navigationBar = v as? NavigationBar {
+        return navigationBar
+      }
+      v = v?.superview
     }
+    return nil
+  }
 }
 
 fileprivate extension UINavigationItem {
-    /// NavigationItem reference.
-    var navigationItem: NavigationItem {
-        get {
-            return AssociatedObject.get(base: self, key: &NavigationItemKey) {
-                return NavigationItem()
-            }
-        }
-        set(value) {
-            AssociatedObject.set(base: self, key: &NavigationItemKey, value: value)
-        }
+  /// NavigationItem reference.
+  var navigationItem: NavigationItem {
+    get {
+      return AssociatedObject.get(base: self, key: &NavigationItemKey) {
+        return NavigationItem()
+      }
     }
+    set(value) {
+      AssociatedObject.set(base: self, key: &NavigationItemKey, value: value)
+    }
+  }
 }
 
 internal extension UINavigationItem {
-    /// A reference to the NavigationItem Toolbar.
-    var toolbar: Toolbar {
-        return navigationItem.toolbar
-    }
+  /// A reference to the NavigationItem Toolbar.
+  var toolbar: Toolbar {
+    return navigationItem.toolbar
+  }
 }
 
 extension UINavigationItem {
-	/// Should center the contentView.
-    open var contentViewAlignment: ContentViewAlignment {
-        get {
-            return toolbar.contentViewAlignment
-        }
-        set(value) {
-            toolbar.contentViewAlignment = value
-        }
+  /// Should center the contentView.
+  open var contentViewAlignment: ContentViewAlignment {
+    get {
+      return toolbar.contentViewAlignment
     }
-	
-    /// Content View.
-    open var contentView: UIView {
-        return toolbar.contentView
+    set(value) {
+      toolbar.contentViewAlignment = value
     }
-    
-	/// Back Button.
-	open var backButton: IconButton {
-		return navigationItem.backButton
-	}
-    
-	/// Title Label.
-	open var titleLabel: UILabel {
-		return toolbar.titleLabel
-	}
-	
-	/// Detail Label.
-	open var detailLabel: UILabel {
-		return toolbar.detailLabel
-	}
-	
-	/// Left side UIViews.
-	open var leftViews: [UIView] {
-		get {
-			return toolbar.leftViews
-		}
-		set(value) {
-			toolbar.leftViews = value
-		}
-	}
-	
-	/// Right side UIViews.
-	open var rightViews: [UIView] {
-		get {
-			return toolbar.rightViews
-		}
-		set(value) {
-			toolbar.rightViews = value
-		}
-	}
-    
-    /// Center UIViews.
-    open var centerViews: [UIView] {
-        get {
-            return toolbar.centerViews
-        }
-        set(value) {
-            toolbar.centerViews = value
-        }
+  }
+  
+  /// Content View.
+  open var contentView: UIView {
+    return toolbar.contentView
+  }
+  
+  /// Back Button.
+  open var backButton: IconButton {
+    return navigationItem.backButton
+  }
+  
+  /// Title Label.
+  open var titleLabel: UILabel {
+    return toolbar.titleLabel
+  }
+  
+  /// Detail Label.
+  open var detailLabel: UILabel {
+    return toolbar.detailLabel
+  }
+  
+  /// Left side UIViews.
+  open var leftViews: [UIView] {
+    get {
+      return toolbar.leftViews
     }
+    set(value) {
+      toolbar.leftViews = value
+    }
+  }
+  
+  /// Right side UIViews.
+  open var rightViews: [UIView] {
+    get {
+      return toolbar.rightViews
+    }
+    set(value) {
+      toolbar.rightViews = value
+    }
+  }
+  
+  /// Center UIViews.
+  open var centerViews: [UIView] {
+    get {
+      return toolbar.centerViews
+    }
+    set(value) {
+      toolbar.centerViews = value
+    }
+  }
 }
