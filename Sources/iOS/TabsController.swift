@@ -245,10 +245,10 @@ fileprivate extension TabsController {
       
       completion?(isFinishing)
       
-//       if isTriggeredByUserInteraction {
-      s.delegate?.tabsController?(tabsController: s, didSelect: viewController)
-//       }
-                                          
+      if isTriggeredByUserInteraction {
+        s.delegate?.tabsController?(tabsController: s, didSelect: viewController)
+      }
+      
     }
   }
 }
@@ -412,7 +412,7 @@ extension TabsController {
         guard isFinishing else {
           return
         }
-        
+        self?.delegate?.tabsController(tabsController: self, didSelect: s.viewControllers[index])
         self?.selectedIndex = index
       }
     }
