@@ -412,7 +412,7 @@ extension TabsController {
         guard isFinishing else {
           return
         }
-        self?.delegate?.tabsController(tabsController: self, didSelect: s.viewControllers[index])
+        self?.delegate?.tabsController?(tabsController: s, didSelect: s.viewControllers[index])
         self?.selectedIndex = index
       }
     }
