@@ -243,6 +243,7 @@ fileprivate extension TabsController {
       if isTriggeredByUserInteraction {
         s.delegate?.tabsController?(tabsController: s, didSelect: viewController)
       }
+      
     }
   }
 }
@@ -406,7 +407,7 @@ extension TabsController {
         guard isFinishing else {
           return
         }
-        
+        self?.delegate?.tabsController?(tabsController: s, didSelect: s.viewControllers[index])
         self?.selectedIndex = index
       }
     }
