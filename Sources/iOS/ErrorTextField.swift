@@ -64,6 +64,7 @@ open class ErrorTextField: TextField {
     }
   }
   
+  /// Hide or show error text.
   open var isErrorRevealed: Bool {
     get {
       return !errorLabel.isHidden
