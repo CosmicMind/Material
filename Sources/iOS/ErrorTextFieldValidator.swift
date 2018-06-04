@@ -15,7 +15,6 @@ open class ErrorTextFieldValidator {
   open weak var textField: ErrorTextField?
   
   open var autoValidationType: AutoValidationType = .default
-  open var autoValidateOnlyIfErrorIsShownOnce = true
   open var isErrorShownOnce = false
   
   public init(textField: ErrorTextField) {
@@ -30,14 +29,16 @@ open class ErrorTextFieldValidator {
   @objc
   private func checkIfErrorHasGone() {
     guard let textField = textField else { return }
-    if autoValidateOnlyIfErrorIsShownOnce && !isErrorShownOnce { return }
     
     switch autoValidationType {
     case .none: break
     case .custom(let closure):
       closure(textField)
     case .default:
-        textField.isValid()
+      guard isErrorShownOnce else { return }
+      textField.isValid()
+    case .always:
+      textField.isValid()
     }
   }
   
@@ -67,6 +68,7 @@ open class ErrorTextFieldValidator {
   public enum AutoValidationType {
     case none
     case `default`
+    case always
     case custom((ErrorTextField) -> Void)
   }
 }
