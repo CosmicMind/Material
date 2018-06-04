@@ -9,9 +9,9 @@
 import UIKit
 import Motion
 
-open class ErrorTextFieldValidator: NSObject {
-  public typealias ValidationClosure = (String) -> Bool
-  open var closures: [(code: ValidationClosure, msg: String)] = []
+open class ErrorTextFieldValidator {
+  public typealias ValidationClosure = (_ text: String) -> Bool
+  open var closures: [(code: ValidationClosure, message: String)] = []
   open weak var textField: ErrorTextField?
   
   open var autoValidationType: AutoValidationType = .default
@@ -20,9 +20,11 @@ open class ErrorTextFieldValidator: NSObject {
   
   public init(textField: ErrorTextField) {
     self.textField = textField
-    super.init()
-    
-    textField.addTarget(self, action: #selector(checkIfErrorHasGone), for: .editingChanged)
+    prepare()
+  }
+  
+  open func prepare() {
+    textField?.addTarget(self, action: #selector(checkIfErrorHasGone), for: .editingChanged)
   }
   
   @objc
@@ -35,29 +37,30 @@ open class ErrorTextFieldValidator: NSObject {
     case .custom(let closure):
       closure(textField)
     case .default:
-        _  = textField.isValid() // will hide if needed
+        textField.isValid()
     }
   }
   
-  open func isValid(deferred: Bool) -> Bool {
+  @discardableResult
+  open func isValid(isDeferred: Bool) -> Bool {
     guard let textField = textField else { return false }
-    if !deferred { textField.isErrorRevealed = false }
     for block in closures {
       if !block.code(textField.text ?? "") {
-        if !deferred {
-          textField.error = block.msg
+        if !isDeferred {
+          textField.error = block.message
           textField.isErrorRevealed = true
           isErrorShownOnce = true
         }
         return false
       }
     }
+    if !isDeferred { textField.isErrorRevealed = false }
     return true
   }
   
   @discardableResult
-  open func validate(msg: String, when code: @escaping ValidationClosure) -> Self {
-    closures.append((code, msg))
+  open func validate(message: String, when code: @escaping ValidationClosure) -> Self {
+    closures.append((code, message))
     return self
   }
   
@@ -81,49 +84,50 @@ extension ErrorTextField {
     }
   }
   
-  open func isValid(deferred: Bool = false) -> Bool {
-    return validator.isValid(deferred: deferred)
+  @discardableResult
+  open func isValid(isDeferred: Bool = false) -> Bool {
+    return validator.isValid(isDeferred: isDeferred)
   }
 }
 
 public extension ErrorTextFieldValidator {
   @discardableResult
-  func email(msg: String) -> Self {
-    return regex(msg: msg, pattern: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
+  func email(message: String) -> Self {
+    return regex(message: message, pattern: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
   }
   
   @discardableResult
-  func username(msg: String) -> Self {
-    return regex(msg: msg, pattern: "^[a-zA-Z0-9]+([_\\s\\-\\.\\']?[a-zA-Z0-9])*$")
+  func username(message: String) -> Self {
+    return regex(message: message, pattern: "^[a-zA-Z0-9]+([_\\s\\-\\.\\']?[a-zA-Z0-9])*$")
   }
   
   @discardableResult
-  func regex(msg: String, pattern: String) -> Self {
-    return validate(msg: msg) {
+  func regex(message: String, pattern: String) -> Self {
+    return validate(message: message) {
       let pred = NSPredicate(format: "SELF MATCHES %@", pattern)
       return pred.evaluate(with: $0)
     }
   }
   
   @discardableResult
-  func min(length: Int, msg: String, trimmingSet: CharacterSet? = .whitespacesAndNewlines) -> Self {
+  func min(length: Int, message: String, trimmingSet: CharacterSet? = .whitespacesAndNewlines) -> Self {
     let trimmingSet = trimmingSet ?? .init()
-    return validate(msg: msg) {
+    return validate(message: message) {
       $0.trimmingCharacters(in: trimmingSet).count >= length
     }
   }
   
   @discardableResult
-  func notEmpty(msg: String, trimmingSet: CharacterSet? = .whitespacesAndNewlines) -> Self {
+  func notEmpty(message: String, trimmingSet: CharacterSet? = .whitespacesAndNewlines) -> Self {
     let trimmingSet = trimmingSet ?? .init()
-    return validate(msg: msg) {
+    return validate(message: message) {
       $0.trimmingCharacters(in: trimmingSet).isEmpty == false
     }
   }
   
   @discardableResult
-  func noWhitespaces(msg: String) -> Self {
-    return validate(msg: msg) {
+  func noWhitespaces(message: String) -> Self {
+    return validate(message: message) {
       $0.rangeOfCharacter(from: .whitespaces) == nil
     }
   }
