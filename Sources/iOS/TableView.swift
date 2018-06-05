@@ -53,11 +53,6 @@ open class TableView: UITableView {
     self.init(frame: frame, style: .plain)
   }
   
-  /// A convenience initializer that initializes the object.
-  public convenience init() {
-    self.init(frame: .zero)
-  }
-  
   /**
    Prepares the view instance when intialized. When subclassing,
    it is recommended to override the prepare method

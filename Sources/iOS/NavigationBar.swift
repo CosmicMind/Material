@@ -120,11 +120,6 @@ open class NavigationBar: UINavigationBar {
     prepare()
   }
   
-  /// A convenience initializer.
-  public convenience init() {
-    self.init(frame: .zero)
-  }
-  
   open override func sizeThatFits(_ size: CGSize) -> CGSize {
     return intrinsicContentSize
   }

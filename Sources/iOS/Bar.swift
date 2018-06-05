@@ -157,11 +157,6 @@ open class Bar: View {
     super.init(frame: frame)
   }
   
-  /// Convenience initializer.
-  public convenience init() {
-    self.init(frame: .zero)
-  }
-  
   /**
    A convenience initializer with parameter settings.
    - Parameter leftViews: An Array of UIViews that go on the left side.

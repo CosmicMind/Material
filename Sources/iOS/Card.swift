@@ -168,11 +168,6 @@ open class Card: PulseView {
     super.init(frame: frame)
   }
   
-  /// A convenience initializer.
-  public convenience init() {
-    self.init(frame: .zero)
-  }
-  
   /**
    A convenience initiazlier.
    - Parameter toolbar: An optional Toolbar.

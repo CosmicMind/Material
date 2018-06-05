@@ -188,11 +188,6 @@ open class Button: UIButton, Pulseable, PulseableLayer {
     prepare()
   }
   
-  /// A convenience initializer.
-  public convenience init() {
-    self.init(frame: .zero)
-  }
-  
   /**
    A convenience initializer that acceps an image and tint
    - Parameter image: A UIImage.
