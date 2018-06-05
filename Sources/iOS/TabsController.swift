@@ -374,10 +374,10 @@ fileprivate extension TabsController {
       switch swipeGesture.direction {
       case .right:
         guard (selectedIndex - 1) >= 0 else { return }
-        select(at: selectedIndex - 1)
+        internalSelect(at: selectedIndex - 1, isTriggeredByUserInteraction: true)
       case .left:
         guard (selectedIndex + 1) < viewControllers.count else { return }
-        select(at: selectedIndex + 1)
+        internalSelect(at: selectedIndex + 1, isTriggeredByUserInteraction: true)
       default:
         break
       }
@@ -391,8 +391,24 @@ extension TabsController {
    - Parameter at index: An Int.
    */
   open func select(at index: Int) {
+    internalSelect(at: index, isTriggeredByUserInteraction: false)
+  }
+  
+  /**
+   Transitions to the view controller that is at the given index.
+   - Parameter at index: An Int.
+   - Parameter isTriggeredByUserInteraction: A boolean indicating whether the
+   state was changed by a user interaction, true if yes, false otherwise.
+   */
+  private func internalSelect(at index: Int, isTriggeredByUserInteraction: Bool) {
     guard index != selectedIndex else {
       return
+    }
+    
+    if isTriggeredByUserInteraction {
+      guard !(false == delegate?.tabsController?(tabsController: self, shouldSelect: viewControllers[index])) else {
+        return
+      }
     }
     
     Motion.async { [weak self] in
@@ -402,7 +418,7 @@ extension TabsController {
       
       s.tabBar.select(at: index)
       
-      s.transition(to: s.viewControllers[index], isTriggeredByUserInteraction: false) { [weak self] (isFinishing) in
+      s.transition(to: s.viewControllers[index], isTriggeredByUserInteraction: isTriggeredByUserInteraction) { [weak self] (isFinishing) in
         guard isFinishing else {
           return
         }
@@ -424,20 +440,6 @@ extension TabsController: TabBarDelegate, _TabBarDelegate {
       return
     }
     
-    guard i != selectedIndex else {
-      return
-    }
-    
-    guard !(false == delegate?.tabsController?(tabsController: self, shouldSelect: viewControllers[i])) else {
-      return
-    }
-    
-    transition(to: viewControllers[i], isTriggeredByUserInteraction: true) { [weak self] (isFinishing) in
-      guard isFinishing else {
-        return
-      }
-      
-      self?.selectedIndex = i
-    }
+    internalSelect(at: i, isTriggeredByUserInteraction: true)
   }
 }
