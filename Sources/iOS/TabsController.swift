@@ -257,7 +257,6 @@ fileprivate extension TabsController {
   func prepareTabBar() {
     tabBar.lineAlignment = .bottom == tabBarAlignment ? .top : .bottom
     tabBar._delegate = self
-    tabBar.delegate = self
     view.addSubview(tabBar)
   }
   
@@ -429,7 +428,7 @@ extension TabsController {
   }
 }
 
-extension TabsController: TabBarDelegate, _TabBarDelegate {
+extension TabsController: _TabBarDelegate {
   @objc
   func _tabBar(tabBar: TabBar, willSelect tabItem: TabItem) {
     guard !(false == tabBar.delegate?.tabBar?(tabBar: tabBar, shouldSelect: tabItem)) else {
