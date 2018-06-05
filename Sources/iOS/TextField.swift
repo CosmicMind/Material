@@ -571,7 +571,7 @@ fileprivate extension TextField {
     default:break
     }
     
-    placeholderLabel.frame.origin.y = -placeholderLabel.bounds.height + placeholderVerticalOffset
+    placeholderLabel.frame.origin.y = -placeholderLabel.frame.height + placeholderVerticalOffset
   }
   
   /// Layout the detailLabel.
