@@ -398,15 +398,17 @@ extension TabsController {
    - Parameter at index: An Int.
    - Parameter isTriggeredByUserInteraction: A boolean indicating whether the
    state was changed by a user interaction, true if yes, false otherwise.
+   - Returns: A boolean indicating whether the transition will take place.
    */
-  private func internalSelect(at index: Int, isTriggeredByUserInteraction: Bool) {
+  @discardableResult
+  private func internalSelect(at index: Int, isTriggeredByUserInteraction: Bool) -> Bool {
     guard index != selectedIndex else {
-      return
+      return false
     }
     
     if isTriggeredByUserInteraction {
       guard !(false == delegate?.tabsController?(tabsController: self, shouldSelect: viewControllers[index])) else {
-        return
+        return false
       }
     }
     
@@ -425,20 +427,18 @@ extension TabsController {
         self?.selectedIndex = index
       }
     }
+    return true
   }
 }
 
 extension TabsController: _TabBarDelegate {
   @objc
-  func _tabBar(tabBar: TabBar, willSelect tabItem: TabItem) {
-    guard !(false == tabBar.delegate?.tabBar?(tabBar: tabBar, shouldSelect: tabItem)) else {
-      return
-    }
+  func _tabBar(tabBar: TabBar, shouldSelect tabItem: TabItem) -> Bool {
     
     guard let i = tabBar.tabItems.index(of: tabItem) else {
-      return
+      return false
     }
     
-    internalSelect(at: i, isTriggeredByUserInteraction: true)
+    return internalSelect(at: i, isTriggeredByUserInteraction: true)
   }
 }
