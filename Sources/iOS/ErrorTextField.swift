@@ -31,18 +31,66 @@
 import UIKit
 
 open class ErrorTextField: TextField {
-  /// Controls the visibility of detailLabel
+  
+  /// The errorLabel UILabel that is displayed.
   @IBInspectable
-  open var isErrorRevealed = false {
-    didSet {
-      detailLabel.isHidden = !isErrorRevealed
+  open let errorLabel = UILabel()
+  
+  /// The errorLabel text value.
+  @IBInspectable
+  open var error: String? {
+    get {
+      return errorLabel.text
+    }
+    set(value) {
+      errorLabel.text = value
       layoutSubviews()
+    }
+  }
+  
+  /// Error text color
+  @IBInspectable
+  open var errorColor = Color.red.base {
+    didSet {
+      errorLabel.textColor = errorColor
+    }
+  }
+  
+  /// Vertical distance for the errorLabel from the divider.
+  @IBInspectable
+  open var errorVerticalOffset: CGFloat = 8 {
+    didSet {
+      layoutSubviews()
+    }
+  }
+  
+  /// Hide or show error text.
+  open var isErrorRevealed: Bool {
+    get {
+      return !errorLabel.isHidden
+    }
+    set {
+      errorLabel.isHidden = !newValue
+      detailLabel.isHidden = newValue
     }
   }
   
   open override func prepare() {
     super.prepare()
     isErrorRevealed = false
-    detailColor = Color.red.base
+    prepareErrorLabel()
+  }
+  
+  /// Prepares the errorLabel.
+  func prepareErrorLabel() {
+    errorLabel.font = RobotoFont.regular(with: 12)
+    errorLabel.numberOfLines = 0
+    errorColor = { errorColor }() // call didSet
+    addSubview(errorLabel)
+  }
+  
+  open override func layoutSubviews() {
+    super.layoutSubviews()
+    layoutBottomLabel(label: errorLabel, verticalOffset: errorVerticalOffset)
   }
 }

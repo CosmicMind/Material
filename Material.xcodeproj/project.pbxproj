@@ -180,6 +180,7 @@
 		9DF352421FED20C900B2A11B /* BaseIconLayerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF352411FED20C900B2A11B /* BaseIconLayerButton.swift */; };
 		9DF352441FED20ED00B2A11B /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF352431FED20ED00B2A11B /* RadioButton.swift */; };
 		9DF352461FED210000B2A11B /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF352451FED210000B2A11B /* CheckButton.swift */; };
+		9DF58CEE20C098C60098968D /* ErrorTextFieldValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF58CED20C098C60098968D /* ErrorTextFieldValidator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -297,6 +298,7 @@
 		9DF352411FED20C900B2A11B /* BaseIconLayerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseIconLayerButton.swift; sourceTree = "<group>"; };
 		9DF352431FED20ED00B2A11B /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		9DF352451FED210000B2A11B /* CheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
+		9DF58CED20C098C60098968D /* ErrorTextFieldValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextFieldValidator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -315,6 +317,7 @@
 				96BCB79E1CB40DC500C806FE /* TextView.swift */,
 				96BCB79C1CB40DC500C806FE /* TextField.swift */,
 				961F18E71CD93E3E008927C5 /* ErrorTextField.swift */,
+				9DF58CED20C098C60098968D /* ErrorTextFieldValidator.swift */,
 			);
 			name = Text;
 			sourceTree = "<group>";
@@ -1005,6 +1008,7 @@
 				965E80CE1DD4C50600D61E4B /* FABButton.swift in Sources */,
 				965E80CF1DD4C50600D61E4B /* FlatButton.swift in Sources */,
 				965E80D01DD4C50600D61E4B /* RaisedButton.swift in Sources */,
+				9DF58CEE20C098C60098968D /* ErrorTextFieldValidator.swift in Sources */,
 				96A183631E0C6CE200083C30 /* FABMenu.swift in Sources */,
 				965E80D11DD4C50600D61E4B /* IconButton.swift in Sources */,
 				965E80D21DD4C50600D61E4B /* Color.swift in Sources */,
