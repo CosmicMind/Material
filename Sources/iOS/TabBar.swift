@@ -183,13 +183,13 @@ public protocol TabBarDelegate {
 @objc(_TabBarDelegate)
 internal protocol _TabBarDelegate {
   /**
-   A delegation method that is executed when the tabItem will trigger the
-   animation to the next tab.
+   A delegation method that is executed to determine if the TabBar should
+   transition to the next tab.
    - Parameter tabBar: A TabBar.
    - Parameter tabItem: A TabItem.
+   - Returns: A Boolean.
    */
-  @objc
-  optional func _tabBar(tabBar: TabBar, willSelect tabItem: TabItem)
+  func _tabBar(tabBar: TabBar, shouldSelect tabItem: TabItem) -> Bool
 }
 
 @objc(TabBarStyle)
@@ -546,6 +546,9 @@ fileprivate extension TabBar {
       return
     }
     
+    guard !(false == _delegate?._tabBar(tabBar: self, shouldSelect: tabItem)) else { return }
+    
+    
     animate(to: tabItem, isTriggeredByUserInteraction: true)
   }
 }
@@ -592,7 +595,6 @@ fileprivate extension TabBar {
    */
   func animate(to tabItem: TabItem, isTriggeredByUserInteraction: Bool, completion: ((TabItem) -> Void)? = nil) {
     if isTriggeredByUserInteraction {
-      _delegate?._tabBar?(tabBar: self, willSelect: tabItem)
       delegate?.tabBar?(tabBar: self, willSelect: tabItem)
     }
     
