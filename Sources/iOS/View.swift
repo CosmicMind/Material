@@ -156,11 +156,6 @@ open class View: UIView {
     prepare()
   }
   
-  /// Convenience initializer.
-  public convenience init() {
-    self.init(frame: .zero)
-  }
-  
   open override func layoutSubviews() {
     super.layoutSubviews()
     layoutShape()

@@ -403,11 +403,6 @@ open class TextField: UITextField {
     prepare()
   }
   
-  /// A convenience initializer.
-  public convenience init() {
-    self.init(frame: .zero)
-  }
-  
   open override func layoutSubviews() {
     super.layoutSubviews()
     layoutShape()
