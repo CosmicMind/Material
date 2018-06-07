@@ -232,7 +232,7 @@ open class NavigationDrawerController: TransitionController {
    */
   open var isDimEnabled = true {
     didSet {
-      self.updateDim()
+      updateDim()
     }
   }
   
@@ -240,12 +240,13 @@ open class NavigationDrawerController: TransitionController {
    The alpha value of the rootViewController when left/right drawer
    is presented, the value should be between 0.0 - 1.0. Defaults is 0.5
   */
-  open var dimAmount: CGFloat = 0.5 {
+  open var dimValue: CGFloat = 0.5 {
     didSet {
-      if dimAmount < 0.0 || dimAmount > 1.0 {
-        dimAmount = 0.5
+      if 0 > dimValue || 1 < dimValue {
+        dimValue = 0.5
       }
-      self.updateDim()
+      
+      updateDim()
     }
   }
   
@@ -801,7 +802,6 @@ open class NavigationDrawerController: TransitionController {
       }
       
       self.isAnimating = false
-      
       self.delegate?.navigationDrawerController?(navigationDrawerController: self, didOpen: .right)
     }
   }
@@ -895,7 +895,7 @@ open class NavigationDrawerController: TransitionController {
       
       self.isAnimating = false
       self.isUserInteractionEnabled = true
-      
+
       self.delegate?.navigationDrawerController?(navigationDrawerController: self, didClose: .right)
     }
   }
@@ -1064,13 +1064,16 @@ open class NavigationDrawerController: TransitionController {
   fileprivate func updateDim() {
     if isDimEnabled {
       if isOpened {
-        self.rootViewController.view.alpha = 1.0
+        rootViewController.view.alpha = 1.0
+      
       } else {
-        self.rootViewController.view.alpha = self.dimAmount
+        rootViewController.view.alpha = dimValue
       }
+      
       return
     }
-    self.rootViewController.view.alpha = 1.0
+   
+    rootViewController.view.alpha = 1.0
   }
 }
 
