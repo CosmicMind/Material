@@ -377,6 +377,7 @@ extension FABMenu {
     if isTriggeredByUserInteraction {
       delegate?.fabMenuWillOpen?(fabMenu: self)
     }
+  }
     
     /**
      Open the Menu component with animation options.
@@ -390,7 +391,7 @@ extension FABMenu {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    open func open(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+    public func open(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
         if delegate?.fabMenuShouldOpen?(fabMenu: self) == false {
             return
         }
