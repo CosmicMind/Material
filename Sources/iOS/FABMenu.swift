@@ -138,59 +138,59 @@ extension FABMenuItem {
 }
 
 @objc(FABMenuDelegate)
-public protocol FABMenuDelegate {    
-    /**
-    A delegation method that is executed to determine whether fabMenu should open.
-    - Parameter fabMenu: A FABMenu.
-    */
-    @objc
-    optional func fabMenuShouldOpen(fabMenu: FABMenu) -> Bool
-    
-    /**
-     A delegation method that is execited when the fabMenu will open.
-     - Parameter fabMenu: A FABMenu.
-     */
-    @objc
-    optional func fabMenuWillOpen(fabMenu: FABMenu)
-    
-    /**
-     A delegation method that is execited when the fabMenu did open.
-     - Parameter fabMenu: A FABMenu.
-     */
-    @objc
-    optional func fabMenuDidOpen(fabMenu: FABMenu)
-    
-    /**
-    A delegation method that is executed to determine whether fabMenu should close.
-    - Parameter fabMenu: A FABMenu.
-    */
-    @objc
-    optional func fabMenuShouldClose(fabMenu: FABMenu) -> Bool
-    
-    /**
-     A delegation method that is execited when the fabMenu will close.
-     - Parameter fabMenu: A FABMenu.
-     */
-    @objc
-    optional func fabMenuWillClose(fabMenu: FABMenu)
-    
-    /**
-     A delegation method that is execited when the fabMenu did close.
-     - Parameter fabMenu: A FABMenu.
-     */
-    @objc
-    optional func fabMenuDidClose(fabMenu: FABMenu)
-    
-    /**
-     A delegation method that is executed when the user taps while
-     the menu is opened.
-     - Parameter fabMenu: A FABMenu.
-     - Parameter tappedAt point: A CGPoint.
-     - Parameter isOutside: A boolean indicating whether the tap
-     was outside the menu button area.
-     */
-    @objc
-    optional func fabMenu(fabMenu: FABMenu, tappedAt point: CGPoint, isOutside: Bool)
+public protocol FABMenuDelegate {
+  /**
+   A delegation method that is executed to determine whether fabMenu should open.
+   - Parameter fabMenu: A FABMenu.
+   */
+  @objc
+  optional func fabMenuShouldOpen(fabMenu: FABMenu) -> Bool
+  
+  /**
+   A delegation method that is execited when the fabMenu will open.
+   - Parameter fabMenu: A FABMenu.
+   */
+  @objc
+  optional func fabMenuWillOpen(fabMenu: FABMenu)
+  
+  /**
+   A delegation method that is execited when the fabMenu did open.
+   - Parameter fabMenu: A FABMenu.
+   */
+  @objc
+  optional func fabMenuDidOpen(fabMenu: FABMenu)
+  
+  /**
+   A delegation method that is executed to determine whether fabMenu should close.
+   - Parameter fabMenu: A FABMenu.
+   */
+  @objc
+  optional func fabMenuShouldClose(fabMenu: FABMenu) -> Bool
+  
+  /**
+   A delegation method that is execited when the fabMenu will close.
+   - Parameter fabMenu: A FABMenu.
+   */
+  @objc
+  optional func fabMenuWillClose(fabMenu: FABMenu)
+  
+  /**
+   A delegation method that is execited when the fabMenu did close.
+   - Parameter fabMenu: A FABMenu.
+   */
+  @objc
+  optional func fabMenuDidClose(fabMenu: FABMenu)
+  
+  /**
+   A delegation method that is executed when the user taps while
+   the menu is opened.
+   - Parameter fabMenu: A FABMenu.
+   - Parameter tappedAt point: A CGPoint.
+   - Parameter isOutside: A boolean indicating whether the tap
+   was outside the menu button area.
+   */
+  @objc
+  optional func fabMenu(fabMenu: FABMenu, tappedAt point: CGPoint, isOutside: Bool)
 }
 
 @objc(FABMenu)
@@ -372,50 +372,29 @@ extension FABMenu {
    - Parameter completion: A completion block to execute on each view's animation.
    */
   open func open(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+    if delegate?.fabMenuShouldOpen?(fabMenu: self) == false {
+      return
+    }
+    
     handleOpenCallback?()
     
     if isTriggeredByUserInteraction {
       delegate?.fabMenuWillOpen?(fabMenu: self)
     }
-  }
     
-    /**
-     Open the Menu component with animation options.
-     - Parameter isTriggeredByUserInteraction: A boolean indicating whether the
-     state was changed by a user interaction, true if yes, false otherwise.
-     - Parameter duration: The time for each view's animation.
-     - Parameter delay: A delay time for each view's animation.
-     - Parameter usingSpringWithDamping: A damping ratio for the animation.
-     - Parameter initialSpringVelocity: The initial velocity for the animation.
-     - Parameter options: Options to pass to the animation.
-     - Parameter animations: An animation block to execute on each view's animation.
-     - Parameter completion: A completion block to execute on each view's animation.
-     */
-    public func open(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
-        if delegate?.fabMenuShouldOpen?(fabMenu: self) == false {
-            return
-        }
-        
-        handleOpenCallback?()
-        
-        if isTriggeredByUserInteraction {
-            delegate?.fabMenuWillOpen?(fabMenu: self)
-        }
-        
-        spring.expand(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations) { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, completion = completion] (view) in
-            guard let `self` = self else {
-                return
-            }
-            
-            (view as? FABMenuItem)?.showTitleLabel()
-            
-            if isTriggeredByUserInteraction && view == self.fabMenuItems.last {
-                self.delegate?.fabMenuDidOpen?(fabMenu: self)
-            }
-            
-            completion?(view)
-            self.handleCompletionCallback?(view)
-        }
+    spring.expand(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations) { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, completion = completion] (view) in
+      guard let `self` = self else {
+        return
+      }
+      
+      (view as? FABMenuItem)?.showTitleLabel()
+      
+      if isTriggeredByUserInteraction && view == self.fabMenuItems.last {
+        self.delegate?.fabMenuDidOpen?(fabMenu: self)
+      }
+      
+      completion?(view)
+      self.handleCompletionCallback?(view)
     }
   }
   
@@ -446,49 +425,30 @@ extension FABMenu {
    - Parameter completion: A completion block to execute on each view's animation.
    */
   open func close(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+    
+    if delegate?.fabMenuShouldClose?(fabMenu: self) == false {
+      return
+    }
+    
     handleCloseCallback?()
     
     if isTriggeredByUserInteraction {
       delegate?.fabMenuWillClose?(fabMenu: self)
     }
     
-    /**
-     Close the Menu component with animation options.
-     - Parameter isTriggeredByUserInteraction: A boolean indicating whether the
-     state was changed by a user interaction, true if yes, false otherwise.
-     - Parameter duration: The time for each view's animation.
-     - Parameter delay: A delay time for each view's animation.
-     - Parameter usingSpringWithDamping: A damping ratio for the animation.
-     - Parameter initialSpringVelocity: The initial velocity for the animation.
-     - Parameter options: Options to pass to the animation.
-     - Parameter animations: An animation block to execute on each view's animation.
-     - Parameter completion: A completion block to execute on each view's animation.
-     */
-    open func close(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
-        if delegate?.fabMenuShouldClose?(fabMenu: self) == false {
-            return
-        }
-        
-        handleCloseCallback?()
-        
-        if isTriggeredByUserInteraction {
-            delegate?.fabMenuWillClose?(fabMenu: self)
-        }
-        
-        spring.contract(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations) { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, completion = completion] (view) in
-            guard let `self` = self else {
-                return
-            }
-            
-            (view as? FABMenuItem)?.hideTitleLabel()
-            
-            if isTriggeredByUserInteraction && view == self.fabMenuItems.last {
-                self.delegate?.fabMenuDidClose?(fabMenu: self)
-            }
-            
-            completion?(view)
-            self.handleCompletionCallback?(view)
-        }
+    spring.contract(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations) { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, completion = completion] (view) in
+      guard let `self` = self else {
+        return
+      }
+      
+      (view as? FABMenuItem)?.hideTitleLabel()
+      
+      if isTriggeredByUserInteraction && view == self.fabMenuItems.last {
+        self.delegate?.fabMenuDidClose?(fabMenu: self)
+      }
+      
+      completion?(view)
+      self.handleCompletionCallback?(view)
     }
   }
 }
