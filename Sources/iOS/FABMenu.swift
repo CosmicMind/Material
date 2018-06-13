@@ -138,59 +138,59 @@ extension FABMenuItem {
 }
 
 @objc(FABMenuDelegate)
-public protocol FABMenuDelegate {    
-    /**
-    A delegation method that is executed to determine whether fabMenu should open.
-    - Parameter fabMenu: A FABMenu.
-    */
-    @objc
-    optional func fabMenuShouldOpen(fabMenu: FABMenu) -> Bool
-    
-    /**
-     A delegation method that is execited when the fabMenu will open.
-     - Parameter fabMenu: A FABMenu.
-     */
-    @objc
-    optional func fabMenuWillOpen(fabMenu: FABMenu)
-    
-    /**
-     A delegation method that is execited when the fabMenu did open.
-     - Parameter fabMenu: A FABMenu.
-     */
-    @objc
-    optional func fabMenuDidOpen(fabMenu: FABMenu)
-    
-    /**
-    A delegation method that is executed to determine whether fabMenu should close.
-    - Parameter fabMenu: A FABMenu.
-    */
-    @objc
-    optional func fabMenuShouldClose(fabMenu: FABMenu) -> Bool
-    
-    /**
-     A delegation method that is execited when the fabMenu will close.
-     - Parameter fabMenu: A FABMenu.
-     */
-    @objc
-    optional func fabMenuWillClose(fabMenu: FABMenu)
-    
-    /**
-     A delegation method that is execited when the fabMenu did close.
-     - Parameter fabMenu: A FABMenu.
-     */
-    @objc
-    optional func fabMenuDidClose(fabMenu: FABMenu)
-    
-    /**
-     A delegation method that is executed when the user taps while
-     the menu is opened.
-     - Parameter fabMenu: A FABMenu.
-     - Parameter tappedAt point: A CGPoint.
-     - Parameter isOutside: A boolean indicating whether the tap
-     was outside the menu button area.
-     */
-    @objc
-    optional func fabMenu(fabMenu: FABMenu, tappedAt point: CGPoint, isOutside: Bool)
+public protocol FABMenuDelegate {
+  /**
+   A delegation method that is executed to determine whether fabMenu should open.
+   - Parameter fabMenu: A FABMenu.
+   */
+  @objc
+  optional func fabMenuShouldOpen(fabMenu: FABMenu) -> Bool
+  
+  /**
+   A delegation method that is execited when the fabMenu will open.
+   - Parameter fabMenu: A FABMenu.
+   */
+  @objc
+  optional func fabMenuWillOpen(fabMenu: FABMenu)
+  
+  /**
+   A delegation method that is execited when the fabMenu did open.
+   - Parameter fabMenu: A FABMenu.
+   */
+  @objc
+  optional func fabMenuDidOpen(fabMenu: FABMenu)
+  
+  /**
+   A delegation method that is executed to determine whether fabMenu should close.
+   - Parameter fabMenu: A FABMenu.
+   */
+  @objc
+  optional func fabMenuShouldClose(fabMenu: FABMenu) -> Bool
+  
+  /**
+   A delegation method that is execited when the fabMenu will close.
+   - Parameter fabMenu: A FABMenu.
+   */
+  @objc
+  optional func fabMenuWillClose(fabMenu: FABMenu)
+  
+  /**
+   A delegation method that is execited when the fabMenu did close.
+   - Parameter fabMenu: A FABMenu.
+   */
+  @objc
+  optional func fabMenuDidClose(fabMenu: FABMenu)
+  
+  /**
+   A delegation method that is executed when the user taps while
+   the menu is opened.
+   - Parameter fabMenu: A FABMenu.
+   - Parameter tappedAt point: A CGPoint.
+   - Parameter isOutside: A boolean indicating whether the tap
+   was outside the menu button area.
+   */
+  @objc
+  optional func fabMenu(fabMenu: FABMenu, tappedAt point: CGPoint, isOutside: Bool)
 }
 
 @objc(FABMenu)
