@@ -181,6 +181,7 @@
 		9DF352441FED20ED00B2A11B /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF352431FED20ED00B2A11B /* RadioButton.swift */; };
 		9DF352461FED210000B2A11B /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF352451FED210000B2A11B /* CheckButton.swift */; };
 		9DF58CEE20C098C60098968D /* ErrorTextFieldValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF58CED20C098C60098968D /* ErrorTextFieldValidator.swift */; };
+		9DF74C4E20D15D84003C1D66 /* Material+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF74C4D20D15D84003C1D66 /* Material+UIColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -299,6 +300,7 @@
 		9DF352431FED20ED00B2A11B /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		9DF352451FED210000B2A11B /* CheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
 		9DF58CED20C098C60098968D /* ErrorTextFieldValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextFieldValidator.swift; sourceTree = "<group>"; };
+		9DF74C4D20D15D84003C1D66 /* Material+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Material+UIColor.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -699,6 +701,7 @@
 				962864591D53FE3E00690B69 /* Material+UIWindow.swift */,
 				966C17721F0439F600D3E83C /* Material+MotionAnimation.swift */,
 				9618006C1F4D384200CD77A1 /* Material+UIViewController.swift */,
+				9DF74C4D20D15D84003C1D66 /* Material+UIColor.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -1027,6 +1030,7 @@
 				965E80DB1DD4C50600D61E4B /* InterimSpace.swift in Sources */,
 				965E80DC1DD4C50600D61E4B /* Depth.swift in Sources */,
 				965E80DD1DD4C50600D61E4B /* EdgeInsets.swift in Sources */,
+				9DF74C4E20D15D84003C1D66 /* Material+UIColor.swift in Sources */,
 				965E80DE1DD4C50600D61E4B /* Gravity.swift in Sources */,
 				965E80DF1DD4C50600D61E4B /* CornerRadius.swift in Sources */,
 				965E80FB1DD4D59500D61E4B /* SearchBar.swift in Sources */,
