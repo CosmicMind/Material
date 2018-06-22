@@ -36,11 +36,11 @@ import UIKit
 public extension UIButton {
   /// Convenience way to change titleLabel font size.
   var fontSize: CGFloat {
-    set {
-      titleLabel?.font = titleLabel?.font?.withSize(newValue) ?? UIFont.systemFont(ofSize: newValue)
-    }
     get {
       return titleLabel?.font?.pointSize ?? UIFont.buttonFontSize
+    }
+    set(value) {
+      titleLabel?.font = titleLabel?.font?.withSize(value) ?? UIFont.systemFont(ofSize: value)
     }
   }
 }

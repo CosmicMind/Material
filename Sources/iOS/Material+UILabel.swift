@@ -36,11 +36,11 @@ import UIKit
 public extension UILabel {
   /// Convenience way to change font size.
   var fontSize: CGFloat {
-    set {
-      font = font?.withSize(newValue) ?? UIFont.systemFont(ofSize: newValue)
-    }
     get {
       return font?.pointSize ?? UIFont.labelFontSize
+    }
+    set(value) {
+      font = font?.withSize(value) ?? UIFont.systemFont(ofSize: value)
     }
   }
 }
