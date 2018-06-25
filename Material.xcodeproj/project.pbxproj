@@ -172,6 +172,8 @@
 		96E3C39A1D3A1CC20086A024 /* ErrorTextField.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39C1D3A1CC20086A024 /* Offset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968C99461D377849000074FF /* Offset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96F1A5531F24F17A001D8CAF /* TabsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E09DC71F2287E50000B121 /* TabsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9D054A6520D175AC00D0528D /* Material+UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D054A6320D175AC00D0528D /* Material+UIButton.swift */; };
+		9D054A6620D175AC00D0528D /* Material+UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D054A6420D175AC00D0528D /* Material+UILabel.swift */; };
 		9DE84D721FF0252600586C8B /* RadioButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE84D6F1FF0252500586C8B /* RadioButtonGroup.swift */; };
 		9DE84D731FF0252600586C8B /* BaseButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE84D701FF0252500586C8B /* BaseButtonGroup.swift */; };
 		9DE84D741FF0252600586C8B /* CheckButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE84D711FF0252500586C8B /* CheckButtonGroup.swift */; };
@@ -179,6 +181,7 @@
 		9DF352441FED20ED00B2A11B /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF352431FED20ED00B2A11B /* RadioButton.swift */; };
 		9DF352461FED210000B2A11B /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF352451FED210000B2A11B /* CheckButton.swift */; };
 		9DF58CEE20C098C60098968D /* ErrorTextFieldValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF58CED20C098C60098968D /* ErrorTextFieldValidator.swift */; };
+		9DF74C4E20D15D84003C1D66 /* Material+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF74C4D20D15D84003C1D66 /* Material+UIColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -290,6 +293,8 @@
 		96E09DC71F2287E50000B121 /* TabsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
 		96E3C3931D397AE90086A024 /* Material+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIView.swift"; sourceTree = "<group>"; };
 		96F1DC871D654FDF0025F925 /* Material+CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+CALayer.swift"; sourceTree = "<group>"; };
+		9D054A6320D175AC00D0528D /* Material+UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIButton.swift"; sourceTree = "<group>"; };
+		9D054A6420D175AC00D0528D /* Material+UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UILabel.swift"; sourceTree = "<group>"; };
 		9DE84D6F1FF0252500586C8B /* RadioButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonGroup.swift; sourceTree = "<group>"; };
 		9DE84D701FF0252500586C8B /* BaseButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseButtonGroup.swift; sourceTree = "<group>"; };
 		9DE84D711FF0252500586C8B /* CheckButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckButtonGroup.swift; sourceTree = "<group>"; };
@@ -297,6 +302,7 @@
 		9DF352431FED20ED00B2A11B /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		9DF352451FED210000B2A11B /* CheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
 		9DF58CED20C098C60098968D /* ErrorTextFieldValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextFieldValidator.swift; sourceTree = "<group>"; };
+		9DF74C4D20D15D84003C1D66 /* Material+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Material+UIColor.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -697,6 +703,9 @@
 				962864591D53FE3E00690B69 /* Material+UIWindow.swift */,
 				966C17721F0439F600D3E83C /* Material+MotionAnimation.swift */,
 				9618006C1F4D384200CD77A1 /* Material+UIViewController.swift */,
+				9DF74C4D20D15D84003C1D66 /* Material+UIColor.swift */,
+				9D054A6320D175AC00D0528D /* Material+UIButton.swift */,
+				9D054A6420D175AC00D0528D /* Material+UILabel.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -1005,9 +1014,12 @@
 				965E80CF1DD4C50600D61E4B /* FlatButton.swift in Sources */,
 				965E80D01DD4C50600D61E4B /* RaisedButton.swift in Sources */,
 				9DF58CEE20C098C60098968D /* ErrorTextFieldValidator.swift in Sources */,
+				96A183631E0C6CE200083C30 /* FABMenu.swift in Sources */,
+				9D054A6520D175AC00D0528D /* Material+UIButton.swift in Sources */,
 				965E80D11DD4C50600D61E4B /* IconButton.swift in Sources */,
 				965E80D21DD4C50600D61E4B /* Color.swift in Sources */,
 				96BFC1541E5E486F0075DE1F /* SpringAnimation.swift in Sources */,
+				9D054A6620D175AC00D0528D /* Material+UILabel.swift in Sources */,
 				965E80D31DD4C50600D61E4B /* Device.swift in Sources */,
 				965E80FD1DD4D59500D61E4B /* Toolbar.swift in Sources */,
 				965E80D41DD4C50600D61E4B /* Divider.swift in Sources */,
@@ -1022,6 +1034,7 @@
 				965E80DB1DD4C50600D61E4B /* InterimSpace.swift in Sources */,
 				965E80DC1DD4C50600D61E4B /* Depth.swift in Sources */,
 				965E80DD1DD4C50600D61E4B /* EdgeInsets.swift in Sources */,
+				9DF74C4E20D15D84003C1D66 /* Material+UIColor.swift in Sources */,
 				965E80DE1DD4C50600D61E4B /* Gravity.swift in Sources */,
 				965E80DF1DD4C50600D61E4B /* CornerRadius.swift in Sources */,
 				965E80FB1DD4D59500D61E4B /* SearchBar.swift in Sources */,
