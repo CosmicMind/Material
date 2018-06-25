@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		961154CC1F32A7B100A78D74 /* ChipBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961154CB1F32A7B100A78D74 /* ChipBar.swift */; };
-		961409B11E43D15C00E7BA99 /* FABMenu.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A183621E0C6CE200083C30 /* FABMenu.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		961409B21E43D15C00E7BA99 /* FABMenuController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A183641E0C6DD400083C30 /* FABMenuController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		961527B91F3A509900E8B2AC /* ChipBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961527B81F3A509900E8B2AC /* ChipBarController.swift */; };
 		9617B07D1DFCA8CF00410F8F /* Application.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961E6BDE1DDA2A95004E6C93 /* Application.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B07E1DFCA8CF00410F8F /* Card.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB75D1CB40DC500C806FE /* Card.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -115,8 +113,8 @@
 		9697F7C31D8F2572004741EC /* DynamicFontType.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9628645E1D540AF300690B69 /* DynamicFontType.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9697F7CB1D8F2573004741EC /* Snackbar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963FBEFC1D669510008F8512 /* Snackbar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9697F7CC1D8F2573004741EC /* SnackbarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961EFC571D738FF600E84652 /* SnackbarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96A183631E0C6CE200083C30 /* FABMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A183621E0C6CE200083C30 /* FABMenu.swift */; };
-		96A183651E0C6DD400083C30 /* FABMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A183641E0C6DD400083C30 /* FABMenuController.swift */; };
+		96B8D22C20CF82D2008BD149 /* FABMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A183641E0C6DD400083C30 /* FABMenuController.swift */; };
+		96B8D22D20CF82D5008BD149 /* FABMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A183621E0C6CE200083C30 /* FABMenu.swift */; };
 		96BCB7F31CB40DE900C806FE /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96BCB7EE1CB40DE900C806FE /* Roboto-Bold.ttf */; };
 		96BCB7F51CB40DE900C806FE /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96BCB7EF1CB40DE900C806FE /* Roboto-Light.ttf */; };
 		96BCB7F71CB40DE900C806FE /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96BCB7F01CB40DE900C806FE /* Roboto-Medium.ttf */; };
@@ -839,8 +837,6 @@
 				96328B9B1E05C24E009A4C90 /* CollectionViewController.swift in Headers */,
 				96328B9E1E05C24E009A4C90 /* TableView.swift in Headers */,
 				96328B9F1E05C24E009A4C90 /* TableViewController.swift in Headers */,
-				961409B11E43D15C00E7BA99 /* FABMenu.swift in Headers */,
-				961409B21E43D15C00E7BA99 /* FABMenuController.swift in Headers */,
 				96BFC16F1E63C10A0075DE1F /* SpringAnimation.swift in Headers */,
 				9685D5AF1F0F04CB00AFEB79 /* CardCollectionViewCell.swift in Headers */,
 				9685D5B01F0F04CB00AFEB79 /* CardCollectionViewController.swift in Headers */,
@@ -960,7 +956,6 @@
 				965E810A1DD4D5C800D61E4B /* Font.swift in Sources */,
 				965E810B1DD4D5C800D61E4B /* RobotoFont.swift in Sources */,
 				965E810C1DD4D5C800D61E4B /* DynamicFontType.swift in Sources */,
-				96A183651E0C6DD400083C30 /* FABMenuController.swift in Sources */,
 				965E81101DD4D5C800D61E4B /* NavigationBar.swift in Sources */,
 				965E81111DD4D5C800D61E4B /* NavigationController.swift in Sources */,
 				965E81121DD4D5C800D61E4B /* NavigationItem.swift in Sources */,
@@ -981,6 +976,7 @@
 				965E81211DD4D5C800D61E4B /* TextStorage.swift in Sources */,
 				965E81221DD4D5C800D61E4B /* TextView.swift in Sources */,
 				965E80E71DD4C55200D61E4B /* Material+UIView.swift in Sources */,
+				96B8D22D20CF82D5008BD149 /* FABMenu.swift in Sources */,
 				965E80E81DD4C55200D61E4B /* Material+CALayer.swift in Sources */,
 				965E80E91DD4C55200D61E4B /* Material+String.swift in Sources */,
 				9DE84D731FF0252600586C8B /* BaseButtonGroup.swift in Sources */,
@@ -1009,7 +1005,6 @@
 				965E80CF1DD4C50600D61E4B /* FlatButton.swift in Sources */,
 				965E80D01DD4C50600D61E4B /* RaisedButton.swift in Sources */,
 				9DF58CEE20C098C60098968D /* ErrorTextFieldValidator.swift in Sources */,
-				96A183631E0C6CE200083C30 /* FABMenu.swift in Sources */,
 				965E80D11DD4C50600D61E4B /* IconButton.swift in Sources */,
 				965E80D21DD4C50600D61E4B /* Color.swift in Sources */,
 				96BFC1541E5E486F0075DE1F /* SpringAnimation.swift in Sources */,
@@ -1033,6 +1028,7 @@
 				965E80E01DD4C50600D61E4B /* Shape.swift in Sources */,
 				965E80E11DD4C50600D61E4B /* Offset.swift in Sources */,
 				965E80E21DD4C50600D61E4B /* View.swift in Sources */,
+				96B8D22C20CF82D2008BD149 /* FABMenuController.swift in Sources */,
 				96328B7A1E020A41009A4C90 /* CollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
