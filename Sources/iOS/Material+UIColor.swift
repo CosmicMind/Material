@@ -44,7 +44,11 @@ public extension UIColor {
     let r = argb >> 16
     let g = argb >> 8
     let b = argb >> 0
-    func f(_ v: UInt32) -> CGFloat { return CGFloat(v & 0xff) / 255 }
+    
+    func f(_ v: UInt32) -> CGFloat {
+      return CGFloat(v & 0xff) / 255
+    }
+    
     self.init(red: f(r), green: f(g), blue: f(b), alpha: f(a))
   }
   
@@ -55,6 +59,6 @@ public extension UIColor {
    - Parameter rgb: An unsigned 32 bit integer. E.g 0xAA44CC.
    */
   convenience init(rgb: UInt32) {
-    self.init(argb: (UInt32(0xff000000)) | rgb)
+    self.init(argb: (0xff000000 as UInt32) | rgb)
   }
 }
