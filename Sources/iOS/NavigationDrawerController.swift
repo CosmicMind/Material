@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2015 - 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2017, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- *	*	Redistributions of source code must retain the above copyright notice, this
- *		list of conditions and the following disclaimer.
+ *  *  Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
  *
- *	*	Redistributions in binary form must reproduce the above copyright notice,
- *		this list of conditions and the following disclaimer in the documentation
- *		and/or other materials provided with the distribution.
+ *  *  Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
  *
- *	*	Neither the name of CosmicMind nor the names of its
- *		contributors may be used to endorse or promote products derived from
- *		this software without specific prior written permission.
+ *  *  Neither the name of CosmicMind nor the names of its
+ *    contributors may be used to endorse or promote products derived from
+ *    this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -223,30 +223,6 @@ open class NavigationDrawerController: TransitionController {
       if nil != rightView {
         isRightViewEnabled = value
       }
-    }
-  }
-  
-  /**
-   A Boolean property that enables and disabled the dim from
-   rootViewController. Defaults to true
-   */
-  open var isDimEnabled = true {
-    didSet {
-      updateDim()
-    }
-  }
-  
-  /**
-   The alpha value of the rootViewController when left/right drawer
-   is presented, the value should be between 0.0 - 1.0. Defaults is 0.5
-  */
-  open var dimValue: CGFloat = 0.5 {
-    didSet {
-      if 0 > dimValue || 1 < dimValue {
-        dimValue = 0.5
-      }
-      
-      updateDim()
     }
   }
   
@@ -554,7 +530,7 @@ open class NavigationDrawerController: TransitionController {
                         
                         v.bounds.size.width = width
                         v.layer.position.x = -width / 2
-                        self.updateDim()
+                        self.rootViewController.view.alpha = 1
                         
         }) { [weak self, v = v] _ in
           guard let `self` = self else {
@@ -575,7 +551,7 @@ open class NavigationDrawerController: TransitionController {
                         
                         v.bounds.size.width = width
                         v.layer.position.x = width / 2
-                        self.updateDim()
+                        self.rootViewController.view.alpha = 0.5
                         
         }) { [weak self, v = v] _ in
           guard let `self` = self else {
@@ -593,13 +569,13 @@ open class NavigationDrawerController: TransitionController {
       if hide {
         hideView(container: v)
         v.layer.position.x = -v.bounds.width / 2
+        rootViewController.view.alpha = 1
         
       } else {
         showView(container: v)
         v.layer.position.x = width / 2
+        rootViewController.view.alpha = 0.5
       }
-      
-      self.updateDim()
       
       layoutSubviews()
     }
@@ -640,7 +616,7 @@ open class NavigationDrawerController: TransitionController {
                         
                         v.bounds.size.width = width
                         v.layer.position.x = self.view.bounds.width + width / 2
-                        self.updateDim()
+                        self.rootViewController.view.alpha = 1
                         
         }) { [weak self, v = v] _ in
           guard let `self` = self else {
@@ -661,7 +637,7 @@ open class NavigationDrawerController: TransitionController {
                         
                         v.bounds.size.width = width
                         v.layer.position.x = self.view.bounds.width - width / 2
-                        self.updateDim()
+                        self.rootViewController.view.alpha = 0.5
                         
         }) { [weak self, v = v] _ in
           guard let `self` = self else {
@@ -679,13 +655,14 @@ open class NavigationDrawerController: TransitionController {
       if hide {
         hideView(container: v)
         v.layer.position.x = view.bounds.width + v.bounds.width / 2
+        rootViewController.view.alpha = 1
         
       } else {
         showView(container: v)
         v.layer.position.x = view.bounds.width - width / 2
+        rootViewController.view.alpha = 0.5
       }
       
-      self.updateDim()
       layoutSubviews()
     }
   }
@@ -747,7 +724,7 @@ open class NavigationDrawerController: TransitionController {
                     }
                     
                     v.layer.position.x = v.bounds.width / 2
-                    self.updateDim()
+                    self.rootViewController.view.alpha = 0.5
                     
     }) { [weak self] _ in
       guard let `self` = self else {
@@ -794,7 +771,7 @@ open class NavigationDrawerController: TransitionController {
                     }
                     
                     v.layer.position.x = self.view.bounds.width - v.bounds.width / 2
-                    self.updateDim()
+                    self.rootViewController.view.alpha = 0.5
                     
     }) { [weak self] _ in
       guard let `self` = self else {
@@ -802,6 +779,7 @@ open class NavigationDrawerController: TransitionController {
       }
       
       self.isAnimating = false
+      
       self.delegate?.navigationDrawerController?(navigationDrawerController: self, didOpen: .right)
     }
   }
@@ -836,7 +814,7 @@ open class NavigationDrawerController: TransitionController {
                     }
                     
                     v.layer.position.x = -v.bounds.width / 2
-                    self.updateDim()
+                    self.rootViewController.view.alpha = 1
                     
     }) { [weak self, v = v] _ in
       guard let `self` = self else {
@@ -883,7 +861,7 @@ open class NavigationDrawerController: TransitionController {
                     }
                     
                     v.layer.position.x = self.view.bounds.width + v.bounds.width / 2
-                    self.updateDim()
+                    self.rootViewController.view.alpha = 1
                     
     }) { [weak self, v = v] _ in
       guard let `self` = self else {
@@ -895,7 +873,7 @@ open class NavigationDrawerController: TransitionController {
       
       self.isAnimating = false
       self.isUserInteractionEnabled = true
-
+      
       self.delegate?.navigationDrawerController?(navigationDrawerController: self, didClose: .right)
     }
   }
@@ -1056,24 +1034,6 @@ open class NavigationDrawerController: TransitionController {
   fileprivate func hideView(container: UIView) {
     container.depthPreset = .none
     container.isHidden = true
-  }
-  
-  /**
-   A method to update rootViewController dim value
-  */
-  fileprivate func updateDim() {
-    if isDimEnabled {
-      if isOpened {
-        rootViewController.view.alpha = 1.0
-      
-      } else {
-        rootViewController.view.alpha = dimValue
-      }
-      
-      return
-    }
-   
-    rootViewController.view.alpha = 1.0
   }
 }
 
@@ -1236,10 +1196,8 @@ extension NavigationDrawerController: UIGestureRecognizerDelegate {
       
       v.layer.position.x = originalX + translationX > (w / 2) ? (w / 2) : originalX + translationX
       
-      if isDimEnabled {
-        let a = 1 - v.layer.position.x / v.bounds.width
-        rootViewController.view.alpha = 0.5 < a && v.layer.position.x <= v.bounds.width / 2 ? a : 0.5
-      }
+      let a = 1 - v.layer.position.x / v.bounds.width
+      rootViewController.view.alpha = 0.5 < a && v.layer.position.x <= v.bounds.width / 2 ? a : 0.5
       
       if translationX >= leftThreshold {
         hideStatusBar()
@@ -1295,10 +1253,8 @@ extension NavigationDrawerController: UIGestureRecognizerDelegate {
       
       v.layer.position.x = originalX + translationX < view.bounds.width - (w / 2) ? view.bounds.width - (w / 2) : originalX + translationX
       
-      if isDimEnabled {
-        let a = 1 - (view.bounds.width - v.layer.position.x) / v.bounds.width
-        rootViewController.view.alpha = 0.5 < a && v.layer.position.x >= v.bounds.width / 2 ? a : 0.5
-      }
+      let a = 1 - (view.bounds.width - v.layer.position.x) / v.bounds.width
+      rootViewController.view.alpha = 0.5 < a && v.layer.position.x >= v.bounds.width / 2 ? a : 0.5
       
       if translationX <= -rightThreshold {
         hideStatusBar()
