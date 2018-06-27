@@ -333,6 +333,20 @@ open class TextField: UITextField {
   /// A reference to the visibilityIconButton.
   open fileprivate(set) var visibilityIconButton: IconButton?
   
+  /// Icon for visibilityIconButton when in the on state.
+  open var visibilityIconOn = Icon.visibility {
+    didSet {
+      visibilityIconButton?.image = visibilityIcon
+    }
+  }
+  
+  /// Icon for visibilityIconButton when in the off state.
+  open var visibilityIconOff = Icon.visibilityOff {
+    didSet {
+      visibilityIconButton?.image = visibilityIcon
+    }
+  }
+  
   /// Enables the visibilityIconButton.
   @IBInspectable
   open var isVisibilityIconButtonEnabled: Bool {
@@ -350,10 +364,10 @@ open class TextField: UITextField {
         return
       }
       
-      visibilityIconButton = IconButton(image: isSecureTextEntry ? Icon.visibility : Icon.visibilityOff, tintColor: placeholderNormalColor.withAlphaComponent(0.54))
+      isSecureTextEntry = true
+      visibilityIconButton = IconButton(image: visibilityIcon, tintColor: placeholderNormalColor.withAlphaComponent(0.54))
       visibilityIconButton!.contentEdgeInsetsPreset = .none
       visibilityIconButton!.pulseAnimation = .centerRadialBeyondBounds
-      isSecureTextEntry = true
       clearButtonMode = .never
       rightViewMode = .whileEditing
       rightView = visibilityIconButton
@@ -661,7 +675,7 @@ fileprivate extension TextField {
           return
         }
         
-        v.image = self.isSecureTextEntry ? Icon.visibilityOff?.tint(with: v.tintColor.withAlphaComponent(0.54)) : Icon.visibility?.tint(with: v.tintColor.withAlphaComponent(0.54))
+        v.image = self.visibilityIcon
     })
   }
 }
@@ -756,5 +770,12 @@ extension TextField {
       self.placeholderLabel.frame.origin.x = self.leftViewWidth + self.textInset
       self.placeholderLabel.frame.origin.y = 0
     })
+  }
+}
+
+private extension TextField {
+  /// Visibility icon based on isSecureTextEntry value.
+  var visibilityIcon: UIImage? {
+    return isSecureTextEntry ? visibilityIconOff : visibilityIconOn
   }
 }
