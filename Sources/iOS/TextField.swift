@@ -206,7 +206,7 @@ open class TextField: UITextField {
   
   open override var isSecureTextEntry: Bool {
     didSet {
-      visibilityIconButton?.image = visibilityIcon
+      updateVisibilityIcon()
     }
   }
   
@@ -342,14 +342,14 @@ open class TextField: UITextField {
   /// Icon for visibilityIconButton when in the on state.
   open var visibilityIconOn = Icon.visibility {
     didSet {
-      visibilityIconButton?.image = visibilityIcon
+      updateVisibilityIcon()
     }
   }
   
   /// Icon for visibilityIconButton when in the off state.
   open var visibilityIconOff = Icon.visibilityOff {
     didSet {
-      visibilityIconButton?.image = visibilityIcon
+      updateVisibilityIcon()
     }
   }
   
@@ -371,7 +371,8 @@ open class TextField: UITextField {
       }
       
       isSecureTextEntry = true
-      visibilityIconButton = IconButton(image: visibilityIcon, tintColor: placeholderNormalColor.withAlphaComponent(0.54))
+      visibilityIconButton = IconButton(image: nil, tintColor: placeholderNormalColor.withAlphaComponent(0.54))
+      updateVisibilityIcon()
       visibilityIconButton!.contentEdgeInsetsPreset = .none
       visibilityIconButton!.pulseAnimation = .centerRadialBeyondBounds
       clearButtonMode = .never
@@ -774,8 +775,8 @@ extension TextField {
 }
 
 private extension TextField {
-  /// Visibility icon based on isSecureTextEntry value.
-  var visibilityIcon: UIImage? {
-    return isSecureTextEntry ? visibilityIconOff : visibilityIconOn
+  /// Updates visibilityIconButton image based on isSecureTextEntry value.
+  func updateVisibilityIcon() {
+    visibilityIconButton?.image = isSecureTextEntry ? visibilityIconOff : visibilityIconOn
   }
 }
