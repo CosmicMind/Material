@@ -1014,7 +1014,6 @@
 				965E80CF1DD4C50600D61E4B /* FlatButton.swift in Sources */,
 				965E80D01DD4C50600D61E4B /* RaisedButton.swift in Sources */,
 				9DF58CEE20C098C60098968D /* ErrorTextFieldValidator.swift in Sources */,
-				96A183631E0C6CE200083C30 /* FABMenu.swift in Sources */,
 				9D054A6520D175AC00D0528D /* Material+UIButton.swift in Sources */,
 				965E80D11DD4C50600D61E4B /* IconButton.swift in Sources */,
 				965E80D21DD4C50600D61E4B /* Color.swift in Sources */,

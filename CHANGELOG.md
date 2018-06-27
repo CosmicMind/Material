@@ -1,3 +1,27 @@
+## 2.15.1
+
+* [pr-1004](https://github.com/CosmicMind/Material/pull/1004): Added RadioButton/CheckButton and RadioButtonGroup/CheckButtonGroup.
+  * [issue-505](https://github.com/CosmicMind/Material/issues/505): Add RadioButton and Checkbox.
+* Updated to [Motion 1.4.0](https://github.com/CosmicMind/Motion/releases/tag/1.4.0). 
+  * [issue-1078](https://github.com/CosmicMind/Material/issues/1078): Update Motion Dependency.  
+* [pr-1047](https://github.com/CosmicMind/Material/pull/1047): Document material color codes.
+  * [issue-1000](https://github.com/CosmicMind/Material/issues/1000): Color: Document mapping from codes (e.g. a400) to names (e.g. accent1).  
+* [pr-1055](https://github.com/CosmicMind/Material/pull/1055): Open up FABMenu a little bit.  
+* Updated Copyright years.
+* [pr-1079](https://github.com/CosmicMind/Material/pull/1079): Added custom navigationBarClass support to NavigationController.
+  * [issue-1074](https://github.com/CosmicMind/Material/issues/1074): Need to use a NavigationBar subclass with NavigationController.
+* [pr-1080](https://github.com/CosmicMind/Material/pull/1080): Fixed license badge href.
+* [pr-1046](https://github.com/CosmicMind/Material/pull/1046): Added ShouldOpen and ShouldClose delegate methods to FABMenuDelegate.
+  * [issue-1043](https://github.com/CosmicMind/Material/issues/1043): ShouldOpen and ShouldClose delegate methods FABMenu.
+* [pr-1086](https://github.com/CosmicMind/Material/pull/1086): Fix delegations never fired on tab swipe.
+  * [issue-1087](https://github.com/CosmicMind/Material/issues/1087): TabBar item is selected even though TabsController delegate shouldSelect always returns false.
+  * [issue-1056](https://github.com/CosmicMind/Material/issues/1056): Delegation methods never fired on Tab swipe.
+* [pr-1088](https://github.com/CosmicMind/Material/pull/1088): Removed unnecessary convenience initializers.
+    * [issue-1085](https://github.com/CosmicMind/Material/issues/1085): `convenience init()` across the framework prevents generic initialization of the components.
+* [pr-1082](https://github.com/CosmicMind/Material/pull/1082): Added ErrorTextField validation.
+  * [issue-1017](https://github.com/CosmicMind/Material/issues/1017): Can we make the error detail for textfields dynamic?
+  * [issue-1053](https://github.com/CosmicMind/Material/issues/1053): TextField Detail Label not Layed-Out correctly with Left-Image.
+
 ## 2.15.0
 
 * [issue-1057](https://github.com/CosmicMind/Material/issues/1057): Added image states for TabItems used in TabBar and TabsController.
