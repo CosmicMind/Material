@@ -372,7 +372,7 @@ extension FABMenu {
    - Parameter completion: A completion block to execute on each view's animation.
    */
   open func open(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
-    if delegate?.fabMenuShouldOpen?(fabMenu: self) == false {
+    if isTriggeredByUserInteraction && delegate?.fabMenuShouldOpen?(fabMenu: self) == false {
       return
     }
     
@@ -426,7 +426,7 @@ extension FABMenu {
    */
   open func close(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
     
-    if delegate?.fabMenuShouldClose?(fabMenu: self) == false {
+    if isTriggeredByUserInteraction && delegate?.fabMenuShouldClose?(fabMenu: self) == false {
       return
     }
     
