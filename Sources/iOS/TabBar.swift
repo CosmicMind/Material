@@ -546,8 +546,9 @@ fileprivate extension TabBar {
       return
     }
     
-    guard !(false == _delegate?._tabBar(tabBar: self, shouldSelect: tabItem)) else { return }
-    
+    guard !(false == _delegate?._tabBar(tabBar: self, shouldSelect: tabItem)) else {
+      return
+    }
     
     animate(to: tabItem, isTriggeredByUserInteraction: true)
   }
@@ -604,15 +605,15 @@ fileprivate extension TabBar {
                  .size(width: tabItem.bounds.width, height: lineHeight),
                  .position(x: tabItem.center.x, y: .bottom == lineAlignment ? scrollView.bounds.height - lineHeight / 2 : lineHeight / 2),
                  .completion({ [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, tabItem = tabItem, completion = completion] in
-                  guard let s = self else {
-                    return
-                  }
+                    guard let `self` = self else {
+                      return
+                    }
                   
-                  if isTriggeredByUserInteraction {
-                    s.delegate?.tabBar?(tabBar: s, didSelect: tabItem)
-                  }
-                  
-                  completion?(tabItem)
+                    if isTriggeredByUserInteraction {
+                      self.delegate?.tabBar?(tabBar: self, didSelect: tabItem)
+                    }
+    
+                    completion?(tabItem)
                  }))
     
     updateScrollView()

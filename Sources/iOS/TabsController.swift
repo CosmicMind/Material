@@ -230,7 +230,7 @@ fileprivate extension TabsController {
     }
     
     super.transition(to: viewController) { [weak self, viewController = viewController, completion = completion] (isFinishing) in
-      guard let s = self else {
+      guard let `self` = self else {
         return
       }
       
@@ -241,7 +241,7 @@ fileprivate extension TabsController {
       completion?(isFinishing)
       
       if isTriggeredByUserInteraction {
-        s.delegate?.tabsController?(tabsController: s, didSelect: viewController)
+        self.delegate?.tabsController?(tabsController: self, didSelect: viewController)
       }
     }
   }
@@ -412,21 +412,14 @@ extension TabsController {
       }
     }
     
-    Motion.async { [weak self] in
-      guard let s = self else {
+    transition(to: viewControllers[index], isTriggeredByUserInteraction: isTriggeredByUserInteraction) { [weak self] (isFinishing) in
+      guard isFinishing else {
         return
       }
       
-      s.tabBar.select(at: index)
-      
-      s.transition(to: s.viewControllers[index], isTriggeredByUserInteraction: isTriggeredByUserInteraction) { [weak self] (isFinishing) in
-        guard isFinishing else {
-          return
-        }
-        
-        self?.selectedIndex = index
-      }
+      self?.selectedIndex = index
     }
+    
     return true
   }
 }
@@ -434,7 +427,6 @@ extension TabsController {
 extension TabsController: _TabBarDelegate {
   @objc
   func _tabBar(tabBar: TabBar, shouldSelect tabItem: TabItem) -> Bool {
-    
     guard let i = tabBar.tabItems.index(of: tabItem) else {
       return false
     }
