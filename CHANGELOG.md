@@ -1,5 +1,6 @@
 ## 2.16.0
 
+* Updated to [Motion 1.4.2](https://github.com/CosmicMind/Motion/releases/tag/1.4.2).
 * [pr-1004](https://github.com/CosmicMind/Material/pull/1004): Added RadioButton/CheckButton and RadioButtonGroup/CheckButtonGroup.
   * [issue-505](https://github.com/CosmicMind/Material/issues/505): Add RadioButton and Checkbox.
 * Updated to [Motion 1.4.0](https://github.com/CosmicMind/Motion/releases/tag/1.4.0). 
@@ -35,7 +36,7 @@
 ## 2.13.7
 
 * Updated TabsController to no longer force the default animation to change between tabs and not return to normal behavior.  
-* [issue-1044](https://github.com/CosmicMind/Material/issues/1044#issuecomment-371061101): Fixed issue where TabBar items were not correctly laying out. 
+* [issue-1044](https://github.com/CosmicMind/Material/issues/1044): Fixed issue where TabBar items were not correctly laying out. 
 
 ## 2.13.6
 
