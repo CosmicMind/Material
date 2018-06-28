@@ -204,6 +204,12 @@ open class TextField: UITextField {
     }
   }
   
+  open override var isSecureTextEntry: Bool {
+    didSet {
+      updateVisibilityIcon()
+    }
+  }
+  
   /// The placeholder UILabel.
   @IBInspectable
   open let placeholderLabel = UILabel()
@@ -333,6 +339,20 @@ open class TextField: UITextField {
   /// A reference to the visibilityIconButton.
   open fileprivate(set) var visibilityIconButton: IconButton?
   
+  /// Icon for visibilityIconButton when in the on state.
+  open var visibilityIconOn = Icon.visibility {
+    didSet {
+      updateVisibilityIcon()
+    }
+  }
+  
+  /// Icon for visibilityIconButton when in the off state.
+  open var visibilityIconOff = Icon.visibilityOff {
+    didSet {
+      updateVisibilityIcon()
+    }
+  }
+  
   /// Enables the visibilityIconButton.
   @IBInspectable
   open var isVisibilityIconButtonEnabled: Bool {
@@ -350,10 +370,11 @@ open class TextField: UITextField {
         return
       }
       
-      visibilityIconButton = IconButton(image: isSecureTextEntry ? Icon.visibility : Icon.visibilityOff, tintColor: placeholderNormalColor.withAlphaComponent(0.54))
+      isSecureTextEntry = true
+      visibilityIconButton = IconButton(image: nil, tintColor: placeholderNormalColor.withAlphaComponent(0.54))
+      updateVisibilityIcon()
       visibilityIconButton!.contentEdgeInsetsPreset = .none
       visibilityIconButton!.pulseAnimation = .centerRadialBeyondBounds
-      isSecureTextEntry = true
       clearButtonMode = .never
       rightViewMode = .whileEditing
       rightView = visibilityIconButton
@@ -639,8 +660,6 @@ fileprivate extension TextField {
   /// Handles the visibilityIconButton TouchUpInside event.
   @objc
   func handleVisibilityIconButton() {
-    isSecureTextEntry = !isSecureTextEntry
-    
     /// Workaround: Reassign text to reset cursor
     /// This is a known issue with UITextField
     /// Source: https://stackoverflow.com/questions/14220187/uitextfield-has-trailing-whitespace-after-securetextentry-toggle
@@ -657,11 +676,7 @@ fileprivate extension TextField {
           return
         }
         
-        guard let v = self.visibilityIconButton else {
-          return
-        }
-        
-        v.image = self.isSecureTextEntry ? Icon.visibilityOff?.tint(with: v.tintColor.withAlphaComponent(0.54)) : Icon.visibility?.tint(with: v.tintColor.withAlphaComponent(0.54))
+        self.isSecureTextEntry = !self.isSecureTextEntry
     })
   }
 }
@@ -756,5 +771,12 @@ extension TextField {
       self.placeholderLabel.frame.origin.x = self.leftViewWidth + self.textInset
       self.placeholderLabel.frame.origin.y = 0
     })
+  }
+}
+
+private extension TextField {
+  /// Updates visibilityIconButton image based on isSecureTextEntry value.
+  func updateVisibilityIcon() {
+    visibilityIconButton?.image = isSecureTextEntry ? visibilityIconOff : visibilityIconOn
   }
 }
