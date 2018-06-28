@@ -34,7 +34,6 @@ import UIKit
 public enum DeviceModel: Int {
   case iPodTouch5
   case iPodTouch6
-  case iPhone4
   case iPhone4s
   case iPhone5
   case iPhone5c
@@ -60,7 +59,6 @@ public enum DeviceModel: Int {
   case iPadMini4
   case iPadProSmall
   case iPadProLarge
-  case appleTV
   case simulator
   case unknown
 }
@@ -86,7 +84,6 @@ public struct Device {
     switch identifier {
     case "iPod5,1":										return .iPodTouch5
     case "iPod7,1":										return .iPodTouch6
-    case "iPhone3,1", "iPhone3,2", "iPhone3,3":			return .iPhone4
     case "iPhone4,1":									return .iPhone4s
     case "iPhone5,1", "iPhone5,2":						return .iPhone5
     case "iPhone5,3", "iPhone5,4":						return .iPhone5c
@@ -112,7 +109,6 @@ public struct Device {
     case "iPad5,1", "iPad5,2":							return .iPadMini4
     case "iPad6,3", "iPad6,4":							return .iPadProSmall
     case "iPad6,7", "iPad6,8":							return .iPadProLarge
-    case "AppleTV5,3":									return .appleTV
     case "i386", "x86_64":								return .simulator
     default:											return .unknown
     }
