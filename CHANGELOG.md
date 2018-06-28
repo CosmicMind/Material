@@ -23,6 +23,10 @@
   * [issue-1017](https://github.com/CosmicMind/Material/issues/1017): Can we make the error detail for textfields dynamic?
   * [issue-1053](https://github.com/CosmicMind/Material/issues/1053): TextField Detail Label not Layed-Out correctly with Left-Image.
 * [pr-1103](https://github.com/CosmicMind/Material/pull/1103): Added ability to change password visibility icons.
+* [pr-1097](https://github.com/CosmicMind/Material/pull/1097):: Added new extensions: UIColor(argb:), UIColor(rgb:), UIButton.fontSize, UILabel.fontSize.
+* [pr-1093](https://github.com/CosmicMind/Material/pull/1093):: Fix TextField placeholderLabel position.
+  * [issue-1092](https://github.com/CosmicMind/Material/issues/1092): TextField.placeholderLabel is positioned higher than before in version 2.x.x.
+
 
 ## 2.15.0
 
