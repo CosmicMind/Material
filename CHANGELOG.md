@@ -1,4 +1,4 @@
-## 2.15.1
+## 2.16.0
 
 * [pr-1004](https://github.com/CosmicMind/Material/pull/1004): Added RadioButton/CheckButton and RadioButtonGroup/CheckButtonGroup.
   * [issue-505](https://github.com/CosmicMind/Material/issues/505): Add RadioButton and Checkbox.
@@ -21,6 +21,7 @@
 * [pr-1082](https://github.com/CosmicMind/Material/pull/1082): Added ErrorTextField validation.
   * [issue-1017](https://github.com/CosmicMind/Material/issues/1017): Can we make the error detail for textfields dynamic?
   * [issue-1053](https://github.com/CosmicMind/Material/issues/1053): TextField Detail Label not Layed-Out correctly with Left-Image.
+* [pr-1103](https://github.com/CosmicMind/Material/pull/1103): Added ability to change password visibility icons.
 
 ## 2.15.0
 
