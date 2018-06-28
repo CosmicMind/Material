@@ -59,6 +59,10 @@ public enum DeviceModel: Int {
   case iPadMini4
   case iPadPro
   case iPadProLarge
+  case iPad5
+  case iPadPro2
+  case iPadProLarge2
+  case iPad6
   case simulator
   case unknown
 }
@@ -109,6 +113,10 @@ public struct Device {
     case "iPad5,1", "iPad5,2":                          return .iPadMini4
     case "iPad6,3", "iPad6,4":                          return .iPadPro
     case "iPad6,7", "iPad6,8":                          return .iPadProLarge
+    case "iPad6,11", "iPad6,12":                        return .iPad5
+    case "iPad7,3", "iPad7,4":                          return .iPadPro2
+    case "iPad7,1", "iPad7,2":                          return .iPadProLarge2
+    case "iPad7,5", "iPad7,6":                          return .iPad6
     case "i386", "x86_64":                              return .simulator
     default:                                            return .unknown
     }
