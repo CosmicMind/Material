@@ -45,6 +45,8 @@ public enum DeviceModel: Int {
   case iPhone6sPlus
   case iPhone7
   case iPhone7Plus
+  case iPhone8
+  case iPhone8Plus
   case iPhoneX
   case iPhoneSE
   case iPad2
@@ -96,6 +98,8 @@ public struct Device {
     case "iPhone8,4":									return .iPhoneSE
     case "iPhone9,1", "iPhone9,3":                      return .iPhone7
     case "iPhone9,2", "iPhone9,4":                      return .iPhone7Plus
+    case "iPhone10,1", "iPhone10,4":                    return .iPhone8
+    case "iPhone10,2", "iPhone10,5":                    return .iPhone8Plus
     case "iPhone10,3","iPhone10,6":                     return .iPhoneX
     case "iPad2,1", "iPad2,2", "iPad2,3", "iPad2,4":	return .iPad2
     case "iPad3,1", "iPad3,2", "iPad3,3":				return .iPad3
