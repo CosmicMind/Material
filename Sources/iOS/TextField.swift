@@ -302,6 +302,7 @@ open class TextField: UITextField {
     set(value) {
       guard value else {
         clearIconButton?.removeTarget(self, action: #selector(handleClearIconButton), for: .touchUpInside)
+        removeFromRightView(view: clearIconButton)
         clearIconButton = nil
         return
       }
@@ -313,9 +314,8 @@ open class TextField: UITextField {
       clearIconButton = IconButton(image: Icon.cm.clear, tintColor: placeholderNormalColor)
       clearIconButton!.contentEdgeInsetsPreset = .none
       clearIconButton!.pulseAnimation = .none
-      clearButtonMode = .never
-      rightViewMode = .whileEditing
-      rightView = clearIconButton
+
+      rightView?.grid.views.insert(clearIconButton!, at: 0)
       isClearIconButtonAutoHandled = { isClearIconButtonAutoHandled }()
       
       layoutSubviews()
@@ -362,6 +362,7 @@ open class TextField: UITextField {
     set(value) {
       guard value else {
         visibilityIconButton?.removeTarget(self, action: #selector(handleVisibilityIconButton), for: .touchUpInside)
+        removeFromRightView(view: visibilityIconButton)
         visibilityIconButton = nil
         return
       }
@@ -375,9 +376,8 @@ open class TextField: UITextField {
       updateVisibilityIcon()
       visibilityIconButton!.contentEdgeInsetsPreset = .none
       visibilityIconButton!.pulseAnimation = .centerRadialBeyondBounds
-      clearButtonMode = .never
-      rightViewMode = .whileEditing
-      rightView = visibilityIconButton
+      
+      rightView?.grid.views.append(visibilityIconButton!)
       isVisibilityIconButtonAutoHandled = { isVisibilityIconButtonAutoHandled }()
       
       layoutSubviews()
@@ -429,10 +429,9 @@ open class TextField: UITextField {
     layoutShape()
     layoutPlaceholderLabel()
     layoutBottomLabel(label: detailLabel, verticalOffset: detailVerticalOffset)
-    layoutButton(button: clearIconButton)
-    layoutButton(button: visibilityIconButton)
     layoutDivider()
     layoutLeftView()
+    layoutRightView()
   }
   
   open override func becomeFirstResponder() -> Bool {
@@ -475,6 +474,7 @@ open class TextField: UITextField {
     prepareDetailLabel()
     prepareTargetHandlers()
     prepareTextAlignment()
+    prepareRightView()
   }
 }
 
@@ -516,6 +516,14 @@ fileprivate extension TextField {
   /// Prepares the textAlignment.
   func prepareTextAlignment() {
     textAlignment = .rightToLeft == Application.userInterfaceLayoutDirection ? .right : .left
+  }
+  
+  /// Prepares the rightView.
+  func prepareRightView() {
+    rightView = UIView()
+    rightView?.grid.columns = 2
+    rightViewMode = .whileEditing
+    clearButtonMode = .never
   }
 }
 
@@ -589,11 +597,6 @@ fileprivate extension TextField {
     
     placeholderLabel.frame.origin.y = -placeholderLabel.frame.height + placeholderVerticalOffset
   }
-
-  /// Layout the a button.
-  func layoutButton(button: UIButton?) {
-    button?.frame = CGRect(x: bounds.width - bounds.height, y: 0, width: bounds.height, height: bounds.height)
-  }
   
   /// Layout the leftView.
   func layoutLeftView() {
@@ -604,6 +607,16 @@ fileprivate extension TextField {
     let w = leftViewWidth
     v.frame = CGRect(x: 0, y: 0, width: w, height: bounds.height)
     dividerContentEdgeInsets.left = w
+  }
+  /// Layout the rightView.
+  func layoutRightView() {
+    guard let rightView = rightView else {
+      return
+    }
+    
+    let w = CGFloat(rightView.grid.views.count) * bounds.height
+    rightView.frame = CGRect(x: bounds.width - w, y: 0, width: w, height: bounds.height)
+    rightView.grid.reload()
   }
 }
 
@@ -778,5 +791,14 @@ private extension TextField {
   /// Updates visibilityIconButton image based on isSecureTextEntry value.
   func updateVisibilityIcon() {
     visibilityIconButton?.image = isSecureTextEntry ? visibilityIconOff : visibilityIconOn
+  }
+  
+  /// Remove view from rightView.
+  func removeFromRightView(view: UIView?) {
+    guard let v = view, let i = rightView?.grid.views.index(of: v) else {
+      return
+    }
+    
+    rightView?.grid.views.remove(at: i)
   }
 }
