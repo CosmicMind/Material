@@ -57,20 +57,13 @@ open class TransitionController: UIViewController {
    helper method.
    */
   open internal(set) var rootViewController: UIViewController! {
-    willSet {
-      guard newValue != rootViewController else {
-        return
-      }
-      
-      guard let v = rootViewController else {
-        return
-      }
-      
-      removeViewController(viewController: v)
-    }
     didSet {
       guard oldValue != rootViewController else {
         return
+      }
+      
+      if let v = oldValue {
+        removeViewController(viewController: v)
       }
       
       prepare(viewController: rootViewController, in: container)

@@ -249,10 +249,8 @@ open class TabBar: Bar {
   
   /// The currently selected tabItem.
   open internal(set) var selectedTabItem: TabItem? {
-    willSet {
-      selectedTabItem?.isSelected = false
-    }
     didSet {
+      oldValue?.isSelected = false
       selectedTabItem?.isSelected = true
     }
   }
