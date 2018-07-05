@@ -1,3 +1,7 @@
+## 2.16.1
+
+* [issue-1110](https://github.com/CosmicMind/Material/issues/1110): Fixed an issue where the depth of a view was being clipped from incorrectly. 
+
 ## 2.16.0
 
 * Updated to [Motion 1.4.2](https://github.com/CosmicMind/Motion/releases/tag/1.4.2).

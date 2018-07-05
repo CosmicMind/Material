@@ -268,12 +268,10 @@ extension CALayer {
     }
     
     guard .circle == shapePreset else {
-      masksToBounds = false
       cornerRadius = 0
       return
     }
     
-    masksToBounds = true
     cornerRadius = bounds.width / 2
   }
   
