@@ -373,10 +373,10 @@ fileprivate extension TabsController {
       switch swipeGesture.direction {
       case .right:
         guard (selectedIndex - 1) >= 0 else { return }
-        internalSelect(at: selectedIndex - 1, isTriggeredByUserInteraction: true)
+        internalSelect(at: selectedIndex - 1, isTriggeredByUserInteraction: true, selectTabItem: true)
       case .left:
         guard (selectedIndex + 1) < viewControllers.count else { return }
-        internalSelect(at: selectedIndex + 1, isTriggeredByUserInteraction: true)
+        internalSelect(at: selectedIndex + 1, isTriggeredByUserInteraction: true, selectTabItem: true)
       default:
         break
       }
@@ -390,7 +390,7 @@ extension TabsController {
    - Parameter at index: An Int.
    */
   open func select(at index: Int) {
-    internalSelect(at: index, isTriggeredByUserInteraction: false)
+    internalSelect(at: index, isTriggeredByUserInteraction: false, selectTabItem: true)
   }
   
   /**
@@ -401,7 +401,7 @@ extension TabsController {
    - Returns: A boolean indicating whether the transition will take place.
    */
   @discardableResult
-  private func internalSelect(at index: Int, isTriggeredByUserInteraction: Bool) -> Bool {
+  private func internalSelect(at index: Int, isTriggeredByUserInteraction: Bool, selectTabItem: Bool) -> Bool {
     guard index != selectedIndex else {
       return false
     }
@@ -410,6 +410,10 @@ extension TabsController {
       guard !(false == delegate?.tabsController?(tabsController: self, shouldSelect: viewControllers[index])) else {
         return false
       }
+    }
+    
+    if selectTabItem {
+      tabBar.select(at: index)
     }
     
     transition(to: viewControllers[index], isTriggeredByUserInteraction: isTriggeredByUserInteraction) { [weak self] (isFinishing) in
@@ -431,6 +435,6 @@ extension TabsController: _TabBarDelegate {
       return false
     }
     
-    return internalSelect(at: i, isTriggeredByUserInteraction: true)
+    return internalSelect(at: i, isTriggeredByUserInteraction: true, selectTabItem: false)
   }
 }
