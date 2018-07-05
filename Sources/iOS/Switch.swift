@@ -371,7 +371,9 @@ extension Switch {
   open func setSwitchState(state: SwitchState, animated: Bool = true, completion: ((Switch) -> Void)? = nil) {
     updateSwitchState(state: state, animated: animated, isTriggeredByUserInteraction: false, completion: completion)
   }
-  
+}
+
+fileprivate extension Switch {
   /**
    Set the switchState property with an option to animate.
    - Parameter state: The SwitchState to set.
@@ -414,14 +416,12 @@ extension Switch {
       delegate?.switchDidChangeState(control: self, state: internalSwitchState)
     }
   }
-}
-
-extension Switch {
+  
   /**
    Updates the coloring for the enabled state.
    - Parameter state: SwitchState.
    */
-  fileprivate func updateColorForState(state: SwitchState) {
+  func updateColorForState(state: SwitchState) {
     if .on == state {
       button.backgroundColor = buttonOnColor
       track.backgroundColor = trackOnColor
@@ -435,7 +435,7 @@ extension Switch {
    Updates the coloring for the disabled state.
    - Parameter state: SwitchState.
    */
-  fileprivate func updateColorForDisabledState(state: SwitchState) {
+  func updateColorForDisabledState(state: SwitchState) {
     if .on == state {
       button.backgroundColor = buttonOnDisabledColor
       track.backgroundColor = trackOnDisabledColor
@@ -449,22 +449,23 @@ extension Switch {
    Updates the style based on the state.
    - Parameter state: The SwitchState to set the style to.
    */
-  fileprivate func styleForState(state: SwitchState) {
+  func styleForState(state: SwitchState) {
     if isEnabled {
       updateColorForState(state: state)
+    
     } else {
       updateColorForDisabledState(state: state)
     }
   }
 }
 
-extension Switch {
+fileprivate extension Switch {
   /**
    Set the switchState property with an animate.
    - Parameter state: The SwitchState to set.
    - Parameter completion: An Optional completion block.
    */
-  fileprivate func animateToState(state: SwitchState, completion: ((Switch) -> Void)? = nil) {
+  func animateToState(state: SwitchState, completion: ((Switch) -> Void)? = nil) {
     isUserInteractionEnabled = false
     UIView.animate(withDuration: 0.15,
                    delay: 0.05,
@@ -496,14 +497,14 @@ extension Switch {
   }
 }
 
-extension Switch {
+fileprivate extension Switch {
   /**
    Handle the TouchUpOutside and TouchCancel moments.
    - Parameter sender: A UIButton.
    - Parameter event: A UIEvent.
    */
   @objc
-  fileprivate func handleTouchUpOutsideOrCanceled(sender: FABButton, event: UIEvent) {
+  func handleTouchUpOutsideOrCanceled(sender: FABButton, event: UIEvent) {
     guard let v = event.touches(for: sender)?.first else {
       return
     }
@@ -514,7 +515,7 @@ extension Switch {
   
   /// Handles the TouchUpInside event.
   @objc
-  fileprivate func handleTouchUpInside() {
+  func handleTouchUpInside() {
     updateSwitchState(state: isOn ? .off : .on, animated: true, isTriggeredByUserInteraction: true)
   }
   
@@ -524,7 +525,7 @@ extension Switch {
    - Parameter event: A UIEvent.
    */
   @objc
-  fileprivate func handleTouchDragInside(sender: FABButton, event: UIEvent) {
+  func handleTouchDragInside(sender: FABButton, event: UIEvent) {
     guard let v = event.touches(for: sender)?.first else {
       return
     }
@@ -539,14 +540,14 @@ extension Switch {
   }
 }
 
-extension Switch {
+fileprivate extension Switch {
   /// Prepares the track.
-  fileprivate func prepareTrack() {
+  func prepareTrack() {
     addSubview(track)
   }
   
   /// Prepares the button.
-  fileprivate func prepareButton() {
+  func prepareButton() {
     button.addTarget(self, action: #selector(handleTouchUpInside), for: .touchUpInside)
     button.addTarget(self, action: #selector(handleTouchDragInside), for: .touchDragInside)
     button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled), for: .touchCancel)
@@ -559,7 +560,7 @@ extension Switch {
    init to set the state value and have an effect.
    - Parameter state: The SwitchState to set.
    */
-  fileprivate func prepareSwitchState(state: SwitchState = .off) {
+  func prepareSwitchState(state: SwitchState = .off) {
     updateSwitchState(state: state, animated: false, isTriggeredByUserInteraction: false)
   }
   
@@ -568,7 +569,7 @@ extension Switch {
    init to set the state value and have an effect.
    - Parameter style: The SwitchStyle to set.
    */
-  fileprivate func prepareSwitchStyle(style: SwitchStyle = .light) {
+  func prepareSwitchStyle(style: SwitchStyle = .light) {
     switchStyle = style
   }
   
@@ -577,7 +578,7 @@ extension Switch {
    init to set the size value and have an effect.
    - Parameter size: The SwitchSize to set.
    */
-  fileprivate func prepareSwitchSize(size: SwitchSize = .medium) {
+  func prepareSwitchSize(size: SwitchSize = .medium) {
     switchSize = size
   }
 }
