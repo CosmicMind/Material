@@ -189,6 +189,16 @@ public struct Grid {
     reload()
   }
   
+  /**
+   Update grid in a deferred block.
+   - Parameter block: An update code block.
+   */
+  public mutating func update(_ block: (Grid) -> Void) {
+    begin()
+    block(self)
+    commit()
+  }
+  
   /// Reload the button layout.
   public func reload() {
     guard !isDeferred else {
