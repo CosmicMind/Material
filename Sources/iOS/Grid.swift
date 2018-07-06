@@ -191,7 +191,7 @@ public struct Grid {
   
   /**
    Update grid in a deferred block.
-   - Parameter block: An update code block.
+   - Parameter _ block: An update code block.
    */
   public mutating func update(_ block: (Grid) -> Void) {
     begin()
