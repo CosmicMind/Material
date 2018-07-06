@@ -205,6 +205,12 @@ public enum TabBarCenteringStyle {
   case always
 }
 
+public enum TabBarLineStyle {
+  case auto
+  case fixed(CGFloat)
+  case custom((TabItem) -> CGFloat)
+}
+
 open class TabBar: Bar {
   /// A dictionary of TabItemLineStates to UIColors for the line.
   fileprivate var lineColorForState = [TabItemLineState: UIColor]()
@@ -238,6 +244,13 @@ open class TabBar: Bar {
 
   /// An enum that determines the tab bar centering style.
   open var tabBarCenteringStyle = TabBarCenteringStyle.never {
+    didSet {
+      layoutSubviews()
+    }
+  }
+  
+  /// An enum that determines the tab bar items style.
+  open var tabBarLineStyle = TabBarLineStyle.auto {
     didSet {
       layoutSubviews()
     }
@@ -486,15 +499,34 @@ fileprivate extension TabBar {
     }
     
     guard shouldNotAnimateLineView else {
+      let f = lineFrame(for: v, forMotion: true)
       line.animate(.duration(0),
-                   .size(width: v.bounds.width, height: lineHeight),
-                   .position(x: v.center.x, y: .bottom == lineAlignment ? scrollView.bounds.height - lineHeight / 2 : lineHeight / 2))
+                   .size(f.size),
+                   .position(f.origin))
       return
     }
     
-    line.frame = CGRect(x: v.frame.origin.x, y: .bottom == lineAlignment ? scrollView.bounds.height - lineHeight : 0, width: v.bounds.width, height: lineHeight)
+    line.frame = lineFrame(for: v)
     
     shouldNotAnimateLineView = false
+  }
+  
+  func lineFrame(for tabItem: TabItem, forMotion: Bool = false) -> CGRect {
+    let y = .bottom == lineAlignment ? scrollView.bounds.height - (forMotion ? lineHeight / 2 : lineHeight) : (forMotion ? lineHeight / 2 : 0)
+    let w: CGFloat = {
+      switch tabBarLineStyle {
+      case .auto:
+        return tabItem.bounds.width
+        
+      case .fixed(let w):
+        return w
+        
+      case .custom(let closure):
+        return closure(tabItem)
+      }
+    }()
+    let x = forMotion ? tabItem.center.x : (tabItem.frame.origin.x + (tabItem.bounds.width - w) / 2)
+    return CGRect(x: x, y: y, width: w, height: lineHeight)
   }
 }
 
@@ -612,9 +644,10 @@ fileprivate extension TabBar {
     
     selectedTabItem = tabItem
     
+    let f = lineFrame(for: tabItem, forMotion: true)
     line.animate(.duration(0.25),
-                 .size(width: tabItem.bounds.width, height: lineHeight),
-                 .position(x: tabItem.center.x, y: .bottom == lineAlignment ? scrollView.bounds.height - lineHeight / 2 : lineHeight / 2),
+                 .size(f.size),
+                 .position(f.origin),
                  .completion({ [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, tabItem = tabItem, completion = completion] in
                     guard let `self` = self else {
                       return
