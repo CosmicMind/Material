@@ -268,6 +268,7 @@ fileprivate extension TabsController {
       // Expectation that viewDidLoad() triggers update of tabItem:
       if #available(iOS 9.0, *) {
         v.loadViewIfNeeded()
+      
       } else {
         _ = v.view
       }
@@ -374,9 +375,11 @@ fileprivate extension TabsController {
       case .right:
         guard (selectedIndex - 1) >= 0 else { return }
         internalSelect(at: selectedIndex - 1, isTriggeredByUserInteraction: true, selectTabItem: true)
+      
       case .left:
         guard (selectedIndex + 1) < viewControllers.count else { return }
         internalSelect(at: selectedIndex + 1, isTriggeredByUserInteraction: true, selectTabItem: true)
+      
       default:
         break
       }
