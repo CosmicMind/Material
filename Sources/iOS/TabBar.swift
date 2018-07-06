@@ -199,6 +199,12 @@ public enum TabBarStyle: Int {
   case scrollable
 }
 
+public enum TabBarCenteringStyle {
+  case never
+  case whenNeeded
+  case always
+}
+
 open class TabBar: Bar {
   /// A dictionary of TabItemLineStates to UIColors for the line.
   fileprivate var lineColorForState = [TabItemLineState: UIColor]()
@@ -225,6 +231,13 @@ open class TabBar: Bar {
   
   /// An enum that determines the tab bar style.
   open var tabBarStyle = TabBarStyle.auto {
+    didSet {
+      layoutSubviews()
+    }
+  }
+
+  /// An enum that determines the tab bar centering style.
+  open var tabBarCenteringStyle = TabBarCenteringStyle.never {
     didSet {
       layoutSubviews()
     }
@@ -625,9 +638,27 @@ fileprivate extension TabBar {
       return
     }
     
-    if !scrollView.bounds.contains(v.frame) {
-      let contentOffsetX = (v.frame.origin.x < scrollView.bounds.minX) ? v.frame.origin.x : v.frame.maxX - scrollView.bounds.width
-      let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.bounds.width)
+    let contentOffsetX: CGFloat? = {
+      let shouldScroll = !scrollView.bounds.contains(v.frame)
+      
+      switch tabBarCenteringStyle {
+      case .whenNeeded:
+        guard shouldScroll else {
+          return nil
+        }
+        fallthrough
+      case .always:
+        return v.center.x - bounds.width / 2
+      case .never:
+        guard shouldScroll else {
+          return nil
+        }
+        return v.frame.origin.x < scrollView.bounds.minX ? v.frame.origin.x : v.frame.maxX - scrollView.bounds.width
+      }
+    }()
+    
+    if let x = contentOffsetX {
+      let normalizedOffsetX = min(max(x, 0), scrollView.contentSize.width - scrollView.bounds.width)
       scrollView.setContentOffset(CGPoint(x: normalizedOffsetX, y: 0), animated: true)
     }
   }
