@@ -201,7 +201,7 @@ public enum TabBarStyle: Int {
 
 public enum TabBarCenteringStyle {
   case never
-  case whenNeeded
+  case auto
   case always
 }
 
@@ -243,7 +243,7 @@ open class TabBar: Bar {
   }
 
   /// An enum that determines the tab bar centering style.
-  open var tabBarCenteringStyle = TabBarCenteringStyle.never {
+  open var tabBarCenteringStyle = TabBarCenteringStyle.always {
     didSet {
       layoutSubviews()
     }
@@ -513,6 +513,7 @@ fileprivate extension TabBar {
   
   func lineFrame(for tabItem: TabItem, forMotion: Bool = false) -> CGRect {
     let y = .bottom == lineAlignment ? scrollView.bounds.height - (forMotion ? lineHeight / 2 : lineHeight) : (forMotion ? lineHeight / 2 : 0)
+    
     let w: CGFloat = {
       switch tabBarLineStyle {
       case .auto:
@@ -525,7 +526,9 @@ fileprivate extension TabBar {
         return closure(tabItem)
       }
     }()
+    
     let x = forMotion ? tabItem.center.x : (tabItem.frame.origin.x + (tabItem.bounds.width - w) / 2)
+    
     return CGRect(x: x, y: y, width: w, height: lineHeight)
   }
 }
@@ -645,6 +648,7 @@ fileprivate extension TabBar {
     selectedTabItem = tabItem
     
     let f = lineFrame(for: tabItem, forMotion: true)
+    
     line.animate(.duration(0.25),
                  .size(f.size),
                  .position(f.origin),
@@ -675,17 +679,21 @@ fileprivate extension TabBar {
       let shouldScroll = !scrollView.bounds.contains(v.frame)
       
       switch tabBarCenteringStyle {
-      case .whenNeeded:
+      case .auto:
         guard shouldScroll else {
           return nil
         }
+        
         fallthrough
+        
       case .always:
         return v.center.x - bounds.width / 2
+      
       case .never:
         guard shouldScroll else {
           return nil
         }
+      
         return v.frame.origin.x < scrollView.bounds.minX ? v.frame.origin.x : v.frame.maxX - scrollView.bounds.width
       }
     }()

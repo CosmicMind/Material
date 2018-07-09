@@ -1,6 +1,19 @@
+## 2.16.2
+
+* [pr-1113](https://github.com/CosmicMind/Material/pull/1113): Added update() to Grid.
+* [pr-1112](https://github.com/CosmicMind/Material/pull/1112): Added tab bar centering.
+  * [issue-926](https://github.com/CosmicMind/Material/issues/926): TabsController - centering TabItem after selection.
+* [pr-1114](https://github.com/CosmicMind/Material/pull/1114): Added option to adjust tabBar line width.
+  * [issue-1109](https://github.com/CosmicMind/Material/issues/1109): Want to change TabBar line width.
+
 ## 2.16.1
 
-* [issue-1110](https://github.com/CosmicMind/Material/issues/1110): Fixed an issue where the depth of a view was being clipped from incorrectly. 
+* [issue-1110](https://github.com/CosmicMind/Material/issues/1110): Fixed an issue where the depth of a view was being clipped incorrectly. 
+* [pr-1111](https://github.com/CosmicMind/Material/pull/1111): Fixed TabItem - was not being changed on swipe.
+* [pr-1106](https://github.com/CosmicMind/Material/pull/1106): Added ability to show visibility and clear button at the same time.
+  * [issue-992](https://github.com/CosmicMind/Material/issues/992): Visibility & Clear Button can't be shown in TextField at the same time.
+* [pr-1104](https://github.com/CosmicMind/Material/pull/1104): Added missing devices.
+* [pr-1101](https://github.com/CosmicMind/Material/pull/1101): Enum for support iPhoneX.
 
 ## 2.16.0
 
@@ -30,6 +43,8 @@
 * [pr-1097](https://github.com/CosmicMind/Material/pull/1097):: Added new extensions: UIColor(argb:), UIColor(rgb:), UIButton.fontSize, UILabel.fontSize.
 * [pr-1093](https://github.com/CosmicMind/Material/pull/1093):: Fix TextField placeholderLabel position.
   * [issue-1092](https://github.com/CosmicMind/Material/issues/1092): TextField.placeholderLabel is positioned higher than before in version 2.x.x.
+* [pr-1103](https://github.com/CosmicMind/Material/pull/1103): Added ability to change password visibility icons.
+  * [issue-1012](https://github.com/CosmicMind/Material/issues/1012): Can we set visibility icon custom for password textfield.
 
 
 ## 2.15.0
