@@ -37,14 +37,7 @@ extension UIViewController {
    through child UIViewControllers.
    */
   public var cardCollectionViewController: CardCollectionViewController? {
-    var viewController: UIViewController? = self
-    while nil != viewController {
-      if viewController is CardCollectionViewController {
-        return viewController as? CardCollectionViewController
-      }
-      viewController = viewController?.parent
-    }
-    return nil
+    return traverseViewControllerHierarchyForClassType()
   }
 }
 

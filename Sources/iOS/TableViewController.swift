@@ -47,14 +47,7 @@ extension UIViewController {
    through child UIViewControllers.
    */
   public var tableViewController: TableViewController? {
-    var viewController: UIViewController? = self
-    while nil != viewController {
-      if viewController is TableViewController {
-        return viewController as? TableViewController
-      }
-      viewController = viewController?.parent
-    }
-    return nil
+    return traverseViewControllerHierarchyForClassType()
   }
 }
 
