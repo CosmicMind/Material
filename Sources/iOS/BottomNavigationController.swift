@@ -37,14 +37,7 @@ extension UIViewController {
    through child UIViewControllers.
    */
   public var bottomNavigationController: BottomNavigationController? {
-    var viewController: UIViewController? = self
-    while nil != viewController {
-      if viewController is BottomNavigationController {
-        return viewController as? BottomNavigationController
-      }
-      viewController = viewController?.parent
-    }
-    return nil
+    return traverseViewControllerHierarchyForClassType()
   }
 }
 

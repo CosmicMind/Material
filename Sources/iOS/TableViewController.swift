@@ -47,40 +47,19 @@ extension UIViewController {
    through child UIViewControllers.
    */
   public var tableViewController: TableViewController? {
-    var viewController: UIViewController? = self
-    while nil != viewController {
-      if viewController is TableViewController {
-        return viewController as? TableViewController
-      }
-      viewController = viewController?.parent
-    }
-    return nil
+    return traverseViewControllerHierarchyForClassType()
   }
 }
 
-open class TableViewController: UIViewController {
+open class TableViewController: ViewController {
   /// A reference to a Reminder.
   open let tableView = TableView()
   
   /// An Array of DataSourceItems.
   open var dataSourceItems = [DataSourceItem]()
   
-  open override func viewDidLoad() {
-    super.viewDidLoad()
-    prepare()
-  }
-  
-  /**
-   Prepares the view instance when intialized. When subclassing,
-   it is recommended to override the prepareView method
-   to initialize property values and other setup operations.
-   The super.prepareView method should always be called immediately
-   when subclassing.
-   */
-  open func prepare() {
-    view.clipsToBounds = true
-    view.backgroundColor = .white
-    view.contentScaleFactor = Screen.scale
+  open override func prepare() {
+    super.prepare()
     prepareTableView()
   }
 }

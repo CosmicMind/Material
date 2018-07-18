@@ -37,18 +37,11 @@ extension UIViewController {
    through child UIViewControllers.
    */
   public var cardCollectionViewController: CardCollectionViewController? {
-    var viewController: UIViewController? = self
-    while nil != viewController {
-      if viewController is CardCollectionViewController {
-        return viewController as? CardCollectionViewController
-      }
-      viewController = viewController?.parent
-    }
-    return nil
+    return traverseViewControllerHierarchyForClassType()
   }
 }
 
-open class CardCollectionViewController: UIViewController {
+open class CardCollectionViewController: ViewController {
   /// A reference to a Reminder.
   open let collectionView = CollectionView()
   
@@ -57,32 +50,13 @@ open class CardCollectionViewController: UIViewController {
   /// An index of IndexPath to DataSourceItem.
   open var dataSourceItemsIndexPaths = [IndexPath: Any]()
   
-  open override func viewDidLoad() {
-    super.viewDidLoad()
-    prepare()
-  }
-  
-  open override func viewWillLayoutSubviews() {
-    super.viewWillLayoutSubviews()
-    layoutSubviews()
-  }
-  
-  /**
-   Prepares the view instance when intialized. When subclassing,
-   it is recommended to override the prepareView method
-   to initialize property values and other setup operations.
-   The super.prepareView method should always be called immediately
-   when subclassing.
-   */
-  open func prepare() {
-    view.clipsToBounds = true
-    view.backgroundColor = .white
-    view.contentScaleFactor = Screen.scale
+  open override func prepare() {
+    super.prepare()
     prepareCollectionView()
   }
   
-  /// Calls the layout functions for the view heirarchy.
-  open func layoutSubviews() {
+  open override func layoutSubviews() {
+    super.layoutSubviews()
     layoutCollectionView()
   }
 }
