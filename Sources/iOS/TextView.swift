@@ -107,10 +107,14 @@ open class TextView: UITextView {
     }
   }
   
+  /// Holds default font.
+  private var _font: UIFont?
+  
   /// The placeholderLabel font value.
   @IBInspectable
   open override var font: UIFont? {
     didSet {
+        _font = font
       placeholderLabel.font = font
     }
   }
@@ -276,6 +280,18 @@ open class TextView: UITextView {
     prepareRegularExpression()
     preparePlaceholderLabel()
   }
+    
+    open override func insertText(_ text: String) {
+        fixTypingFont()
+        super.insertText(text)
+        fixTypingFont()
+    }
+    
+    open override func paste(_ sender: Any?) {
+        fixTypingFont()
+        super.paste(sender)
+        fixTypingFont()
+    }
 }
 
 fileprivate extension TextView {
@@ -440,5 +456,28 @@ extension TextView: TextStorageDelegate {
     }
     
     (delegate as? TextViewDelegate)?.textView?(textView: self, didProcessEditing: textStorage, text: string, range: range)
+  }
+}
+
+private extension TextView {
+  /// issue-838 and pr-1117
+  ///
+  /// Inserting (typing or pasting) an emoji character or placing cursor after some
+  /// emoji characters (e.g ☺️) was causing typing font to change to "AppleColorEmoji"
+  /// and which was eventually falling back to "Courier New" when a non-emoji
+  /// character is inserted. This only happens only if `NSTextStorage` subclass is
+  /// used, otherwise typing font never changed to "AppleColorEmoji". So, we fix it
+  /// by resetting typing font from AppleColorEmoji to the default font set by the
+  /// developer. The fix is applied before and after inserting text. The former fixes
+  /// typing font change due to cursor placed after an emoji character, and the
+  /// latter fixes the typing font change due to the insertion of an emoji character
+  /// (typing font changes somehow are reflected in `UITextView.font` parameter).
+  func fixTypingFont() {
+    let fontAttribute = NSAttributedStringKey.font.rawValue
+    guard (typingAttributes[fontAttribute] as? UIFont)?.fontName == "AppleColorEmoji" else {
+      return
+    }
+    
+    typingAttributes[fontAttribute] = _font
   }
 }
