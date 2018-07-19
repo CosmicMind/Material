@@ -1,3 +1,10 @@
+## 2.16.3
+
+* Updated to [Motion 1.4.3](https://github.com/CosmicMind/Motion/releases/tag/1.4.3)
+* [pr-1116](https://github.com/CosmicMind/Material/pull/1116): ViewController-oriented clean up.
+* [pr-1117](https://github.com/CosmicMind/Material/pull/1117): Fixed TextView font issue with emojis.
+  * [issue-838](https://github.com/CosmicMind/Material/issues/838): TextView's font breaks when you type emoji.
+
 ## 2.16.2
 
 * [pr-1113](https://github.com/CosmicMind/Material/pull/1113): Added update() to Grid.
