@@ -207,6 +207,7 @@ open class TextField: UITextField {
   open override var isSecureTextEntry: Bool {
     didSet {
       updateVisibilityIcon()
+      fixCursorPosition()
     }
   }
   
@@ -673,13 +674,6 @@ fileprivate extension TextField {
   /// Handles the visibilityIconButton TouchUpInside event.
   @objc
   func handleVisibilityIconButton() {
-    /// Workaround: Reassign text to reset cursor
-    /// This is a known issue with UITextField
-    /// Source: https://stackoverflow.com/questions/14220187/uitextfield-has-trailing-whitespace-after-securetextentry-toggle
-    let textHolder = text
-    text = " "
-    text = textHolder
-    
     UIView.transition(
       with: (visibilityIconButton?.imageView)!,
       duration: 0.3,
@@ -800,5 +794,15 @@ private extension TextField {
     }
     
     rightView?.grid.views.remove(at: i)
+  }
+  
+  /**
+   Reassign text to reset cursor position.
+   Fixes issue-1119. Previously issue-1030, and issue-1023.
+   */
+  func fixCursorPosition() {
+    let t = text
+    text = nil
+    text = t
   }
 }
