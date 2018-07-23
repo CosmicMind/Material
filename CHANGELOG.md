@@ -1,3 +1,8 @@
+## 2.16.4
+
+* [pr-1120](https://github.com/CosmicMind/Material/pull/1120): Fixed issue where TextField cursor was not being repositioned correctly.
+  * [issue-1119](https://github.com/CosmicMind/Material/issues/1119): Cursor position was incorrectly being positioned when toggling security entry.
+
 ## 2.16.3
 
 * Updated to [Motion 1.4.3](https://github.com/CosmicMind/Motion/releases/tag/1.4.3)
