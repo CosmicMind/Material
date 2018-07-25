@@ -930,7 +930,7 @@ extension Layout {
    - Parameter views: A Dictionary<String, Any> of view key / value pairs.
    - Returns: The Array<NSLayoutConstraint> instance.
    */
-  public class func constraint(format: String, options: NSLayoutFormatOptions, metrics: [String: Any]?, views: [String: Any]) -> [NSLayoutConstraint] {
+  public class func constraint(format: String, options: NSLayoutConstraint.FormatOptions, metrics: [String: Any]?, views: [String: Any]) -> [NSLayoutConstraint] {
     for (_, a) in views {
       if let v = a as? UIView {
         v.translatesAutoresizingMaskIntoConstraints = false

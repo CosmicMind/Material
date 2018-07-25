@@ -57,7 +57,7 @@ open class CollectionViewLayout: UICollectionViewLayout {
   public fileprivate(set) var dataSourceItems: [DataSourceItem]?
   
   /// Scroll direction.
-  public var scrollDirection = UICollectionViewScrollDirection.vertical
+  public var scrollDirection = UICollectionView.ScrollDirection.vertical
   
   /// A preset wrapper around interimSpace.
   public var interimSpacePreset = InterimSpacePreset.none {

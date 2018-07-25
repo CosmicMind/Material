@@ -94,7 +94,7 @@ open class BottomNavigationController: UITabBarController {
         if .phone == Device.userInterfaceIdiom {
           if nil == item.title {
             let inset: CGFloat = 7
-            item.imageInsets = UIEdgeInsetsMake(inset, 0, -inset, 0)
+            item.imageInsets = UIEdgeInsets.init(top: inset, left: 0, bottom: -inset, right: 0)
           } else {
             let inset: CGFloat = 6
             item.titlePositionAdjustment.vertical = -inset
@@ -102,10 +102,10 @@ open class BottomNavigationController: UITabBarController {
         } else {
           if nil == item.title {
             let inset: CGFloat = 9
-            item.imageInsets = UIEdgeInsetsMake(inset, 0, -inset, 0)
+            item.imageInsets = UIEdgeInsets.init(top: inset, left: 0, bottom: -inset, right: 0)
           } else {
             let inset: CGFloat = 3
-            item.imageInsets = UIEdgeInsetsMake(inset, 0, -inset, 0)
+            item.imageInsets = UIEdgeInsets.init(top: inset, left: 0, bottom: -inset, right: 0)
             item.titlePositionAdjustment.vertical = -inset
           }
         }

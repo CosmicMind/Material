@@ -38,7 +38,7 @@ open class Layer: CAShapeLayer {
    allows the dropshadow effect on the backing layer, while clipping
    the image to a desired shape within the visualLayer.
    */
-  open let visualLayer = CAShapeLayer()
+  public let visualLayer = CAShapeLayer()
   
   /**
    A property that manages an image for the visualLayer's contents
@@ -86,16 +86,9 @@ open class Layer: CAShapeLayer {
     }
   }
   
-  /// A Preset for the contentsGravity property.
-  open var contentsGravityPreset: Gravity {
-    didSet {
-      contentsGravity = GravityToValue(gravity: contentsGravityPreset)
-    }
-  }
-  
   /// Determines how content should be aligned within the visualLayer's bounds.
   @IBInspectable
-  open override var contentsGravity: String {
+  open override var contentsGravity: CALayerContentsGravity {
     get {
       return visualLayer.contentsGravity
     }
@@ -122,7 +115,6 @@ open class Layer: CAShapeLayer {
    - Parameter aDecoder: A NSCoder instance.
    */
   public required init?(coder aDecoder: NSCoder) {
-    contentsGravityPreset = .resizeAspectFill
     super.init(coder: aDecoder)
     prepareVisualLayer()
   }
@@ -133,14 +125,12 @@ open class Layer: CAShapeLayer {
    - Parameter layer: Any.
    */
   public override init(layer: Any) {
-    contentsGravityPreset = .resizeAspectFill
     super.init(layer: layer)
     prepareVisualLayer()
   }
   
   /// A convenience initializer.
   public override init() {
-    contentsGravityPreset = .resizeAspectFill
     super.init()
     prepareVisualLayer()
   }
@@ -165,6 +155,7 @@ open class Layer: CAShapeLayer {
 fileprivate extension Layer {
   /// Prepares the visualLayer property.
   func prepareVisualLayer() {
+    contentsGravity = .resizeAspectFill
     visualLayer.zPosition = 0
     visualLayer.masksToBounds = true
     addSublayer(visualLayer)

@@ -39,7 +39,7 @@ open class CollectionViewCell: UICollectionViewCell, Pulseable, PulseableLayer {
    allows the dropshadow effect on the backing layer, while clipping
    the image to a desired shape within the visualLayer.
    */
-  open let visualLayer = CAShapeLayer()
+  public let visualLayer = CAShapeLayer()
   
   /// A Pulse reference.
   internal var pulse: Pulse!
@@ -138,16 +138,9 @@ open class CollectionViewCell: UICollectionViewCell, Pulseable, PulseableLayer {
     }
   }
   
-  /// A Preset for the contentsGravity property.
-  public var contentsGravityPreset: Gravity {
-    didSet {
-      contentsGravity = GravityToValue(gravity: contentsGravityPreset)
-    }
-  }
-  
   /// Determines how content should be aligned within the visualLayer's bounds.
   @IBInspectable
-  open var contentsGravity: String {
+  open var contentsGravity: CALayerContentsGravity {
     get {
       return visualLayer.contentsGravity
     }
@@ -169,7 +162,6 @@ open class CollectionViewCell: UICollectionViewCell, Pulseable, PulseableLayer {
    - Parameter aDecoder: A NSCoder instance.
    */
   public required init?(coder aDecoder: NSCoder) {
-    contentsGravityPreset = .resizeAspectFill
     super.init(coder: aDecoder)
     prepare()
   }
@@ -181,7 +173,6 @@ open class CollectionViewCell: UICollectionViewCell, Pulseable, PulseableLayer {
    - Parameter frame: A CGRect instance.
    */
   public override init(frame: CGRect) {
-    contentsGravityPreset = .resizeAspectFill
     super.init(frame: frame)
     prepare()
   }
@@ -246,31 +237,32 @@ open class CollectionViewCell: UICollectionViewCell, Pulseable, PulseableLayer {
    when subclassing.
    */
   open func prepare() {
-    backgroundColor = .white
+    contentsGravity = .resizeAspectFill
     contentScaleFactor = Screen.scale
+    backgroundColor = .white
     
     prepareVisualLayer()
     preparePulse()
   }
 }
 
-extension CollectionViewCell {
+fileprivate extension CollectionViewCell {
   /// Prepares the pulse motion.
-  fileprivate func preparePulse() {
+  func preparePulse() {
     pulse = Pulse(pulseView: self, pulseLayer: visualLayer)
   }
   
   /// Prepares the visualLayer property.
-  fileprivate func prepareVisualLayer() {
+  func prepareVisualLayer() {
     visualLayer.zPosition = 0
     visualLayer.masksToBounds = true
     layer.addSublayer(visualLayer)
   }
 }
 
-extension CollectionViewCell {
+fileprivate extension CollectionViewCell {
   /// Manages the layout for the visualLayer property.
-  fileprivate func layoutVisualLayer() {
+  func layoutVisualLayer() {
     visualLayer.frame = bounds
     visualLayer.cornerRadius = layer.cornerRadius
   }

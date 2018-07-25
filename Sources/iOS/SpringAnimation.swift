@@ -133,7 +133,7 @@ extension SpringAnimation {
    - Parameter animations: An animation block to execute on each view's animation.
    - Parameter completion: A completion block to execute on each view's animation.
    */
-  open func expand(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+  open func expand(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIView.AnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
     guard isEnabled else {
       return
     }
@@ -162,7 +162,7 @@ extension SpringAnimation {
    - Parameter animations: An animation block to execute on each view's animation.
    - Parameter completion: A completion block to execute on each view's animation.
    */
-  open func contract(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+  open func contract(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIView.AnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
     guard isEnabled else {
       return
     }
@@ -226,7 +226,7 @@ extension SpringAnimation {
    - Parameter animations: An animation block to execute on each view's animation.
    - Parameter completion: A completion block to execute on each view's animation.
    */
-  fileprivate func expandUp(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+  fileprivate func expandUp(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIView.AnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
     for i in 0..<views.count {
       let v = views[i]
       v.isHidden = false
@@ -256,7 +256,7 @@ extension SpringAnimation {
    - Parameter animations: An animation block to execute on each view's animation.
    - Parameter completion: A completion block to execute on each view's animation.
    */
-  fileprivate func contractUp(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+  fileprivate func contractUp(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIView.AnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
     for i in 0..<views.count {
       let v = views[i]
       
@@ -285,7 +285,7 @@ extension SpringAnimation {
    - Parameter animations: An animation block to execute on each view's animation.
    - Parameter completion: A completion block to execute on each view's animation.
    */
-  fileprivate func expandDown(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+  fileprivate func expandDown(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIView.AnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
     
     for i in 0..<views.count {
       let v = views[i]
@@ -317,7 +317,7 @@ extension SpringAnimation {
    - Parameter animations: An animation block to execute on each view's animation.
    - Parameter completion: A completion block to execute on each view's animation.
    */
-  fileprivate func contractDown(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+  fileprivate func contractDown(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIView.AnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
     guard let first = views.first else {
       return
     }
@@ -351,7 +351,7 @@ extension SpringAnimation {
    - Parameter animations: An animation block to execute on each view's animation.
    - Parameter completion: A completion block to execute on each view's animation.
    */
-  fileprivate func expandLeft(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+  fileprivate func expandLeft(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIView.AnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
     
     for i in 0..<views.count {
       let v = views[i]
@@ -383,7 +383,7 @@ extension SpringAnimation {
    - Parameter animations: An animation block to execute on each view's animation.
    - Parameter completion: A completion block to execute on each view's animation.
    */
-  fileprivate func contractLeft(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+  fileprivate func contractLeft(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIView.AnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
     guard let first = views.first else {
       return
     }
@@ -417,7 +417,7 @@ extension SpringAnimation {
    - Parameter animations: An animation block to execute on each view's animation.
    - Parameter completion: A completion block to execute on each view's animation.
    */
-  fileprivate func expandRight(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+  fileprivate func expandRight(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIView.AnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
     
     for i in 0..<views.count {
       let v = views[i]
@@ -449,7 +449,7 @@ extension SpringAnimation {
    - Parameter animations: An animation block to execute on each view's animation.
    - Parameter completion: A completion block to execute on each view's animation.
    */
-  fileprivate func contractRight(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+  fileprivate func contractRight(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIView.AnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
     guard let first = views.first else {
       return
     }

@@ -132,7 +132,7 @@ open class TextView: UITextView {
   
   /// The placeholder UILabel.
   @IBInspectable
-  open let placeholderLabel = UILabel()
+  public let placeholderLabel = UILabel()
   
   /// Placeholder normal text
   @IBInspectable
@@ -298,13 +298,13 @@ fileprivate extension TextView {
   /// Prepares the Notification handlers.
   func prepareNotificationHandlers() {
     let defaultCenter = NotificationCenter.default
-    defaultCenter.addObserver(self, selector: #selector(handleKeyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
-    defaultCenter.addObserver(self, selector: #selector(handleKeyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
-    defaultCenter.addObserver(self, selector: #selector(handleKeyboardDidShow(notification:)), name: .UIKeyboardDidShow, object: nil)
-    defaultCenter.addObserver(self, selector: #selector(handleKeyboardDidHide(notification:)), name: .UIKeyboardDidHide, object: nil)
-    defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidBegin), name: .UITextViewTextDidBeginEditing, object: self)
-    defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidChange), name: .UITextViewTextDidChange, object: self)
-    defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidEnd), name: .UITextViewTextDidEndEditing, object: self)
+    defaultCenter.addObserver(self, selector: #selector(handleKeyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    defaultCenter.addObserver(self, selector: #selector(handleKeyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    defaultCenter.addObserver(self, selector: #selector(handleKeyboardDidShow(notification:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+    defaultCenter.addObserver(self, selector: #selector(handleKeyboardDidHide(notification:)), name: UIResponder.keyboardDidHideNotification, object: nil)
+    defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidBegin), name: UITextView.textDidBeginEditingNotification, object: self)
+    defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidChange), name: UITextView.textDidChangeNotification, object: self)
+    defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidEnd), name: UITextView.textDidEndEditingNotification, object: self)
   }
   
   /// Prepares the regular expression for matching.
@@ -361,7 +361,7 @@ fileprivate extension TextView {
       return
     }
     
-    guard let v = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else {
+    guard let v = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else {
       return
     }
     
@@ -380,7 +380,7 @@ fileprivate extension TextView {
     
     isKeyboardHidden = false
     
-    guard let v = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else {
+    guard let v = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue else {
       return
     }
     
@@ -397,7 +397,7 @@ fileprivate extension TextView {
       return
     }
     
-    guard let v = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+    guard let v = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
       return
     }
     
@@ -416,7 +416,7 @@ fileprivate extension TextView {
     
     isKeyboardHidden = true
     
-    guard let v = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+    guard let v = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
       return
     }
     
@@ -473,7 +473,8 @@ private extension TextView {
   /// latter fixes the typing font change due to the insertion of an emoji character
   /// (typing font changes somehow are reflected in `UITextView.font` parameter).
   func fixTypingFont() {
-    let fontAttribute = NSAttributedStringKey.font.rawValue
+    let fontAttribute = NSAttributedString.Key.font
+    
     guard (typingAttributes[fontAttribute] as? UIFont)?.fontName == "AppleColorEmoji" else {
       return
     }

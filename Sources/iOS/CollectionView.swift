@@ -51,7 +51,7 @@ open class CollectionView: UICollectionView {
   }
   
   /// Scroll direction.
-  open var scrollDirection: UICollectionViewScrollDirection {
+  open var scrollDirection: UICollectionView.ScrollDirection {
     get {
       return (collectionViewLayout as? CollectionViewLayout)!.scrollDirection
     }

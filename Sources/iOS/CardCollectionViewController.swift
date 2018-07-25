@@ -43,7 +43,7 @@ extension UIViewController {
 
 open class CardCollectionViewController: ViewController {
   /// A reference to a Reminder.
-  open let collectionView = CollectionView()
+  public let collectionView = CollectionView()
   
   open var dataSourceItems = [DataSourceItem]()
   

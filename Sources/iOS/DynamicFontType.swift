@@ -63,6 +63,6 @@ open class DynamicFontType: NSObject {
   
   /// Prepares observation for content size changes.
   private func prepareContentSizeObservation() {
-    NotificationCenter.default.addObserver(self, selector: #selector(handleContentSizeChange), name: .UIContentSizeCategoryDidChange, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleContentSizeChange), name: UIContentSizeCategory.didChangeNotification, object: nil)
   }
 }

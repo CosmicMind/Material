@@ -46,13 +46,13 @@ public enum FABMenuDirection: Int {
 
 open class FABMenuItem: View {
   /// A reference to the titleLabel.
-  open let titleLabel = UILabel()
+  public let titleLabel = UILabel()
   
   /// The titleLabel side.
   open var titleLabelPosition = FABMenuItemTitleLabelPosition.left
   
   /// A reference to the fabButton.
-  open let fabButton = FABButton()
+  public let fabButton = FABButton()
   
   open override func prepare() {
     super.prepare()
@@ -355,7 +355,7 @@ extension FABMenu {
    - Parameter animations: An animation block to execute on each view's animation.
    - Parameter completion: A completion block to execute on each view's animation.
    */
-  open func open(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+  open func open(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIView.AnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
     open(isTriggeredByUserInteraction: false, duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
   }
   
@@ -371,7 +371,7 @@ extension FABMenu {
    - Parameter animations: An animation block to execute on each view's animation.
    - Parameter completion: A completion block to execute on each view's animation.
    */
-  open func open(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+  open func open(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIView.AnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
     
     if isTriggeredByUserInteraction && false == delegate?.fabMenuShouldOpen?(fabMenu: self) {
       return
@@ -409,7 +409,7 @@ extension FABMenu {
    - Parameter animations: An animation block to execute on each view's animation.
    - Parameter completion: A completion block to execute on each view's animation.
    */
-  open func close(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+  open func close(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIView.AnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
     close(isTriggeredByUserInteraction: false, duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
   }
   
@@ -425,7 +425,7 @@ extension FABMenu {
    - Parameter animations: An animation block to execute on each view's animation.
    - Parameter completion: A completion block to execute on each view's animation.
    */
-  open func close(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+  open func close(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIView.AnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
     
     if isTriggeredByUserInteraction && false == delegate?.fabMenuShouldClose?(fabMenu: self) {
       return

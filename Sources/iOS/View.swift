@@ -41,7 +41,7 @@ open class View: UIView {
    allows the dropshadow effect on the backing layer, while clipping
    the image to a desired shape within the visualLayer.
    */
-  open let visualLayer = CAShapeLayer()
+  public let visualLayer = CAShapeLayer()
   
   /**
    A property that manages an image for the visualLayer's contents
@@ -107,17 +107,9 @@ open class View: UIView {
     }
   }
   
-  /// A Preset for the contentsGravity property.
-  @IBInspectable
-  open var contentsGravityPreset: Gravity {
-    didSet {
-      contentsGravity = GravityToValue(gravity: contentsGravityPreset)
-    }
-  }
-  
   /// Determines how content should be aligned within the visualLayer's bounds.
   @IBInspectable
-  open var contentsGravity: String {
+  open var contentsGravity: CALayerContentsGravity {
     get {
       return visualLayer.contentsGravity
     }
@@ -139,7 +131,6 @@ open class View: UIView {
    - Parameter aDecoder: A NSCoder instance.
    */
   public required init?(coder aDecoder: NSCoder) {
-    contentsGravityPreset = .resizeAspectFill
     super.init(coder: aDecoder)
     prepare()
   }
@@ -151,7 +142,6 @@ open class View: UIView {
    - Parameter frame: A CGRect instance.
    */
   public override init(frame: CGRect) {
-    contentsGravityPreset = .resizeAspectFill
     super.init(frame: frame)
     prepare()
   }
@@ -171,6 +161,7 @@ open class View: UIView {
    when subclassing.
    */
   open func prepare() {
+    contentsGravity = .resizeAspectFill
     contentScaleFactor = Screen.scale
     backgroundColor = .white
     prepareVisualLayer()

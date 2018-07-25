@@ -1,3 +1,8 @@
+## 2.17.0
+
+* Updated for Swift 4.2.
+* Updated to [Motion 1.5.0](https://github.com/CosmicMind/Motion/releases/tag/1.5.0)
+
 ## 2.16.4
 
 * [pr-1120](https://github.com/CosmicMind/Material/pull/1120): Fixed issue where TextField cursor was not being repositioned correctly.

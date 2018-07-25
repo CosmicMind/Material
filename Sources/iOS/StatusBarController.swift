@@ -83,7 +83,7 @@ open class StatusBarController: TransitionController {
   open var shouldHideStatusBarOnRotation = false
   
   /// A reference to the statusBar.
-  open let statusBar = UIView()
+  public let statusBar = UIView()
   
   open override func layoutSubviews() {
     super.layoutSubviews()

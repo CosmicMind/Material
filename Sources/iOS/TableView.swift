@@ -40,7 +40,7 @@ open class TableView: UITableView {
     prepare()
   }
   
-  public override init(frame: CGRect, style: UITableViewStyle) {
+  public override init(frame: CGRect, style: UITableView.Style) {
     super.init(frame: frame, style: style)
     prepare()
   }

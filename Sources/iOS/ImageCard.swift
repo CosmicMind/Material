@@ -84,13 +84,13 @@ open class ImageCard: Card {
     
     if let v = imageView {
       h = prepare(view: v, with: imageViewEdgeInsets, from: h)
-      container.sendSubview(toBack: v)
+      container.sendSubviewToBack(v)
     }
     
     if let v = toolbar {
       prepare(view: v, with: toolbarEdgeInsets, from: h)
       v.frame.origin.y = .top == toolbarAlignment ? toolbarEdgeInsets.top : h - v.bounds.height - toolbarEdgeInsets.bottom
-      container.bringSubview(toFront: v)
+      container.bringSubviewToFront(v)
     }
     
     if let v = contentView {

@@ -51,7 +51,7 @@ extension UIViewController {
 open class ToolbarController: StatusBarController {
   /// Reference to the Toolbar.
   @IBInspectable
-  open let toolbar = Toolbar()
+  public let toolbar = Toolbar()
   
   /// The toolbar alignment.
   open var toolbarAlignment = ToolbarAlignment.top {

@@ -38,7 +38,7 @@ open class TableViewCell: UITableViewCell, Pulseable, PulseableLayer {
    allows the dropshadow effect on the backing layer, while clipping
    the image to a desired shape within the visualLayer.
    */
-  open let visualLayer = CAShapeLayer()
+  public let visualLayer = CAShapeLayer()
   
   /// A Pulse reference.
   internal var pulse: Pulse!
@@ -102,7 +102,7 @@ open class TableViewCell: UITableViewCell, Pulseable, PulseableLayer {
    - Parameter style: A UITableViewCellStyle enum.
    - Parameter reuseIdentifier: A String identifier.
    */
-  public override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+  public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String!) {
     super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
     prepare()
   }

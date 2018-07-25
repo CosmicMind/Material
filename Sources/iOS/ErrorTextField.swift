@@ -34,7 +34,7 @@ open class ErrorTextField: TextField {
   
   /// The errorLabel UILabel that is displayed.
   @IBInspectable
-  open let errorLabel = UILabel()
+  public let errorLabel = UILabel()
   
   /// The errorLabel text value.
   @IBInspectable

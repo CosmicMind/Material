@@ -419,7 +419,7 @@ open class NavigationDrawerController: TransitionController {
         return
       }
       
-      self.view.sendSubview(toBack: self.contentViewController.view)
+      self.view.sendSubviewToBack(self.contentViewController.view)
       completion?(result)
     }
   }
@@ -938,7 +938,7 @@ open class NavigationDrawerController: TransitionController {
         return
       }
       
-      v.windowLevel = UIWindowLevelNormal
+      v.windowLevel = UIWindow.Level.normal
       
       guard let `self` = self else {
         return
@@ -959,7 +959,7 @@ open class NavigationDrawerController: TransitionController {
         return
       }
       
-      v.windowLevel = UIWindowLevelStatusBar + 1
+      v.windowLevel = UIWindow.Level.statusBar + 1
       
       guard let `self` = self else {
         return
@@ -1042,7 +1042,7 @@ extension NavigationDrawerController {
   fileprivate func prepareContentViewController() {
     contentViewController.view.backgroundColor = .black
     prepare(viewController: contentViewController, in: view)
-    view.sendSubview(toBack: contentViewController.view)
+    view.sendSubviewToBack(contentViewController.view)
   }
   
   /// A method that prepares the leftView.

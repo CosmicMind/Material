@@ -39,7 +39,7 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable, Pulseabl
    allows the dropshadow effect on the backing layer, while clipping
    the image to a desired shape within the visualLayer.
    */
-  open let visualLayer = CAShapeLayer()
+  public let visualLayer = CAShapeLayer()
   
   /// A Pulse reference.
   internal var pulse: Pulse!
@@ -138,16 +138,9 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable, Pulseabl
     }
   }
   
-  /// A Preset for the contentsGravity property.
-  open var contentsGravityPreset: Gravity {
-    didSet {
-      contentsGravity = GravityToValue(gravity: contentsGravityPreset)
-    }
-  }
-  
   /// Determines how content should be aligned within the visualLayer's bounds.
   @IBInspectable
-  open var contentsGravity: String {
+  open var contentsGravity: CALayerContentsGravity {
     get {
       return visualLayer.contentsGravity
     }
@@ -211,7 +204,6 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable, Pulseabl
    - Parameter aDecoder: A NSCoder instance.
    */
   public required init?(coder aDecoder: NSCoder) {
-    contentsGravityPreset = .resizeAspectFill
     super.init(coder: aDecoder)
     prepare()
   }
@@ -223,7 +215,6 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable, Pulseabl
    - Parameter frame: A CGRect instance.
    */
   public override init(frame: CGRect) {
-    contentsGravityPreset = .resizeAspectFill
     super.init(frame: frame)
     prepare()
   }
@@ -288,6 +279,7 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable, Pulseabl
    when subclassing.
    */
   open func prepare() {
+    contentsGravity = .resizeAspectFill
     contentScaleFactor = Screen.scale
     prepareVisualLayer()
     preparePulse()

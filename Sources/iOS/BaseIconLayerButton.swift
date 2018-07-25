@@ -36,7 +36,7 @@ open class BaseIconLayerButton: Button {
     /// - Parameters:
     ///   - color: The color of the icon to use for the specified state.
     ///   - state: The state that uses the specified color. Supports only (.normal, .selected, .disabled)
-    open func setIconColor(_ color: UIColor, for state: UIControlState) {
+    open func setIconColor(_ color: UIColor, for state: UIControl.State) {
         switch state {
         case .normal:
             iconLayer.normalColor = color
@@ -53,7 +53,7 @@ open class BaseIconLayerButton: Button {
     ///
     /// - Parameter state: The state that uses the icon color. Supports only (.normal, .selected, .disabled)
     /// - Returns: The color of the title for the specified state.
-    open func iconColor(for state: UIControlState) -> UIColor {
+    open func iconColor(for state: UIControl.State) -> UIColor {
         switch state {
         case .normal:
             return iconLayer.normalColor

@@ -74,8 +74,8 @@ internal class CheckBoxLayer: BaseIconLayer {
         addSublayer(checkMarkLayer)
         checkMarkLayer.addSublayer(checkMarkLeftLayer)
         checkMarkLayer.addSublayer(checkMarkRightLayer)
-        checkMarkLeftLayer.lineCap = kCALineCapSquare
-        checkMarkRightLayer.lineCap = kCALineCapSquare
+        checkMarkLeftLayer.lineCap = CAShapeLayerLineCap.square
+        checkMarkRightLayer.lineCap = CAShapeLayerLineCap.square
         checkMarkLeftLayer.strokeEnd = 0
         checkMarkRightLayer.strokeEnd = 0
         checkmarkColor = { checkmarkColor }() // calling didSet

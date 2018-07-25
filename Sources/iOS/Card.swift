@@ -32,7 +32,7 @@ import UIKit
 
 open class Card: PulseView {
   /// A container view for subviews.
-  open let container = UIView()
+  public let container = UIView()
   
   @IBInspectable
   open override var cornerRadiusPreset: CornerRadiusPreset {

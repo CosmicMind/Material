@@ -37,7 +37,7 @@ extension NSMutableAttributedString {
    - Parameter value: Any type.
    - Parameter range: A NSRange.
    */
-  open func updateAttribute(_ name: NSAttributedStringKey, value: Any, range: NSRange) {
+  open func updateAttribute(_ name: NSAttributedString.Key, value: Any, range: NSRange) {
     removeAttribute(name, range: range)
     addAttribute(name, value: value, range: range)
   }
@@ -47,7 +47,7 @@ extension NSMutableAttributedString {
    - Parameter _ attrs: A Dictionary of NSAttributedStringKey type keys and Any type values.
    - Parameter range: A NSRange.
    */
-  open func updateAttributes(_ attrs: [NSAttributedStringKey: Any], range: NSRange) {
+  open func updateAttributes(_ attrs: [NSAttributedString.Key: Any], range: NSRange) {
     for (k, v) in attrs {
       updateAttribute(k, value: v, range: range)
     }
@@ -58,7 +58,7 @@ extension NSMutableAttributedString {
    - Parameter _ attrs: An Array of attributedStringKeys.
    - Parameter range: A NSRange.
    */
-  open func removeAttributes(_ attrs: [NSAttributedStringKey], range: NSRange) {
+  open func removeAttributes(_ attrs: [NSAttributedString.Key], range: NSRange) {
     for k in attrs {
       removeAttribute(k, range: range)
     }
