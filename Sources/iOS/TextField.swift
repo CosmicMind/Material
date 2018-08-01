@@ -135,24 +135,15 @@ open class TextField: UITextField {
   @IBInspectable
   open var dividerNormalHeight: CGFloat = 1 {
     didSet {
-      guard !isEditing else {
-        return
-      }
-      
-      dividerThickness = dividerNormalHeight
+      updateDividerHeight()
     }
   }
-  
   
   /// Divider active height.
   @IBInspectable
   open var dividerActiveHeight: CGFloat = 2 {
     didSet {
-      guard isEditing else {
-        return
-      }
-      
-      dividerThickness = dividerActiveHeight
+      updateDividerHeight()
     }
   }
   
@@ -160,11 +151,7 @@ open class TextField: UITextField {
   @IBInspectable
   open var dividerNormalColor = Color.grey.lighten2 {
     didSet {
-      guard !isEditing else {
-        return
-      }
-      
-      dividerColor = dividerNormalColor
+      updateDividerColor()
     }
   }
   
@@ -172,11 +159,7 @@ open class TextField: UITextField {
   @IBInspectable
   open var dividerActiveColor = Color.blue.base {
     didSet {
-      guard isEditing else {
-        return
-      }
-      
-      dividerColor = dividerActiveColor
+      updateDividerColor()
     }
   }
   
@@ -540,6 +523,16 @@ fileprivate extension TextField {
     placeholderLabel.textColor = isEditing ? placeholderActiveColor : placeholderNormalColor
   }
   
+  /// Updates the dividerColor.
+  func updateDividerColor() {
+    dividerColor = isEditing ? dividerActiveColor : dividerNormalColor
+  }
+  
+  /// Updates the dividerThickness.
+  func updateDividerHeight() {
+    dividerThickness = isEditing ? dividerActiveHeight : dividerNormalHeight
+  }
+  
   /// Update the placeholder text to the active state.
   func updatePlaceholderTextToActiveState() {
     guard isPlaceholderUppercasedWhenEditing else {
@@ -701,14 +694,14 @@ extension TextField {
   
   /// The animation for the divider when editing begins.
   fileprivate func dividerEditingDidBeginAnimation() {
-    dividerThickness = dividerActiveHeight
-    dividerColor = dividerActiveColor
+    updateDividerHeight()
+    updateDividerColor()
   }
   
   /// The animation for the divider when editing ends.
   fileprivate func dividerEditingDidEndAnimation() {
-    dividerThickness = dividerNormalHeight
-    dividerColor = dividerNormalColor
+    updateDividerHeight()
+    updateDividerColor()
   }
   
   /// The animation for the placeholder when editing begins.
