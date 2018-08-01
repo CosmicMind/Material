@@ -573,28 +573,28 @@ fileprivate extension TextField {
 fileprivate extension TextField {
   /// Layout the placeholderLabel.
   func layoutPlaceholderLabel() {
-    let w = leftViewWidth + textInset
+    let x = leftViewWidth + textInset
     let h = 0 == bounds.height ? intrinsicContentSize.height : bounds.height
-    
-    placeholderLabel.transform = CGAffineTransform.identity
+    let w = bounds.width - leftViewWidth - 2 * textInset
+    placeholderLabel.frame.size = CGSize(width: w, height: h)
     
     guard isEditing || !isEmpty || !isPlaceholderAnimated else {
-      placeholderLabel.frame = CGRect(x: w, y: 0, width: bounds.width - leftViewWidth - 2 * textInset, height: h)
+      placeholderLabel.transform = CGAffineTransform.identity
+      placeholderLabel.frame.origin = CGPoint(x: x, y: 0)
       return
     }
     
-    placeholderLabel.frame = CGRect(x: w, y: 0, width: bounds.width - leftViewWidth - 2 * textInset, height: h)
     placeholderLabel.transform = CGAffineTransform(scaleX: placeholderActiveScale, y: placeholderActiveScale)
+    
+    placeholderLabel.frame.origin.y = -placeholderLabel.frame.height + placeholderVerticalOffset
     
     switch textAlignment {
     case .left, .natural:
-      placeholderLabel.frame.origin.x = w + placeholderHorizontalOffset
+      placeholderLabel.frame.origin.x = x + placeholderHorizontalOffset
     case .right:
       placeholderLabel.frame.origin.x = (bounds.width * (1.0 - placeholderActiveScale)) - textInset + placeholderHorizontalOffset
     default:break
     }
-    
-    placeholderLabel.frame.origin.y = -placeholderLabel.frame.height + placeholderVerticalOffset
   }
   
   /// Layout the leftView.
@@ -711,71 +711,28 @@ private extension TextField {
   
   /// The animation for the placeholder when editing begins.
   func placeholderEditingDidBeginAnimation() {
-    guard .default == placeholderAnimation else {
-      placeholderLabel.isHidden = true
-      return
-    }
-    
+    updatePlaceholderVisibility()
     updatePlaceholderLabelColor()
     
     guard isPlaceholderAnimated else {
-      updatePlaceholderTextToActiveState()
       return
     }
     
-    guard isEmpty else {
-      updatePlaceholderTextToActiveState()
-      return
-    }
-    
-    UIView.animate(withDuration: 0.15, animations: { [weak self] in
-      guard let `self` = self else {
-        return
-      }
-      
-      self.placeholderLabel.transform = CGAffineTransform(scaleX: self.placeholderActiveScale, y: self.placeholderActiveScale)
-      
-      self.updatePlaceholderTextToActiveState()
-      
-      switch self.textAlignment {
-      case .left, .natural:
-        self.placeholderLabel.frame.origin.x = self.leftViewWidth + self.textInset + self.placeholderHorizontalOffset
-      case .right:
-        self.placeholderLabel.frame.origin.x = (self.bounds.width * (1.0 - self.placeholderActiveScale)) - self.textInset + self.placeholderHorizontalOffset
-      default:break
-      }
-      
-      self.placeholderLabel.frame.origin.y = -self.placeholderLabel.bounds.height + self.placeholderVerticalOffset
-    })
+    updatePlaceholderTextToActiveState()
+    UIView.animate(withDuration: 0.15, animations: layoutPlaceholderLabel)
   }
   
   /// The animation for the placeholder when editing ends.
   func placeholderEditingDidEndAnimation() {
-    guard .default == placeholderAnimation else {
-      placeholderLabel.isHidden = !isEmpty
-      return
-    }
-    
+    updatePlaceholderVisibility()
     updatePlaceholderLabelColor()
-    updatePlaceholderTextToNormalState()
     
     guard isPlaceholderAnimated else {
       return
     }
     
-    guard isEmpty else {
-      return
-    }
-    
-    UIView.animate(withDuration: 0.15, animations: { [weak self] in
-      guard let `self` = self else {
-        return
-      }
-      
-      self.placeholderLabel.transform = CGAffineTransform.identity
-      self.placeholderLabel.frame.origin.x = self.leftViewWidth + self.textInset
-      self.placeholderLabel.frame.origin.y = 0
-    })
+    updatePlaceholderTextToNormalState()
+    UIView.animate(withDuration: 0.15, animations: layoutPlaceholderLabel)
   }
 }
 
