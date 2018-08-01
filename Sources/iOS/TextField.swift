@@ -686,31 +686,31 @@ fileprivate extension TextField {
   }
 }
 
-extension TextField {
+private extension TextField {
   /// The animation for leftView when editing begins.
-  fileprivate func leftViewEditingBeginAnimation() {
+  func leftViewEditingBeginAnimation() {
     updateLeftViewColor()
   }
   
   /// The animation for leftView when editing ends.
-  fileprivate func leftViewEditingEndAnimation() {
+  func leftViewEditingEndAnimation() {
     updateLeftViewColor()
   }
   
   /// The animation for the divider when editing begins.
-  fileprivate func dividerEditingDidBeginAnimation() {
+  func dividerEditingDidBeginAnimation() {
     updateDividerHeight()
     updateDividerColor()
   }
   
   /// The animation for the divider when editing ends.
-  fileprivate func dividerEditingDidEndAnimation() {
+  func dividerEditingDidEndAnimation() {
     updateDividerHeight()
     updateDividerColor()
   }
   
   /// The animation for the placeholder when editing begins.
-  fileprivate func placeholderEditingDidBeginAnimation() {
+  func placeholderEditingDidBeginAnimation() {
     guard .default == placeholderAnimation else {
       placeholderLabel.isHidden = true
       return
@@ -750,7 +750,7 @@ extension TextField {
   }
   
   /// The animation for the placeholder when editing ends.
-  fileprivate func placeholderEditingDidEndAnimation() {
+  func placeholderEditingDidEndAnimation() {
     guard .default == placeholderAnimation else {
       placeholderLabel.isHidden = !isEmpty
       return
