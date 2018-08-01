@@ -76,12 +76,7 @@ open class TextField: UITextField {
   /// Set the placeholder animation value.
   open var placeholderAnimation = TextFieldPlaceholderAnimation.default {
     didSet {
-      guard isEditing else {
-        placeholderLabel.isHidden = !isEmpty && .hidden == placeholderAnimation
-        return
-      }
-      
-      placeholderLabel.isHidden = .hidden == placeholderAnimation
+      updatePlaceholderVisibility()
     }
   }
   
@@ -92,7 +87,7 @@ open class TextField: UITextField {
   
   open override var text: String? {
     didSet {
-      placeholderAnimation = { placeholderAnimation }()
+      updatePlaceholderVisibility()
     }
   }
   
@@ -521,6 +516,16 @@ fileprivate extension TextField {
   func updatePlaceholderLabelColor() {
     tintColor = placeholderActiveColor
     placeholderLabel.textColor = isEditing ? placeholderActiveColor : placeholderNormalColor
+  }
+  
+  /// Updates the placeholder visibility.
+  func updatePlaceholderVisibility() {
+    guard isEditing else {
+      placeholderLabel.isHidden = !isEmpty && .hidden == placeholderAnimation
+      return
+    }
+    
+    placeholderLabel.isHidden = .hidden == placeholderAnimation
   }
   
   /// Updates the dividerColor.
