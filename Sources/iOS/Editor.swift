@@ -97,6 +97,38 @@ open class Editor: View {
   @IBInspectable
   open var placeholderHorizontalOffset: CGFloat = 0
   
+  /// Divider normal height.
+  @IBInspectable
+  open var dividerNormalHeight: CGFloat = 1 {
+    didSet {
+      updateDividerHeight()
+    }
+  }
+  
+  /// Divider active height.
+  @IBInspectable
+  open var dividerActiveHeight: CGFloat = 2 {
+    didSet {
+      updateDividerHeight()
+    }
+  }
+  
+  /// Divider normal color.
+  @IBInspectable
+  open var dividerNormalColor = Color.grey.lighten2 {
+    didSet {
+      updateDividerColor()
+    }
+  }
+  
+  /// Divider active color.
+  @IBInspectable
+  open var dividerActiveColor = Color.blue.base {
+    didSet {
+      updateDividerColor()
+    }
+  }
+  
   /// A reference to titleLabel.textAlignment observation.
   private var placeholderLabelTextObserver: NSKeyValueObservation!
   
@@ -108,6 +140,7 @@ open class Editor: View {
   
   open override func prepare() {
     super.prepare()
+    prepareDivider()
     prepareTextView()
     preparePlaceholderLabel()
     prepareNotificationHandlers()
@@ -116,11 +149,17 @@ open class Editor: View {
   open override func layoutSubviews() {
     super.layoutSubviews()
     layoutPlaceholderLabel()
+    layoutDivider()
   }
 }
 
 
 private extension Editor {
+  /// Prepares the divider.
+  func prepareDivider() {
+    dividerColor = dividerNormalColor
+  }
+  
   /// Prepares the textView.
   func prepareTextView() {
     layout(textView).edges()
@@ -163,6 +202,16 @@ private extension Editor {
     }
     
     placeholderLabel.isHidden = .hidden == placeholderAnimation
+  }
+  
+  /// Updates the dividerColor.
+  func updateDividerColor() {
+    dividerColor = isEditing ? dividerActiveColor : dividerNormalColor
+  }
+  
+  /// Updates the dividerThickness.
+  func updateDividerHeight() {
+    dividerThickness = isEditing ? dividerActiveHeight : dividerNormalHeight
   }
 }
 
@@ -216,11 +265,14 @@ private extension Editor {
     updateEditorState(animated: true)
   }
   
+  /// Updates editor.
   func updateEditorState(animated: Bool = false) {
     updatePlaceholderVisibility()
     updatePlaceholderLabelColor()
+    updateDividerHeight()
+    updateDividerColor()
     
-    guard isPlaceholderAnimated else {
+    guard animated && isPlaceholderAnimated else {
       layoutPlaceholderLabel()
       return
     }
