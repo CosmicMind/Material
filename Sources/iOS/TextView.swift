@@ -94,7 +94,7 @@ open class TextView: UITextView {
   }
   
   /// A boolean indicating whether the text is in edit mode.
-  open fileprivate(set) var isEditing = true
+  open fileprivate(set) var isEditing = false
   
   /// Is the keyboard hidden.
   open fileprivate(set) var isKeyboardHidden = true
