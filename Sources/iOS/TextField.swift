@@ -420,13 +420,17 @@ open class TextField: UITextField {
   
   /// EdgeInsets for text.
   @objc
-  open var textInset: CGFloat = 0
+  open var textInsets: EdgeInsets = .zero
+  
+  /// EdgeInsets preset property for text.
+  open var textInsetsPreset = EdgeInsetsPreset.none {
+    didSet {
+      textInsets = EdgeInsetsPresetToValue(preset: textInsetsPreset)
+    }
+  }
   
   open override func textRect(forBounds bounds: CGRect) -> CGRect {
-    var b = super.textRect(forBounds: bounds)
-    b.origin.x += textInset
-    b.size.width -= textInset
-    return b
+    return super.textRect(forBounds: bounds).inset(by: textInsets)
   }
   
   open override func editingRect(forBounds bounds: CGRect) -> CGRect {
@@ -573,26 +577,27 @@ fileprivate extension TextField {
 fileprivate extension TextField {
   /// Layout the placeholderLabel.
   func layoutPlaceholderLabel() {
-    let x = leftViewWidth + textInset
-    let h = 0 == bounds.height ? intrinsicContentSize.height : bounds.height
-    let w = bounds.width - leftViewWidth - 2 * textInset
-    placeholderLabel.frame.size = CGSize(width: w, height: h)
-    
+    let leftPadding = leftViewWidth + textInsets.left
+    let w = bounds.width - leftPadding - textInsets.right
+    var h = placeholderLabel.sizeThatFits(CGSize(width: w, height: .greatestFiniteMagnitude)).height
+    h = min(h, bounds.height - textInsets.top - textInsets.bottom)
+
     guard isEditing || !isEmpty || !isPlaceholderAnimated else {
       placeholderLabel.transform = CGAffineTransform.identity
-      placeholderLabel.frame.origin = CGPoint(x: x, y: 0)
+      placeholderLabel.frame = CGRect(x: leftPadding, y: textInsets.top, width: w, height: h)
       return
     }
     
     placeholderLabel.transform = CGAffineTransform(scaleX: placeholderActiveScale, y: placeholderActiveScale)
-    
+    placeholderLabel.frame.size = CGSize(width: w * placeholderActiveScale, height: h * placeholderActiveScale)
     placeholderLabel.frame.origin.y = -placeholderLabel.frame.height + placeholderVerticalOffset
     
-    switch textAlignment {
+    switch placeholderLabel.textAlignment {
     case .left, .natural:
-      placeholderLabel.frame.origin.x = x + placeholderHorizontalOffset
+      placeholderLabel.frame.origin.x = leftPadding + placeholderHorizontalOffset
     case .right:
-      placeholderLabel.frame.origin.x = (bounds.width * (1.0 - placeholderActiveScale)) - textInset + placeholderHorizontalOffset
+      let scaledWidth = w * placeholderActiveScale
+      placeholderLabel.frame.origin.x = bounds.width - scaledWidth - textInsets.right + placeholderHorizontalOffset
     default:break
     }
   }
