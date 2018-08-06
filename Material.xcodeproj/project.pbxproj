@@ -173,6 +173,7 @@
 		9D054A6520D175AC00D0528D /* Material+UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D054A6320D175AC00D0528D /* Material+UIButton.swift */; };
 		9D054A6620D175AC00D0528D /* Material+UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D054A6420D175AC00D0528D /* Material+UILabel.swift */; };
 		9D39A81B20FE8ED100BA8FA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D39A81A20FE8ED100BA8FA1 /* ViewController.swift */; };
+		9D9089B92118914500605DC9 /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9089B82118914500605DC9 /* Editor.swift */; };
 		9DE84D721FF0252600586C8B /* RadioButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE84D6F1FF0252500586C8B /* RadioButtonGroup.swift */; };
 		9DE84D731FF0252600586C8B /* BaseButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE84D701FF0252500586C8B /* BaseButtonGroup.swift */; };
 		9DE84D741FF0252600586C8B /* CheckButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE84D711FF0252500586C8B /* CheckButtonGroup.swift */; };
@@ -294,6 +295,7 @@
 		9D054A6320D175AC00D0528D /* Material+UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIButton.swift"; sourceTree = "<group>"; };
 		9D054A6420D175AC00D0528D /* Material+UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UILabel.swift"; sourceTree = "<group>"; };
 		9D39A81A20FE8ED100BA8FA1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9D9089B82118914500605DC9 /* Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
 		9DE84D6F1FF0252500586C8B /* RadioButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonGroup.swift; sourceTree = "<group>"; };
 		9DE84D701FF0252500586C8B /* BaseButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseButtonGroup.swift; sourceTree = "<group>"; };
 		9DE84D711FF0252500586C8B /* CheckButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckButtonGroup.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				96BCB79C1CB40DC500C806FE /* TextField.swift */,
 				961F18E71CD93E3E008927C5 /* ErrorTextField.swift */,
 				9DF58CED20C098C60098968D /* ErrorTextFieldValidator.swift */,
+				9D9089B82118914500605DC9 /* Editor.swift */,
 			);
 			name = Text;
 			sourceTree = "<group>";
@@ -978,6 +981,7 @@
 				965E811B1DD4D5C800D61E4B /* Switch.swift in Sources */,
 				965E811C1DD4D5C800D61E4B /* TabBar.swift in Sources */,
 				965E811D1DD4D5C800D61E4B /* TableViewCell.swift in Sources */,
+				9D9089B92118914500605DC9 /* Editor.swift in Sources */,
 				965E811E1DD4D5C800D61E4B /* TextField.swift in Sources */,
 				965E811F1DD4D5C800D61E4B /* ErrorTextField.swift in Sources */,
 				965E81211DD4D5C800D61E4B /* TextStorage.swift in Sources */,
