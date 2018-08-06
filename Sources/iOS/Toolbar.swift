@@ -30,8 +30,6 @@
 
 import UIKit
 
-fileprivate var ToolbarContext: UInt8 = 0
-
 open class Toolbar: Bar {
   /// A convenience property to set the titleLabel.text.
   @IBInspectable
@@ -65,10 +63,6 @@ open class Toolbar: Bar {
   @IBInspectable
   public let detailLabel = UILabel()
   
-  deinit {
-    removeObserver(self, forKeyPath: #keyPath(titleLabel.textAlignment))
-  }
-  
   /**
    An initializer that initializes the object with a NSCoder object.
    - Parameter aDecoder: A NSCoder instance.
@@ -85,15 +79,6 @@ open class Toolbar: Bar {
    */
   public override init(frame: CGRect) {
     super.init(frame: frame)
-  }
-  
-  open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-    guard "titleLabel.textAlignment" == keyPath else {
-      super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-      return
-    }
-    
-    contentViewAlignment = .center == titleLabel.textAlignment ? .center : .full
   }
   
   open override func layoutSubviews() {
@@ -143,16 +128,20 @@ open class Toolbar: Bar {
     prepareTitleLabel()
     prepareDetailLabel()
   }
+  
+  private var titleLabelTextAlignmentObserver: NSKeyValueObservation!
 }
 
-fileprivate extension Toolbar {
+private extension Toolbar {
   /// Prepares the titleLabel.
   func prepareTitleLabel() {
     titleLabel.textAlignment = .center
     titleLabel.contentScaleFactor = Screen.scale
     titleLabel.font = RobotoFont.medium(with: 17)
     titleLabel.textColor = Color.darkText.primary
-    addObserver(self, forKeyPath: #keyPath(titleLabel.textAlignment), options: [], context: &ToolbarContext)
+    titleLabelTextAlignmentObserver = titleLabel.observe(\.textAlignment) { [weak self] titleLabel, _ in
+      self?.contentViewAlignment = .center == titleLabel.textAlignment ? .center : .full
+    }
   }
   
   /// Prepares the detailLabel.
