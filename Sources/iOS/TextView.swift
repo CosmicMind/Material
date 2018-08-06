@@ -134,6 +134,9 @@ open class TextView: UITextView {
   @IBInspectable
   public let placeholderLabel = UILabel()
   
+  /// A property to enable/disable operations on the placeholderLabel
+  internal var isPlaceholderLabelEnabled: Bool = true
+  
   /// Placeholder normal text
   @IBInspectable
   open var placeholderColor = Color.darkText.others {
@@ -325,12 +328,20 @@ fileprivate extension TextView {
 fileprivate extension TextView {
   /// Updates the placeholderLabel text color.
   func updatePlaceholderLabelColor() {
+    guard isPlaceholderLabelEnabled else {
+      return
+    }
+    
     tintColor = placeholderColor
     placeholderLabel.textColor = placeholderColor
   }
   
   /// Updates the placeholderLabel visibility.
   func updatePlaceholderVisibility() {
+    guard isPlaceholderLabelEnabled else {
+      return
+    }
+    
     placeholderLabel.isHidden = !isEmpty
   }
 }
@@ -338,6 +349,10 @@ fileprivate extension TextView {
 fileprivate extension TextView {
   /// Laysout the placeholder UILabel.
   func layoutPlaceholderLabel() {
+    guard isPlaceholderLabelEnabled else {
+      return
+    }
+    
     placeholderLabel.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
     
     let x = textContainerInset.left + textContainer.lineFragmentPadding
