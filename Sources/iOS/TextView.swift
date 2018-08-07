@@ -302,6 +302,9 @@ open class TextView: UITextView {
     return preferredMaxLayoutHeight > 0 && isScrollEnabled
   }
   
+  /// Minimum TextView text height.
+  internal let minimumTextHeight: CGFloat = 32
+  
   open override var intrinsicContentSize: CGSize {
     guard isGrowEnabled else {
       return super.intrinsicContentSize
@@ -311,7 +314,8 @@ open class TextView: UITextView {
     
     let w = bounds.width - insets.left - insets.right - 2 * textContainer.lineFragmentPadding
     let placeholderH = placeholderLabel.sizeThatFits(CGSize(width: w, height: .greatestFiniteMagnitude)).height
-    let h = max(contentSize.height, placeholderH + insets.top + insets.bottom)
+    var h = max(minimumTextHeight, placeholderH) + insets.top + insets.bottom
+    h = max(h, contentSize.height)
     return CGSize(width: UIView.noIntrinsicMetric, height: min(h, preferredMaxLayoutHeight))
   }
     
@@ -383,16 +387,16 @@ fileprivate extension TextView {
     guard isPlaceholderLabelEnabled else {
       return
     }
+        
+    let insets = textContainerInsets
+    let leftPadding = insets.left + textContainer.lineFragmentPadding
+    let rightPadding = insets.right + textContainer.lineFragmentPadding
+    let w = bounds.width - leftPadding - rightPadding
+    var h = placeholderLabel.sizeThatFits(CGSize(width: w, height: .greatestFiniteMagnitude)).height
+    h = max(h, minimumTextHeight)
+    h = min(h, bounds.height - insets.top - insets.bottom)
     
-    placeholderLabel.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
-    
-    let x = textContainerInset.left + textContainer.lineFragmentPadding
-    let y = textContainerInset.top
-    placeholderLabel.sizeToFit()
-    
-    placeholderLabel.frame.origin.x = x
-    placeholderLabel.frame.origin.y = y
-    placeholderLabel.frame.size.width = textContainer.size.width - textContainerInset.right - textContainer.lineFragmentPadding
+    placeholderLabel.frame = CGRect(x: leftPadding, y: insets.top, width: w, height: h)
   }
 }
 

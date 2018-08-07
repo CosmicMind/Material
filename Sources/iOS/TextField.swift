@@ -65,8 +65,8 @@ public protocol TextFieldDelegate: UITextFieldDelegate {
 
 open class TextField: UITextField {
   
-  /// Minimum TextField height
-  private var minimumTextHeight: CGFloat = 32
+  /// Minimum TextField text height.
+  private let minimumTextHeight: CGFloat = 32
   
   /// Default size when using AutoLayout.
   open override var intrinsicContentSize: CGSize {
