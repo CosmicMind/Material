@@ -129,6 +129,38 @@ open class Editor: View {
     }
   }
   
+  /// The detailLabel UILabel that is displayed.
+  @IBInspectable
+  public let detailLabel = UILabel()
+  
+  /// The detailLabel text value.
+  @IBInspectable
+  open var detail: String? {
+    get {
+      return detailLabel.text
+    }
+    set(value) {
+      detailLabel.text = value
+      layoutSubviews()
+    }
+  }
+  
+  /// The detailLabel text color.
+  @IBInspectable
+  open var detailColor = Color.darkText.others {
+    didSet {
+      updateDetailLabelColor()
+    }
+  }
+  
+  /// Vertical distance for the detailLabel from the divider.
+  @IBInspectable
+  open var detailVerticalOffset: CGFloat = 8 {
+    didSet {
+      layoutSubviews()
+    }
+  }
+  
   /// A reference to titleLabel.textAlignment observation.
   private var placeholderLabelTextObserver: NSKeyValueObservation!
   
@@ -143,6 +175,7 @@ open class Editor: View {
     prepareDivider()
     prepareTextView()
     preparePlaceholderLabel()
+    prepareDetailLabel()
     prepareNotificationHandlers()
   }
   
@@ -150,6 +183,7 @@ open class Editor: View {
     super.layoutSubviews()
     layoutPlaceholderLabel()
     layoutDivider()
+    layoutBottomLabel(label: detailLabel, verticalOffset: detailVerticalOffset)
   }
   
   @discardableResult
@@ -197,6 +231,14 @@ private extension Editor {
     }
   }
   
+  /// Prepares the detailLabel.
+  func prepareDetailLabel() {
+    detailLabel.font = RobotoFont.regular(with: 12)
+    detailLabel.numberOfLines = 0
+    detailColor = Color.darkText.others
+    addSubview(detailLabel)
+  }
+  
   /// Prepares the Notification handlers.
   func prepareNotificationHandlers() {
     let center = NotificationCenter.default
@@ -232,6 +274,11 @@ private extension Editor {
   func updateDividerHeight() {
     dividerThickness = isEditing ? dividerActiveHeight : dividerNormalHeight
   }
+  
+  /// Updates the detailLabel text color.
+  func updateDetailLabelColor() {
+    detailLabel.textColor = detailColor
+  }
 }
 
 private extension Editor {
@@ -264,6 +311,15 @@ private extension Editor {
       placeholderLabel.frame.origin.x = bounds.width - scaledWidth - rightPadding + placeholderHorizontalOffset
     default:break
     }
+  }
+  
+  /// Layout given label at the bottom with the vertical offset provided.
+  func layoutBottomLabel(label: UILabel, verticalOffset: CGFloat) {
+    let c = dividerContentEdgeInsets
+    label.frame.origin.x = c.left
+    label.frame.origin.y = bounds.height + verticalOffset
+    label.frame.size.width = bounds.width - c.left - c.right
+    label.frame.size.height = label.sizeThatFits(CGSize(width: label.bounds.width, height: .greatestFiniteMagnitude)).height
   }
 }
 
@@ -340,6 +396,7 @@ public extension Editor {
     }
     set(value) {
       textView.textAlignment = value
+      detailLabel.textAlignment = value
     }
   }
 }
