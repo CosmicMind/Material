@@ -263,6 +263,12 @@ open class TextView: UITextView {
     layoutShape()
     layoutShadowPath()
     layoutPlaceholderLabel()
+    
+    guard isGrowEnabled else {
+      return
+    }
+    
+    invalidateIntrinsicContentSize()
   }
   
   /**
@@ -283,18 +289,43 @@ open class TextView: UITextView {
     prepareRegularExpression()
     preparePlaceholderLabel()
   }
-    
-    open override func insertText(_ text: String) {
-        fixTypingFont()
-        super.insertText(text)
-        fixTypingFont()
+  
+  /// Maximum preffered layout height before scrolling.
+  open var preferredMaxLayoutHeight: CGFloat = 0 {
+    didSet {
+      invalidateIntrinsicContentSize()
+    }
+  }
+  
+  /// A property indicating if textView allowed to grow.
+  private var isGrowEnabled: Bool {
+    return preferredMaxLayoutHeight > 0 && isScrollEnabled
+  }
+  
+  open override var intrinsicContentSize: CGSize {
+    guard isGrowEnabled else {
+      return super.intrinsicContentSize
     }
     
-    open override func paste(_ sender: Any?) {
-        fixTypingFont()
-        super.paste(sender)
-        fixTypingFont()
-    }
+    let insets = textContainerInsets
+    
+    let w = bounds.width - insets.left - insets.right - 2 * textContainer.lineFragmentPadding
+    let placeholderH = placeholderLabel.sizeThatFits(CGSize(width: w, height: .greatestFiniteMagnitude)).height
+    let h = max(contentSize.height, placeholderH + insets.top + insets.bottom)
+    return CGSize(width: UIView.noIntrinsicMetric, height: min(h, preferredMaxLayoutHeight))
+  }
+    
+  open override func insertText(_ text: String) {
+    fixTypingFont()
+    super.insertText(text)
+    fixTypingFont()
+  }
+  
+  open override func paste(_ sender: Any?) {
+    fixTypingFont()
+    super.paste(sender)
+    fixTypingFont()
+  }
 }
 
 fileprivate extension TextView {

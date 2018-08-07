@@ -129,6 +129,7 @@ open class Toolbar: Bar {
     prepareDetailLabel()
   }
   
+  /// A reference to titleLabel.textAlignment observation.
   private var titleLabelTextAlignmentObserver: NSKeyValueObservation!
 }
 
