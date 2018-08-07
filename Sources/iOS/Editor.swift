@@ -225,14 +225,15 @@ private extension Editor {
     var h = placeholderLabel.sizeThatFits(CGSize(width: w, height: .greatestFiniteMagnitude)).height
     h = min(h, bounds.height - inset.top - inset.bottom)
     
+    placeholderLabel.bounds.size = CGSize(width: w, height: h)
+    
     guard isEditing || !isEmpty || !isPlaceholderAnimated else {
       placeholderLabel.transform = CGAffineTransform.identity
-      placeholderLabel.frame = CGRect(x: leftPadding, y: inset.top, width: w, height: h)
+      placeholderLabel.frame.origin = CGPoint(x: leftPadding, y: inset.top)
       return
     }
     
     placeholderLabel.transform = CGAffineTransform(scaleX: placeholderActiveScale, y: placeholderActiveScale)
-    placeholderLabel.frame.size = CGSize(width: w * placeholderActiveScale, height: h * placeholderActiveScale)
     placeholderLabel.frame.origin.y = -placeholderLabel.frame.height + placeholderVerticalOffset
     
     switch placeholderLabel.textAlignment {
