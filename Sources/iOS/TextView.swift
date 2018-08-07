@@ -263,12 +263,6 @@ open class TextView: UITextView {
     layoutShape()
     layoutShadowPath()
     layoutPlaceholderLabel()
-    
-    guard isGrowEnabled else {
-      return
-    }
-    
-    invalidateIntrinsicContentSize()
   }
   
   /**
@@ -290,10 +284,32 @@ open class TextView: UITextView {
     preparePlaceholderLabel()
   }
   
+  open override var contentSize: CGSize {
+    didSet {
+      guard isGrowEnabled else {
+        return
+      }
+      invalidateIntrinsicContentSize()
+      
+      guard isEditing && isHeightChangeAnimated else {
+        superview?.layoutIfNeeded()
+        return
+      }
+      
+      UIView.animate(withDuration: 0.15) {
+        self.superview?.layoutIfNeeded()
+      }
+    }
+  }
+  
+  /// A Boolean that indicates if the height change during growing is animated.
+  open var isHeightChangeAnimated = true
+  
   /// Maximum preffered layout height before scrolling.
   open var preferredMaxLayoutHeight: CGFloat = 0 {
     didSet {
       invalidateIntrinsicContentSize()
+      superview?.layoutIfNeeded()
     }
   }
   
