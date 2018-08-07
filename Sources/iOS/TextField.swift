@@ -264,13 +264,9 @@ open class TextField: UITextField {
   
   /// Handles the textAlignment of the placeholderLabel.
   open override var textAlignment: NSTextAlignment {
-    get {
-      return super.textAlignment
-    }
-    set(value) {
-      super.textAlignment = value
-      placeholderLabel.textAlignment = value
-      detailLabel.textAlignment = value
+    didSet {
+      placeholderLabel.textAlignment = textAlignment
+      detailLabel.textAlignment = textAlignment
     }
   }
   

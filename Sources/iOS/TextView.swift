@@ -162,6 +162,13 @@ open class TextView: UITextView {
     }
   }
   
+  /// Handles the textAlignment of the placeholderLabel and textView itself.
+  open override var textAlignment: NSTextAlignment {
+    didSet {
+      placeholderLabel.textAlignment = textAlignment
+    }
+  }
+  
   /**
    An initializer that initializes the object with a NSCoder object.
    - Parameter aDecoder: A NSCoder instance.
