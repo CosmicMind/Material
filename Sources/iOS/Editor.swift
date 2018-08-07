@@ -151,6 +151,25 @@ open class Editor: View {
     layoutPlaceholderLabel()
     layoutDivider()
   }
+  
+  @discardableResult
+  open override func becomeFirstResponder() -> Bool {
+    return textView.becomeFirstResponder()
+  }
+
+  @discardableResult
+  open override func resignFirstResponder() -> Bool {
+    return textView.resignFirstResponder()
+  }
+  
+  open override var inputAccessoryView: UIView? {
+    get {
+      return textView.inputAccessoryView
+    }
+    set(value) {
+      textView.inputAccessoryView = value
+    }
+  }
 }
 
 
@@ -280,5 +299,47 @@ private extension Editor {
     }
     
     UIView.animate(withDuration: 0.15, animations: layoutPlaceholderLabel)
+  }
+}
+
+public extension Editor {
+  /// A reference to the textView text.
+  var text: String! {
+    get {
+      return textView.text
+    }
+    set(value) {
+      textView.text = value
+    }
+  }
+  
+  /// A reference to the textView font.
+  var font: UIFont? {
+    get {
+      return textView.font
+    }
+    set(value) {
+      textView.font = value
+    }
+  }
+  
+  /// A reference to the textView placeholder.
+  var placeholder: String? {
+    get {
+      return textView.placeholder
+    }
+    set(value) {
+      textView.placeholder = value
+    }
+  }
+  
+  /// A reference to the textView textAlignment.
+  var textAlignment: NSTextAlignment {
+    get {
+      return textView.textAlignment
+    }
+    set(value) {
+      textView.textAlignment = value
+    }
   }
 }
