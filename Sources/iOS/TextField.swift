@@ -64,9 +64,14 @@ public protocol TextFieldDelegate: UITextFieldDelegate {
 }
 
 open class TextField: UITextField {
+  
+  /// Minimum TextField height
+  private var minimumTextHeight: CGFloat = 32
+  
   /// Default size when using AutoLayout.
   open override var intrinsicContentSize: CGSize {
-    return CGSize(width: bounds.width, height: max(32, super.intrinsicContentSize.height))
+    let h = textInsets.top + textInsets.bottom + minimumTextHeight
+    return CGSize(width: bounds.width, height: max(h, super.intrinsicContentSize.height))
   }
   
   /// A Boolean that indicates if the placeholder label is animated.
