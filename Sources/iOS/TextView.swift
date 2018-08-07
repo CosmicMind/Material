@@ -297,7 +297,8 @@ open class TextView: UITextView {
       }
       
       UIView.animate(withDuration: 0.15) {
-        self.superview?.layoutIfNeeded()
+        let v = self.superview as? Editor ?? self
+        v.superview?.layoutIfNeeded()
       }
     }
   }
