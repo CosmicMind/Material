@@ -586,6 +586,7 @@ fileprivate extension TextField {
     let w = bounds.width - leftPadding - textInsets.right
     var h = placeholderLabel.sizeThatFits(CGSize(width: w, height: .greatestFiniteMagnitude)).height
     h = min(h, bounds.height - textInsets.top - textInsets.bottom)
+    h = max(h, minimumTextHeight)
 
     placeholderLabel.bounds.size = CGSize(width: w, height: h)
     
