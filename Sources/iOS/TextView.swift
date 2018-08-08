@@ -94,7 +94,7 @@ open class TextView: UITextView {
   }
   
   /// A boolean indicating whether the text is in edit mode.
-  open fileprivate(set) var isEditing = true
+  open fileprivate(set) var isEditing = false
   
   /// Is the keyboard hidden.
   open fileprivate(set) var isKeyboardHidden = true
@@ -134,6 +134,9 @@ open class TextView: UITextView {
   @IBInspectable
   public let placeholderLabel = UILabel()
   
+  /// A property to enable/disable operations on the placeholderLabel
+  internal var isPlaceholderLabelEnabled: Bool = true
+  
   /// Placeholder normal text
   @IBInspectable
   open var placeholderColor = Color.darkText.others {
@@ -156,6 +159,13 @@ open class TextView: UITextView {
     }
     set(value) {
       textContainerInset = value
+    }
+  }
+  
+  /// Handles the textAlignment of the placeholderLabel and textView itself.
+  open override var textAlignment: NSTextAlignment {
+    didSet {
+      placeholderLabel.textAlignment = textAlignment
     }
   }
   
@@ -280,18 +290,70 @@ open class TextView: UITextView {
     prepareRegularExpression()
     preparePlaceholderLabel()
   }
-    
-    open override func insertText(_ text: String) {
-        fixTypingFont()
-        super.insertText(text)
-        fixTypingFont()
+  
+  open override var contentSize: CGSize {
+    didSet {
+      guard isGrowEnabled else {
+        return
+      }
+      invalidateIntrinsicContentSize()
+      
+      guard isEditing && isHeightChangeAnimated else {
+        superview?.layoutIfNeeded()
+        return
+      }
+      
+      UIView.animate(withDuration: 0.15) {
+        let v = self.superview as? Editor ?? self
+        v.superview?.layoutIfNeeded()
+      }
+    }
+  }
+  
+  /// A Boolean that indicates if the height change during growing is animated.
+  open var isHeightChangeAnimated = true
+  
+  /// Maximum preffered layout height before scrolling.
+  open var preferredMaxLayoutHeight: CGFloat = 0 {
+    didSet {
+      invalidateIntrinsicContentSize()
+      superview?.layoutIfNeeded()
+    }
+  }
+  
+  /// A property indicating if textView allowed to grow.
+  private var isGrowEnabled: Bool {
+    return preferredMaxLayoutHeight > 0 && isScrollEnabled
+  }
+  
+  /// Minimum TextView text height.
+  internal let minimumTextHeight: CGFloat = 32
+  
+  open override var intrinsicContentSize: CGSize {
+    guard isGrowEnabled else {
+      return super.intrinsicContentSize
     }
     
-    open override func paste(_ sender: Any?) {
-        fixTypingFont()
-        super.paste(sender)
-        fixTypingFont()
-    }
+    let insets = textContainerInsets
+    
+    let w = bounds.width - insets.left - insets.right - 2 * textContainer.lineFragmentPadding
+    let placeholderH = placeholderLabel.sizeThatFits(CGSize(width: w, height: .greatestFiniteMagnitude)).height
+    var h = max(minimumTextHeight, placeholderH) + insets.top + insets.bottom
+    h = max(h, contentSize.height)
+    return CGSize(width: UIView.noIntrinsicMetric, height: min(h, preferredMaxLayoutHeight))
+  }
+    
+  open override func insertText(_ text: String) {
+    fixTypingFont()
+    super.insertText(text)
+    fixTypingFont()
+  }
+  
+  open override func paste(_ sender: Any?) {
+    fixTypingFont()
+    super.paste(sender)
+    fixTypingFont()
+  }
 }
 
 fileprivate extension TextView {
@@ -325,12 +387,20 @@ fileprivate extension TextView {
 fileprivate extension TextView {
   /// Updates the placeholderLabel text color.
   func updatePlaceholderLabelColor() {
+    guard isPlaceholderLabelEnabled else {
+      return
+    }
+    
     tintColor = placeholderColor
     placeholderLabel.textColor = placeholderColor
   }
   
   /// Updates the placeholderLabel visibility.
   func updatePlaceholderVisibility() {
+    guard isPlaceholderLabelEnabled else {
+      return
+    }
+    
     placeholderLabel.isHidden = !isEmpty
   }
 }
@@ -338,15 +408,19 @@ fileprivate extension TextView {
 fileprivate extension TextView {
   /// Laysout the placeholder UILabel.
   func layoutPlaceholderLabel() {
-    placeholderLabel.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
+    guard isPlaceholderLabelEnabled else {
+      return
+    }
+        
+    let insets = textContainerInsets
+    let leftPadding = insets.left + textContainer.lineFragmentPadding
+    let rightPadding = insets.right + textContainer.lineFragmentPadding
+    let w = bounds.width - leftPadding - rightPadding
+    var h = placeholderLabel.sizeThatFits(CGSize(width: w, height: .greatestFiniteMagnitude)).height
+    h = max(h, minimumTextHeight)
+    h = min(h, bounds.height - insets.top - insets.bottom)
     
-    let x = textContainerInset.left + textContainer.lineFragmentPadding
-    let y = textContainerInset.top
-    placeholderLabel.sizeToFit()
-    
-    placeholderLabel.frame.origin.x = x
-    placeholderLabel.frame.origin.y = y
-    placeholderLabel.frame.size.width = textContainer.size.width - textContainerInset.right - textContainer.lineFragmentPadding
+    placeholderLabel.frame = CGRect(x: leftPadding, y: insets.top, width: w, height: h)
   }
 }
 
