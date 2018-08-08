@@ -36,6 +36,7 @@ public enum EditorPlaceholderAnimation {
 }
 
 open class Editor: View {
+  /// Reference to textView.
   public let textView = TextView()
   
   /// A boolean indicating whether the textView is in edit mode.
@@ -327,7 +328,7 @@ private extension Editor {
   /// Notification handler for when text editing began.
   @objc
   func handleTextViewTextDidBegin() {
-    updateEditorState(animated: true)
+    updateEditorState(isAnimated: true)
   }
   
   /// Notification handler for when text changed.
@@ -339,17 +340,17 @@ private extension Editor {
   /// Notification handler for when text editing ended.
   @objc
   func handleTextViewTextDidEnd() {
-    updateEditorState(animated: true)
+    updateEditorState(isAnimated: true)
   }
   
   /// Updates editor.
-  func updateEditorState(animated: Bool = false) {
+  func updateEditorState(isAnimated: Bool = false) {
     updatePlaceholderVisibility()
     updatePlaceholderLabelColor()
     updateDividerHeight()
     updateDividerColor()
     
-    guard animated && isPlaceholderAnimated else {
+    guard isAnimated && isPlaceholderAnimated else {
       layoutPlaceholderLabel()
       return
     }

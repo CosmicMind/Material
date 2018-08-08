@@ -161,7 +161,7 @@ extension UIImage {
    */
   open func crop(toWidth tw: CGFloat, toHeight th: CGFloat) -> UIImage? {
     let g: UIImage?
-    let b: Bool = width > height
+    let b = width > height
     let s: CGFloat = b ? th / height : tw / width
     let t: CGSize = CGSize(width: tw, height: th)
     

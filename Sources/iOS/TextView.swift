@@ -135,7 +135,7 @@ open class TextView: UITextView {
   public let placeholderLabel = UILabel()
   
   /// A property to enable/disable operations on the placeholderLabel
-  internal var isPlaceholderLabelEnabled: Bool = true
+  internal var isPlaceholderLabelEnabled = true
   
   /// Placeholder normal text
   @IBInspectable
