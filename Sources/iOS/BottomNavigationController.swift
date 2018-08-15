@@ -129,9 +129,21 @@ open class BottomNavigationController: UITabBarController {
     
     prepareTabBar()
   }
+  
+  /// A Boolean that indicates if the swipe feature is enabled..
+  open var isSwipeEnabled = false {
+    didSet {
+      guard isSwipeEnabled else {
+        removeSwipeGestureRecognizers()
+        return
+      }
+      
+      prepareSwipeGestureRecognizers()
+    }
+  }
 }
 
-fileprivate extension BottomNavigationController {
+private extension BottomNavigationController {
   /// Prepares the tabBar.
   func prepareTabBar() {
     tabBar.isTranslucent = false
@@ -143,5 +155,69 @@ fileprivate extension BottomNavigationController {
     tabBar.shadowImage = image
     tabBar.backgroundImage = image
     tabBar.backgroundColor = .white
+  }
+}
+
+private extension BottomNavigationController {
+  /// Prepare the UISwipeGestureRecognizers.
+  func prepareSwipeGestureRecognizers() {
+    removeSwipeGestureRecognizers()
+    
+    let right = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
+    right.direction = .right
+    view.addGestureRecognizer(right)
+    
+    let left = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
+    left.direction = .left
+    view.addGestureRecognizer(left)
+  }
+
+  /// Remove the UISwipeGestureRecognizers.
+  func removeSwipeGestureRecognizers() {
+    view.gestureRecognizers?.compactMap {
+        $0 as? UISwipeGestureRecognizer
+      }.filter {
+        .left == $0.direction || .right == $0.direction
+      }.forEach {
+        view.removeGestureRecognizer($0)
+      }
+  }
+  
+  @objc
+  func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
+    guard selectedIndex != NSNotFound else {
+      return
+    }
+    
+    switch gesture.direction {
+    case .right:
+      select(at: selectedIndex - 1)
+    case .left:
+      select(at: selectedIndex + 1)
+    default:
+      break
+    }
+  }
+  
+  private func select(at index: Int) {
+    guard index != selectedIndex else {
+      return
+    }
+    
+    let lastTabIndex = (tabBar.items?.count ?? 1) - 1
+    guard (0...lastTabIndex).contains(index) else {
+      return
+    }
+    
+    guard !(index == lastTabIndex && tabBar.items?.last == moreNavigationController.tabBarItem) else {
+      return
+    }
+    
+    let vc = viewControllers![index]
+    guard delegate?.tabBarController?(self, shouldSelect: vc) != false else {
+      return
+    }
+    selectedIndex = index
+    delegate?.tabBarController?(self, didSelect: vc)
   }
 }
