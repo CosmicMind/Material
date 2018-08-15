@@ -185,6 +185,10 @@ private extension BottomNavigationController {
   
   @objc
   func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
+    guard selectedIndex != NSNotFound else {
+      return
+    }
+    
     switch gesture.direction {
     case .right:
       select(at: selectedIndex - 1)
