@@ -42,6 +42,18 @@ extension UIViewController {
 }
 
 open class BottomNavigationController: UITabBarController {
+  /// A Boolean that indicates if the swipe feature is enabled..
+  open var isSwipeEnabled = false {
+    didSet {
+      guard isSwipeEnabled else {
+        removeSwipeGestureRecognizers()
+        return
+      }
+      
+      prepareSwipeGestureRecognizers()
+    }
+  }
+  
   /**
    An initializer that initializes the object with a NSCoder object.
    - Parameter aDecoder: A NSCoder instance.
@@ -129,17 +141,33 @@ open class BottomNavigationController: UITabBarController {
     
     prepareTabBar()
   }
-  
-  /// A Boolean that indicates if the swipe feature is enabled..
-  open var isSwipeEnabled = false {
-    didSet {
-      guard isSwipeEnabled else {
-        removeSwipeGestureRecognizers()
-        return
-      }
-      
-      prepareSwipeGestureRecognizers()
+}
+
+private extension BottomNavigationController {
+  /**
+   Selects a view controller at a given index.
+   - Parameter at index: An Int.
+   */
+  func select(at index: Int) {
+    guard index != selectedIndex else {
+      return
     }
+    
+    let lastTabIndex = (tabBar.items?.count ?? 1) - 1
+    guard (0...lastTabIndex).contains(index) else {
+      return
+    }
+    
+    guard !(index == lastTabIndex && tabBar.items?.last == moreNavigationController.tabBarItem) else {
+      return
+    }
+    
+    let vc = viewControllers![index]
+    guard delegate?.tabBarController?(self, shouldSelect: vc) != false else {
+      return
+    }
+    selectedIndex = index
+    delegate?.tabBarController?(self, didSelect: vc)
   }
 }
 
@@ -156,9 +184,7 @@ private extension BottomNavigationController {
     tabBar.backgroundImage = image
     tabBar.backgroundColor = .white
   }
-}
 
-private extension BottomNavigationController {
   /// Prepare the UISwipeGestureRecognizers.
   func prepareSwipeGestureRecognizers() {
     removeSwipeGestureRecognizers()
@@ -182,42 +208,19 @@ private extension BottomNavigationController {
         view.removeGestureRecognizer($0)
       }
   }
-  
+}
+
+private extension BottomNavigationController {
+  /**
+   A UISwipeGestureRecognizer that handles swipes.
+   - Parameter _ gesture: A UISwipeGestureRecognizer.
+   */
   @objc
   func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
     guard selectedIndex != NSNotFound else {
       return
     }
     
-    switch gesture.direction {
-    case .right:
-      select(at: selectedIndex - 1)
-    case .left:
-      select(at: selectedIndex + 1)
-    default:
-      break
-    }
-  }
-  
-  private func select(at index: Int) {
-    guard index != selectedIndex else {
-      return
-    }
-    
-    let lastTabIndex = (tabBar.items?.count ?? 1) - 1
-    guard (0...lastTabIndex).contains(index) else {
-      return
-    }
-    
-    guard !(index == lastTabIndex && tabBar.items?.last == moreNavigationController.tabBarItem) else {
-      return
-    }
-    
-    let vc = viewControllers![index]
-    guard delegate?.tabBarController?(self, shouldSelect: vc) != false else {
-      return
-    }
-    selectedIndex = index
-    delegate?.tabBarController?(self, didSelect: vc)
+    select(at: .right == gesture.direction ? selectedIndex - 1 : selectedIndex + 1)
   }
 }
