@@ -32,6 +32,8 @@ import UIKit
 
 public struct Application {
     
+  /// A reference to UIApplication.shared application which doesn't trigger linker errors when Material is included in an extension
+  /// Note that this will crash if actually called from within an extension
   public static var shared: UIApplication {
     let sharedSelector = NSSelectorFromString("sharedApplication")
     guard UIApplication.responds(to: sharedSelector) else {
