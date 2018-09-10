@@ -31,9 +31,22 @@
 import UIKit
 
 public struct Application {
+    
+  /// A reference to UIApplication.shared application which doesn't trigger linker errors when Material is included in an extension
+  /// Note that this will crash if actually called from within an extension
+  public static var shared: UIApplication {
+    let sharedSelector = NSSelectorFromString("sharedApplication")
+    guard UIApplication.responds(to: sharedSelector) else {
+      fatalError("[Material: Extensions cannot access Application]")
+    }
+    
+    let shared = UIApplication.perform(sharedSelector)
+    return shared?.takeUnretainedValue() as! UIApplication
+  }
+    
   /// An optional reference to the main UIWindow.
   public static var keyWindow: UIWindow? {
-    return UIApplication.shared.keyWindow
+    return Application.shared.keyWindow
   }
   
   /// An optional reference to the top most view controller.
@@ -43,7 +56,7 @@ public struct Application {
   
   /// A boolean indicating if the device is in Landscape mode.
   public static var isLandscape: Bool {
-    return UIApplication.shared.statusBarOrientation.isLandscape
+    return Application.shared.statusBarOrientation.isLandscape
   }
   
   /// A boolean indicating if the device is in Portrait mode.
@@ -53,26 +66,26 @@ public struct Application {
   
   /// The current UIInterfaceOrientation value.
   public static var orientation: UIInterfaceOrientation {
-    return UIApplication.shared.statusBarOrientation
+    return Application.shared.statusBarOrientation
   }
   
   /// Retrieves the device status bar style.
   public static var statusBarStyle: UIStatusBarStyle {
     get {
-      return UIApplication.shared.statusBarStyle
+      return Application.shared.statusBarStyle
     }
     set(value) {
-      UIApplication.shared.statusBarStyle = value
+      Application.shared.statusBarStyle = value
     }
   }
   
   /// Retrieves the device status bar hidden state.
   public static var isStatusBarHidden: Bool {
     get {
-      return UIApplication.shared.isStatusBarHidden
+      return Application.shared.isStatusBarHidden
     }
     set(value) {
-      UIApplication.shared.isStatusBarHidden = value
+      Application.shared.isStatusBarHidden = value
     }
   }
   
@@ -86,6 +99,6 @@ public struct Application {
   
   /// A reference to the user interface layout direction.
   public static var userInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
-    return UIApplication.shared.userInterfaceLayoutDirection
+    return Application.shared.userInterfaceLayoutDirection
   }
 }
