@@ -87,7 +87,6 @@ extension UIView {
   }
   
   /// A preset value for Depth.
-  @objc
   open var depthPreset: DepthPreset {
     get {
       return layer.depthPreset

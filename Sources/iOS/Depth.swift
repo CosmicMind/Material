@@ -30,14 +30,32 @@
 
 import UIKit
 
-@objc(DepthPreset)
-public enum DepthPreset: Int {
+public enum DepthPreset {
   case none
   case depth1
   case depth2
   case depth3
   case depth4
   case depth5
+  indirect case above(DepthPreset)
+  indirect case below(DepthPreset)
+  indirect case left(DepthPreset)
+  indirect case right(DepthPreset)
+  
+  public var root: DepthPreset {
+    switch self {
+    case .above(let v):
+      return v.root
+    case .below(let v):
+      return v.root
+    case .left(let v):
+      return v.root
+    case .right(let v):
+      return v.root
+    default:
+      return self
+    }
+  }
 }
 
 public struct Depth {
@@ -110,5 +128,60 @@ public func DepthPresetToValue(preset: DepthPreset) -> Depth {
     return Depth(offset: Offset(horizontal: 0, vertical: 4), opacity: 0.3, radius: 4)
   case .depth5:
     return Depth(offset: Offset(horizontal: 0, vertical: 8), opacity: 0.3, radius: 8)
+  case .above(let preset):
+    var v = DepthPresetToValue(preset: preset)
+    if preset.isRoot {
+      v.offset.vertical *= -1
+    } else {
+      let root = DepthPresetToValue(preset: preset.root)
+      v.offset.vertical -= root.offset.vertical
+    }
+    return v
+  case .below(let preset):
+    var v = DepthPresetToValue(preset: preset)
+    if preset.isRoot {
+      return v
+    } else {
+      let root = DepthPresetToValue(preset: preset.root)
+      v.offset.vertical += root.offset.vertical
+    }
+    return v
+  case .left(let preset):
+    var v = DepthPresetToValue(preset: preset)
+    if preset.isRoot {
+      v.offset.horizontal = -v.offset.vertical
+      v.offset.vertical = 0
+    } else {
+      let root = DepthPresetToValue(preset: preset.root)
+      v.offset.horizontal -= root.offset.vertical
+    }
+    return v
+  case .right(let preset):
+    var v = DepthPresetToValue(preset: preset)
+    if preset.isRoot {
+      v.offset.horizontal = v.offset.vertical
+      v.offset.vertical = 0
+    } else {
+      let root = DepthPresetToValue(preset: preset.root)
+      v.offset.horizontal += root.offset.vertical
+    }
+    return v
+  }
+}
+
+fileprivate extension DepthPreset {
+  var isRoot: Bool {
+    switch self {
+    case .above(_):
+      return false
+    case .below(_):
+      return false
+    case .left(_):
+      return false
+    case .right(_):
+      return false
+    default:
+      return true
+    }
   }
 }

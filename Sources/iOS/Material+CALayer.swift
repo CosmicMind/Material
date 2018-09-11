@@ -281,7 +281,7 @@ extension CALayer {
       return
     }
     
-    if .none == depthPreset {
+    if case .none = depthPreset.root {
       shadowPath = nil
     } else if nil == shadowPath {
       shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
