@@ -41,6 +41,15 @@ extension UIViewController {
   }
 }
 
+private class MaterialTabBar: UITabBar{
+  override func sizeThatFits(_ size: CGSize) -> CGSize {
+    var v = super.sizeThatFits(size)
+    let offset = v.height - 49
+    v.height = CGFloat(heightPreset.rawValue) + offset
+    return v
+  }
+}
+
 open class BottomNavigationController: UITabBarController {
   /// A Boolean that indicates if the swipe feature is enabled..
   open var isSwipeEnabled = false {
@@ -60,6 +69,7 @@ open class BottomNavigationController: UITabBarController {
    */
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
+    setTabBarClass()
   }
   
   /**
@@ -69,6 +79,7 @@ open class BottomNavigationController: UITabBarController {
    */
   public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    setTabBarClass()
   }
   
   /// An initializer that accepts no parameters.
@@ -140,6 +151,17 @@ open class BottomNavigationController: UITabBarController {
     view.contentScaleFactor = Screen.scale
     
     prepareTabBar()
+  }
+}
+
+private extension BottomNavigationController {
+  /// Sets tabBar class to MaterialTabBar.
+  func setTabBarClass() {
+    guard object_getClass(tabBar) === UITabBar.self else {
+      return
+    }
+    
+    object_setClass(tabBar, MaterialTabBar.self)
   }
 }
 
