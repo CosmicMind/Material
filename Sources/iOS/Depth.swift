@@ -42,16 +42,17 @@ public enum DepthPreset {
   indirect case left(DepthPreset)
   indirect case right(DepthPreset)
   
-  public var root: DepthPreset {
+  /// Returns raw depth value without considering direction.
+  public var rawValue: DepthPreset {
     switch self {
     case .above(let v):
-      return v.root
+      return v.rawValue
     case .below(let v):
-      return v.root
+      return v.rawValue
     case .left(let v):
-      return v.root
+      return v.rawValue
     case .right(let v):
-      return v.root
+      return v.rawValue
     default:
       return self
     }
@@ -133,8 +134,8 @@ public func DepthPresetToValue(preset: DepthPreset) -> Depth {
     if preset.isRoot {
       v.offset.vertical *= -1
     } else {
-      let root = DepthPresetToValue(preset: preset.root)
-      v.offset.vertical -= root.offset.vertical
+      let value = DepthPresetToValue(preset: preset.rawValue)
+      v.offset.vertical -= value.offset.vertical
     }
     return v
   case .below(let preset):
@@ -142,8 +143,8 @@ public func DepthPresetToValue(preset: DepthPreset) -> Depth {
     if preset.isRoot {
       return v
     } else {
-      let root = DepthPresetToValue(preset: preset.root)
-      v.offset.vertical += root.offset.vertical
+      let value = DepthPresetToValue(preset: preset.rawValue)
+      v.offset.vertical += value.offset.vertical
     }
     return v
   case .left(let preset):
@@ -152,8 +153,8 @@ public func DepthPresetToValue(preset: DepthPreset) -> Depth {
       v.offset.horizontal = -v.offset.vertical
       v.offset.vertical = 0
     } else {
-      let root = DepthPresetToValue(preset: preset.root)
-      v.offset.horizontal -= root.offset.vertical
+      let value = DepthPresetToValue(preset: preset.rawValue)
+      v.offset.horizontal -= value.offset.vertical
     }
     return v
   case .right(let preset):
@@ -162,14 +163,15 @@ public func DepthPresetToValue(preset: DepthPreset) -> Depth {
       v.offset.horizontal = v.offset.vertical
       v.offset.vertical = 0
     } else {
-      let root = DepthPresetToValue(preset: preset.root)
-      v.offset.horizontal += root.offset.vertical
+      let value = DepthPresetToValue(preset: preset.rawValue)
+      v.offset.horizontal += value.offset.vertical
     }
     return v
   }
 }
 
 fileprivate extension DepthPreset {
+  /// Checks if the preset is the root value (has no direction).
   var isRoot: Bool {
     switch self {
     case .above(_):
