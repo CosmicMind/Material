@@ -41,11 +41,11 @@ extension UIViewController {
   }
 }
 
-private class MaterialTabBar: UITabBar{
+private class MaterialTabBar: UITabBar {
   override func sizeThatFits(_ size: CGSize) -> CGSize {
     var v = super.sizeThatFits(size)
-    let offset = v.height - 49
-    v.height = CGFloat(heightPreset.rawValue) + offset
+    let offset = v.height - HeightPreset.normal.rawValue
+    v.height = heightPreset.rawValue + offset
     return v
   }
 }

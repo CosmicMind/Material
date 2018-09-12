@@ -38,7 +38,7 @@ fileprivate class MaterialLayer {
   /// A property that sets the height of the layer's frame.
   fileprivate var heightPreset = HeightPreset.default {
     didSet {
-      layer?.height = CGFloat(heightPreset.rawValue)
+      layer?.height = heightPreset.rawValue
     }
   }
   
