@@ -30,16 +30,43 @@
 
 import UIKit
 
-@objc(HeightPreset)
-public enum HeightPreset: Int {
-  case none = 0
-  case tiny = 20
-  case xsmall = 28
-  case small = 36
-  case `default` = 44
-  case normal = 49
-  case medium = 52
-  case large = 60
-  case xlarge = 68
-  case xxlarge = 104
+public enum HeightPreset {
+  case none
+  case tiny
+  case xsmall
+  case small
+  case `default`
+  case normal
+  case medium
+  case large
+  case xlarge
+  case xxlarge
+  case custom(CGFloat)
+  
+  public var rawValue: CGFloat {
+    switch self {
+    case .none:
+      return 0
+    case .tiny:
+      return 20
+    case .xsmall:
+      return 28
+    case .small:
+      return 36
+    case .`default`:
+      return 44
+    case .normal:
+      return 49
+    case .medium:
+      return 52
+    case .large:
+      return 60
+    case .xlarge:
+      return 68
+    case .xxlarge:
+      return 104
+    case .custom(let v):
+      return v
+    }
+  }
 }

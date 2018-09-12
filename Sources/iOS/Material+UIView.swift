@@ -61,7 +61,6 @@ extension UIView {
   }
   
   /// HeightPreset value.
-  @objc
   open var heightPreset: HeightPreset {
     get {
       return layer.heightPreset
