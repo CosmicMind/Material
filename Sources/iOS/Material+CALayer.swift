@@ -38,7 +38,7 @@ fileprivate class MaterialLayer {
   /// A property that sets the height of the layer's frame.
   fileprivate var heightPreset = HeightPreset.default {
     didSet {
-      layer?.height = CGFloat(heightPreset.rawValue)
+      layer?.height = heightPreset.rawValue
     }
   }
   
@@ -281,7 +281,7 @@ extension CALayer {
       return
     }
     
-    if .none == depthPreset {
+    if case .none = depthPreset.rawValue {
       shadowPath = nil
     } else if nil == shadowPath {
       shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath

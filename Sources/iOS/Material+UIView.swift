@@ -61,7 +61,6 @@ extension UIView {
   }
   
   /// HeightPreset value.
-  @objc
   open var heightPreset: HeightPreset {
     get {
       return layer.heightPreset
@@ -87,7 +86,6 @@ extension UIView {
   }
   
   /// A preset value for Depth.
-  @objc
   open var depthPreset: DepthPreset {
     get {
       return layer.depthPreset
