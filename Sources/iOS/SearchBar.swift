@@ -63,7 +63,7 @@ public protocol SearchBarDelegate {
 open class SearchBar: Bar {
   /// The UITextField for the searchBar.
   @IBInspectable
-  open let textField = UITextField()
+  public let textField = UITextField()
   
   /// Reference to the clearButton.
   open fileprivate(set) var clearButton: IconButton!

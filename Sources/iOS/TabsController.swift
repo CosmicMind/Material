@@ -108,7 +108,7 @@ open class TabsController: TransitionController {
   
   /// The TabBar used to switch between view controllers.
   @IBInspectable
-  open let tabBar = TabBar()
+  public let tabBar = TabBar()
   
   
   /// A Boolean that indicates if the swipe feature is enabled..

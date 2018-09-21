@@ -46,13 +46,13 @@ public enum FABMenuDirection: Int {
 
 open class FABMenuItem: View {
   /// A reference to the titleLabel.
-  open let titleLabel = UILabel()
+  public let titleLabel = UILabel()
   
   /// The titleLabel side.
   open var titleLabelPosition = FABMenuItemTitleLabelPosition.left
   
   /// A reference to the fabButton.
-  open let fabButton = FABButton()
+  public let fabButton = FABButton()
   
   open override func prepare() {
     super.prepare()

@@ -144,7 +144,7 @@ open class ChipBar: Bar {
   }
   
   /// A reference to the scroll view when the chip bar style is scrollable.
-  open let scrollView = UIScrollView()
+  public let scrollView = UIScrollView()
   
   /// Enables and disables bouncing when swiping.
   open var isScrollBounceEnabled: Bool {

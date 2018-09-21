@@ -53,7 +53,7 @@ extension UIViewController {
 
 open class TableViewController: ViewController {
   /// A reference to a Reminder.
-  open let tableView = TableView()
+  public let tableView = TableView()
   
   /// An Array of DataSourceItems.
   open var dataSourceItems = [DataSourceItem]()
