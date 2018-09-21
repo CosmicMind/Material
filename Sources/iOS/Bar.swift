@@ -105,7 +105,7 @@ open class Bar: View {
   }
   
   /// ContentView that holds the any desired subviews.
-  open let contentView = UIView()
+  public let contentView = UIView()
   
   /// Left side UIViews.
   open var leftViews = [UIView]() {

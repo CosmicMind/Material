@@ -257,7 +257,7 @@ open class TabBar: Bar {
   }
   
   /// A reference to the scroll view when the tab bar style is scrollable.
-  open let scrollView = UIScrollView()
+  public let scrollView = UIScrollView()
   
   /// Enables and disables bouncing when swiping.
   open var isScrollBounceEnabled: Bool {
@@ -337,7 +337,7 @@ open class TabBar: Bar {
   }
   
   /// A reference to the line UIView.
-  open let line = UIView()
+  public let line = UIView()
   
   /// A value for the line alignment.
   @objc

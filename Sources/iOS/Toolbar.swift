@@ -47,7 +47,7 @@ open class Toolbar: Bar {
   
   /// Title label.
   @IBInspectable
-  open let titleLabel = UILabel()
+  public let titleLabel = UILabel()
   
   /// A convenience property to set the detailLabel.text.
   @IBInspectable
@@ -63,7 +63,7 @@ open class Toolbar: Bar {
   
   /// Detail label.
   @IBInspectable
-  open let detailLabel = UILabel()
+  public let detailLabel = UILabel()
   
   deinit {
     removeObserver(self, forKeyPath: #keyPath(titleLabel.textAlignment))

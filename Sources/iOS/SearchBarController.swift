@@ -50,7 +50,7 @@ extension UIViewController {
 open class SearchBarController: StatusBarController {
   /// Reference to the SearchBar.
   @IBInspectable
-  open let searchBar = SearchBar()
+  public let searchBar = SearchBar()
   
   /// The searchBar alignment.
   open var searchBarAlignment = SearchBarAlignment.top {

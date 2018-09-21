@@ -85,7 +85,7 @@ extension UIViewController {
 
 open class SnackbarController: TransitionController {
   /// Reference to the Snackbar.
-  open let snackbar = Snackbar()
+  public let snackbar = Snackbar()
   
   /// A boolean indicating if the Snacbar is animating.
   open internal(set) var isAnimating = false

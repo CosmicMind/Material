@@ -48,7 +48,7 @@ open class TransitionController: ViewController {
   
   /// A reference to the container view.
   @IBInspectable
-  open let container = UIView()
+  public let container = UIView()
   
   /**
    A UIViewController property that references the active

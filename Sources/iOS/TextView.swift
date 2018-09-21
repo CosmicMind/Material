@@ -132,7 +132,7 @@ open class TextView: UITextView {
   
   /// The placeholder UILabel.
   @IBInspectable
-  open let placeholderLabel = UILabel()
+  public let placeholderLabel = UILabel()
   
   /// Placeholder normal text
   @IBInspectable
