@@ -617,13 +617,13 @@ fileprivate extension TextField {
   }
   /// Layout the rightView.
   func layoutRightView() {
-    guard let rightView = rightView else {
+    guard let v = rightView else {
       return
     }
     
-    let w = CGFloat(rightView.grid.views.count) * bounds.height
-    rightView.frame = CGRect(x: bounds.width - w, y: 0, width: w, height: bounds.height)
-    rightView.grid.reload()
+    let w = CGFloat(v.grid.views.count) * bounds.height
+    v.frame = CGRect(x: bounds.width - w, y: 0, width: w, height: bounds.height)
+    v.grid.reload()
   }
 }
 
