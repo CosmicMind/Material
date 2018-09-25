@@ -279,6 +279,7 @@ open class TabBar: Bar {
     didSet {
       oldValue?.isSelected = false
       selectedTabItem?.isSelected = true
+      updateScrollView()
     }
   }
   

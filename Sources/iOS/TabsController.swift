@@ -472,7 +472,7 @@ extension TabsController {
       }
       
       self?.selectedIndex = index
-      self?.tabBar.select(at: index)
+      self?.tabBar.selectedTabItem = self?.tabBar.tabItems[index]
     }
     
     return true
