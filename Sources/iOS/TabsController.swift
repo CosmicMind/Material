@@ -92,6 +92,24 @@ public protocol TabsControllerDelegate {
    */
   @objc
   optional func tabsController(tabsController: TabsController, didSelect viewController: UIViewController)
+  
+  /**
+   A delegation method that is executed when the interactive transition to view controller
+   will be cancelled.
+   - Parameter tabsController: A TabsController.
+   - Parameter viewController: A UIViewController.
+   */
+  @objc
+  optional func tabsController(tabsController: TabsController, willCancelSelecting viewController: UIViewController)
+  
+  /**
+   A delegation method that is executed when the interactive transition to view controller
+   has been cancelled.
+   - Parameter tabsController: A TabsController.
+   - Parameter viewController: A UIViewController.
+   */
+  @objc
+  optional func tabsController(tabsController: TabsController, didCancelSelecting viewController: UIViewController)
 }
 
 open class TabsController: TransitionController {
@@ -238,8 +256,10 @@ fileprivate extension TabsController {
       
       completion?(isFinishing)
       
-      if isTriggeredByUserInteraction {
+      if isTriggeredByUserInteraction && isFinishing {
         self.delegate?.tabsController?(tabsController: self, didSelect: viewController)
+      } else {
+        self.delegate?.tabsController?(tabsController: self, didCancelSelecting: viewController)
       }
     }
   }
@@ -304,9 +324,12 @@ private extension TabsController {
         guard abs(translationX) > 5 else {
           return
         }
-        
-        tabBar.cancelLineTransition(isAnimated: false)
-        MotionTransition.shared.cancel(isAnimated: false)
+
+        if targetIndex != -1 {
+          delegate?.tabsController?(tabsController: self, willCancelSelecting: viewControllers[targetIndex])
+          tabBar.cancelLineTransition(isAnimated: false)
+          MotionTransition.shared.cancel(isAnimated: false)
+        }
         
         if internalSelect(at: nextIndex, isTriggeredByUserInteraction: true, selectTabItem: false)  {
           tabBar.startLineTransition(for: nextIndex, duration: 0.35)
@@ -319,6 +342,10 @@ private extension TabsController {
       }
       
     default:
+      guard targetIndex != -1 else {
+        return
+      }
+      
       let progress = (translationX + velocityX) / view.bounds.width
       
       let isUserHandDirectionLeft = progress < 0
@@ -330,6 +357,7 @@ private extension TabsController {
       } else {
         tabBar.cancelLineTransition()
         MotionTransition.shared.cancel()
+        delegate?.tabsController?(tabsController: self, willCancelSelecting: viewControllers[targetIndex])
       }
       targetIndex = -1
     }
