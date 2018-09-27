@@ -131,25 +131,29 @@ open class TransitionController: ViewController {
   open func transition(to viewController: UIViewController, completion: ((Bool) -> Void)? = nil) {
     prepare(viewController: viewController, in: container)
     
-    switch motionTransitionType {
-    case .auto:break
-    default:
-      switch viewController.motionTransitionType {
-      case .auto:
-        viewController.motionTransitionType = motionTransitionType
-      default:break
-      }
+    if case .auto = viewController.motionTransitionType {
+      viewController.motionTransitionType = motionTransitionType
     }
     
     view.isUserInteractionEnabled = false
-    MotionTransition.shared.transition(from: rootViewController, to: viewController, in: container) { [weak self, viewController = viewController, completion = completion] (isFinishing) in
+    MotionTransition.shared.transition(from: rootViewController, to: viewController, in: container) { [weak self] isFinishing in
       guard let s = self else {
         return
       }
       
+      defer {
+        s.view.isUserInteractionEnabled = true
+        completion?(isFinishing)
+      }
+      
+      guard isFinishing else {
+        s.removeViewController(viewController: viewController)
+        s.removeViewController(viewController: s.rootViewController)
+        s.prepare(viewController: s.rootViewController, in: s.container)
+        return
+      }
+      
       s.rootViewController = viewController
-      s.view.isUserInteractionEnabled = true
-      completion?(isFinishing)
     }
   }
   

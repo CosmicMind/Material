@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import Motion
 
 open class TabItem: FlatButton {
   /// A dictionary of TabItemStates to UIColors for states.
@@ -278,6 +279,7 @@ open class TabBar: Bar {
     didSet {
       oldValue?.isSelected = false
       selectedTabItem?.isSelected = true
+      updateScrollView()
     }
   }
   
@@ -571,6 +573,55 @@ extension TabBar {
   open func setLineColor(_ color: UIColor, for state: TabItemLineState) {
     lineColorForState[state] = color
     updateLineColors()
+  }
+}
+
+internal extension TabBar {
+  /**
+   Starts line transition for the index with the given duration.
+   - Parameter for index: An Int.
+   - Parameter duration: A TimeInterval.
+   */
+  func startLineTransition(for index: Int, duration: TimeInterval = 0.35) {
+    guard let s = selectedTabItem, let currentIndex = tabItems.firstIndex(of: s) else {
+      return
+    }
+    
+    guard currentIndex != index else {
+      return
+    }
+    
+    let targetFrame = lineFrame(for: tabItems[index], forMotion: true)
+    
+    line.transition(.size(targetFrame.size),
+                    .position(targetFrame.origin),
+                    .duration(duration))
+    
+    line.motionViewTransition.start()
+  }
+  
+  /**
+   Updates line transition to the given progress value.
+   - Parameter _ progress: A CGFloat.
+   */
+  func updateLineTransition(_ progress: CGFloat) {
+    line.motionViewTransition.update(progress)
+  }
+
+  /**
+   Finishes line transition.
+   - Parameter isAnimated: A Boolean indicating if the change should be animated.
+   */
+  func finishLineTransition(isAnimated: Bool = true) {
+    line.motionViewTransition.finish(isAnimated: isAnimated)
+  }
+
+  /**
+   Cancels line transition.
+   - Parameter isAnimated: A Boolean indicating if the change should be animated.
+   */
+  func cancelLineTransition(isAnimated: Bool = true) {
+    line.motionViewTransition.cancel(isAnimated: isAnimated)
   }
 }
 

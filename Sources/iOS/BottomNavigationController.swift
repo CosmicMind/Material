@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import Motion
 
 extension UIViewController {
   /**
@@ -51,17 +52,29 @@ private class MaterialTabBar: UITabBar {
 }
 
 open class BottomNavigationController: UITabBarController {
-  /// A Boolean that indicates if the swipe feature is enabled..
-  open var isSwipeEnabled = false {
+  /// A Boolean that controls if the swipe feature is enabled.
+  open var isSwipeEnabled = true {
     didSet {
       guard isSwipeEnabled else {
-        removeSwipeGestureRecognizers()
+        removeSwipeGesture()
         return
       }
       
-      prepareSwipeGestureRecognizers()
+      prepareSwipeGesture()
     }
   }
+  
+  /**
+   A UIPanGestureRecognizer property internally used for the interactive
+   swipe.
+   */
+  public private(set) var interactiveSwipeGesture: UIPanGestureRecognizer?
+  
+  /**
+   A private integer for storing index of current view controller
+   during interactive transition.
+   */
+  private var currentIndex = -1
   
   /**
    An initializer that initializes the object with a NSCoder object.
@@ -151,6 +164,97 @@ open class BottomNavigationController: UITabBarController {
     view.contentScaleFactor = Screen.scale
     
     prepareTabBar()
+    isSwipeEnabled = true
+    isMotionEnabled = true
+  }
+}
+
+private extension BottomNavigationController {
+  /**
+   A target method contolling interactive swipe transition based on
+   gesture recognizer.
+   - Parameter _ gesture: A UIPanGestureRecognizer.
+   */
+  @objc
+  func handleTransitionPan(_ gesture: UIPanGestureRecognizer) {
+    guard selectedIndex != NSNotFound else {
+      return
+    }
+    
+    let translationX = gesture.translation(in: nil).x
+    let velocityX = gesture.velocity(in: nil).x
+    
+    switch gesture.state {
+    case .began, .changed:
+      let isSlidingLeft = currentIndex == -1 ? velocityX < 0 : translationX < 0
+      
+      if currentIndex == -1 {
+        currentIndex = selectedIndex
+      }
+      
+      let nextIndex = currentIndex + (isSlidingLeft ? 1 : -1)
+      
+      if selectedIndex != nextIndex {
+        /// 5 point threshold
+        guard abs(translationX) > 5 else {
+          return
+        }
+        
+        if currentIndex != selectedIndex {
+          MotionTransition.shared.cancel(isAnimated: false)
+        }
+        
+        guard canSelect(at: nextIndex) else {
+          return
+        }
+        
+        selectedIndex = nextIndex
+        MotionTransition.shared.setCompletionCallbackForNextTransition { [weak self] isFinishing in
+          guard let `self` = self, isFinishing else {
+            return
+          }
+          
+          self.delegate?.tabBarController?(self, didSelect: self.viewControllers![nextIndex])
+        }
+      } else {
+        let progress = abs(translationX / view.bounds.width)
+        MotionTransition.shared.update(Double(progress))
+      }
+      
+    default:
+      let progress = (translationX + velocityX) / view.bounds.width
+      
+      let isUserHandDirectionLeft = progress < 0
+      let isTargetHandDirectionLeft = selectedIndex > currentIndex
+      
+      if isUserHandDirectionLeft == isTargetHandDirectionLeft && abs(progress) > 0.5 {
+        MotionTransition.shared.finish()
+      } else {
+        MotionTransition.shared.cancel()
+      }
+      
+      currentIndex = -1
+    }
+  }
+
+  /// Prepares interactiveSwipeGesture.
+  func prepareSwipeGesture() {
+    guard nil == interactiveSwipeGesture else {
+      return
+    }
+    
+    interactiveSwipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleTransitionPan))
+    view.addGestureRecognizer(interactiveSwipeGesture!)
+  }
+  
+  /// Removes interactiveSwipeGesture.
+  func removeSwipeGesture() {
+    guard let v = interactiveSwipeGesture else {
+      return
+    }
+    
+    view.removeGestureRecognizer(v)
+    interactiveSwipeGesture = nil
   }
 }
 
@@ -167,29 +271,29 @@ private extension BottomNavigationController {
 
 private extension BottomNavigationController {
   /**
-   Selects a view controller at a given index.
+   Checks if the view controller at a given index can be selected.
    - Parameter at index: An Int.
    */
-  func select(at index: Int) {
+  func canSelect(at index: Int) -> Bool {
     guard index != selectedIndex else {
-      return
+      return false
     }
     
     let lastTabIndex = (tabBar.items?.count ?? 1) - 1
     guard (0...lastTabIndex).contains(index) else {
-      return
+      return false
     }
     
     guard !(index == lastTabIndex && tabBar.items?.last == moreNavigationController.tabBarItem) else {
-      return
+      return false
     }
     
     let vc = viewControllers![index]
     guard delegate?.tabBarController?(self, shouldSelect: vc) != false else {
-      return
+      return false
     }
-    selectedIndex = index
-    delegate?.tabBarController?(self, didSelect: vc)
+    
+    return true
   }
 }
 
@@ -205,44 +309,5 @@ private extension BottomNavigationController {
     tabBar.shadowImage = image
     tabBar.backgroundImage = image
     tabBar.backgroundColor = .white
-  }
-
-  /// Prepare the UISwipeGestureRecognizers.
-  func prepareSwipeGestureRecognizers() {
-    removeSwipeGestureRecognizers()
-    
-    let right = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
-    right.direction = .right
-    view.addGestureRecognizer(right)
-    
-    let left = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
-    left.direction = .left
-    view.addGestureRecognizer(left)
-  }
-
-  /// Remove the UISwipeGestureRecognizers.
-  func removeSwipeGestureRecognizers() {
-    view.gestureRecognizers?.compactMap {
-        $0 as? UISwipeGestureRecognizer
-      }.filter {
-        .left == $0.direction || .right == $0.direction
-      }.forEach {
-        view.removeGestureRecognizer($0)
-      }
-  }
-}
-
-private extension BottomNavigationController {
-  /**
-   A UISwipeGestureRecognizer that handles swipes.
-   - Parameter _ gesture: A UISwipeGestureRecognizer.
-   */
-  @objc
-  func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
-    guard selectedIndex != NSNotFound else {
-      return
-    }
-    
-    select(at: .right == gesture.direction ? selectedIndex - 1 : selectedIndex + 1)
   }
 }
