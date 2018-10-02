@@ -98,6 +98,7 @@ open class BottomNavigationController: UITabBarController {
   /// An initializer that accepts no parameters.
   public init() {
     super.init(nibName: nil, bundle: nil)
+    setTabBarClass()
   }
   
   /**
@@ -106,6 +107,7 @@ open class BottomNavigationController: UITabBarController {
    */
   public init(viewControllers: [UIViewController]) {
     super.init(nibName: nil, bundle: nil)
+    setTabBarClass()
     self.viewControllers = viewControllers
   }
   
