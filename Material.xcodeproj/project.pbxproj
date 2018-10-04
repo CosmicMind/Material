@@ -170,6 +170,7 @@
 		96E3C39A1D3A1CC20086A024 /* ErrorTextField.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39C1D3A1CC20086A024 /* Offset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968C99461D377849000074FF /* Offset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96F1A5531F24F17A001D8CAF /* TabsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E09DC71F2287E50000B121 /* TabsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9D00EBB4216675FB00DBCD69 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D00EBB3216675FB00DBCD69 /* Theme.swift */; };
 		9D054A6520D175AC00D0528D /* Material+UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D054A6320D175AC00D0528D /* Material+UIButton.swift */; };
 		9D054A6620D175AC00D0528D /* Material+UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D054A6420D175AC00D0528D /* Material+UILabel.swift */; };
 		9D39A81B20FE8ED100BA8FA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D39A81A20FE8ED100BA8FA1 /* ViewController.swift */; };
@@ -292,6 +293,7 @@
 		96E09DC71F2287E50000B121 /* TabsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
 		96E3C3931D397AE90086A024 /* Material+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIView.swift"; sourceTree = "<group>"; };
 		96F1DC871D654FDF0025F925 /* Material+CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+CALayer.swift"; sourceTree = "<group>"; };
+		9D00EBB3216675FB00DBCD69 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		9D054A6320D175AC00D0528D /* Material+UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIButton.swift"; sourceTree = "<group>"; };
 		9D054A6420D175AC00D0528D /* Material+UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UILabel.swift"; sourceTree = "<group>"; };
 		9D39A81A20FE8ED100BA8FA1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -567,6 +569,7 @@
 				963FBF011D6696AB008F8512 /* Tab */,
 				966ECF2B1CF4C21B00BB0BDF /* Table */,
 				96090B031D9D709E00709CA6 /* Text */,
+				9D00EBB2216675A800DBCD69 /* Theme */,
 				963FBF001D66964F008F8512 /* Toolbar */,
 				9626CA951DAB5370003E2611 /* Transition */,
 				96BCB8061CB40FD000C806FE /* Type */,
@@ -758,6 +761,14 @@
 				965532281E47E388005C2792 /* SpringAnimation.swift */,
 			);
 			name = Animation;
+			sourceTree = "<group>";
+		};
+		9D00EBB2216675A800DBCD69 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				9D00EBB3216675FB00DBCD69 /* Theme.swift */,
+			);
+			name = Theme;
 			sourceTree = "<group>";
 		};
 		9DE84D6E1FF0250E00586C8B /* ButtonGroup */ = {
@@ -1002,6 +1013,7 @@
 				966C17731F0439F600D3E83C /* Material+MotionAnimation.swift in Sources */,
 				965E80E51DD4C53300D61E4B /* PulseAnimation.swift in Sources */,
 				9DE84D721FF0252600586C8B /* RadioButtonGroup.swift in Sources */,
+				9D00EBB4216675FB00DBCD69 /* Theme.swift in Sources */,
 				965E80FE1DD4D59500D61E4B /* ToolbarController.swift in Sources */,
 				96328B971E05C0BB009A4C90 /* TableView.swift in Sources */,
 				965E80F81DD4D59500D61E4B /* ImageCard.swift in Sources */,
