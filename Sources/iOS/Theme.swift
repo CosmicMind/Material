@@ -129,4 +129,17 @@ public extension Theme {
       apply(theme: theme, to: $0)
     }
   }
+  
+  /**
+   Applies provided theme for the components created within the given block
+   without chaging app's theme.
+   - Parameter theme: A Theme.
+   - Parameter for block: A code block.
+   */
+  static func applying(theme: Theme, for execute: () -> Void) {
+    let v = current
+    current = theme
+    execute()
+    current = v
+  }
 }
