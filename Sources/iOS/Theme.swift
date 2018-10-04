@@ -70,15 +70,7 @@ public struct Theme {
 
 public extension Theme {
   /// Current theme for Material.
-  static var current = Theme.light {
-    didSet {
-      guard let v = Application.rootViewController else {
-        return
-      }
-      
-      apply(theme: .current, to: v)
-    }
-  }
+  static private(set) var current = Theme.light
   
   /// A light theme.
   static var light = Theme()
@@ -92,6 +84,21 @@ public extension Theme {
     t.onBackground = .white
     return t
   }()
+}
+
+public extension Theme {
+  /**
+   Applies theme to the entire app.
+   - Parameter theme: A Theme.
+   */
+  static func apply(theme: Theme) {
+    guard let v = Application.rootViewController else {
+      return
+    }
+    
+    current = theme
+    apply(theme: theme, to: v)
+  }
   
   /**
    Applies theme to the hierarchy of given view.
