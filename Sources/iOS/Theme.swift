@@ -66,6 +66,9 @@ public struct Theme {
   
   /// Text and iconography color to be used on error color.
   public var onError = Color.white
+  
+  /// An initializer.
+  public init() { }
 }
 
 public extension Theme {
