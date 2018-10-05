@@ -120,11 +120,11 @@ public extension Theme {
       return
     }
     
-    (view as? Themeable)?.apply(theme: theme)
-    
     view.subviews.forEach {
       apply(theme: theme, to: $0)
     }
+    
+    (view as? Themeable)?.apply(theme: theme)
   }
   
   /**
@@ -137,12 +137,12 @@ public extension Theme {
       return
     }
     
-    apply(theme: theme, to: viewController.view)
-    (viewController as? Themeable)?.apply(theme: theme)
-    
     viewController.children.forEach {
       apply(theme: theme, to: $0)
     }
+    
+    apply(theme: theme, to: viewController.view)
+    (viewController as? Themeable)?.apply(theme: theme)
   }
   
   /**
@@ -161,7 +161,7 @@ public extension Theme {
 
 
 /// A memory reference to the isThemingEnabled for Themeable NSObject subclasses.
-fileprivate var IsThemingEnabledKey: UInt8 = 0
+private var IsThemingEnabledKey: UInt8 = 0
 
 public extension Themeable where Self: NSObject {
   /// A boolean indicating if theming is enabled.
