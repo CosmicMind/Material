@@ -102,11 +102,11 @@ public extension Theme {
    - Parameter theme: A Theme.
    */
   static func apply(theme: Theme) {
+    current = theme
     guard let v = Application.rootViewController else {
       return
     }
     
-    current = theme
     apply(theme: theme, to: v)
   }
   
