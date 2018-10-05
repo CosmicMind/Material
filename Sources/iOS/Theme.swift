@@ -32,7 +32,14 @@ import UIKit
 import Motion
 
 public protocol Themeable {
+  /**
+   Applies given theme.
+   - Parameter theme: A Theme.
+   */
   func apply(theme: Theme)
+  
+  /// A boolean indicating if theming is enabled.
+  var isThemingEnabled: Bool { get set }
 }
 
 public struct Theme {
@@ -109,6 +116,10 @@ public extension Theme {
    - Parameter to view: A UIView.
    */
   static func apply(theme: Theme, to view: UIView) {
+    guard !((view as? Themeable)?.isThemingEnabled == false) else {
+      return
+    }
+    
     (view as? Themeable)?.apply(theme: theme)
     
     view.subviews.forEach {
@@ -122,6 +133,10 @@ public extension Theme {
    - Parameter to viewController: A UIViewController.
    */
   static func apply(theme: Theme, to viewController: UIViewController) {
+    guard !((viewController as? Themeable)?.isThemingEnabled == false) else {
+      return
+    }
+    
     apply(theme: theme, to: viewController.view)
     (viewController as? Themeable)?.apply(theme: theme)
     
@@ -141,5 +156,23 @@ public extension Theme {
     current = theme
     execute()
     current = v
+  }
+}
+
+
+/// A memory reference to the isThemingEnabled for Themeable NSObject subclasses.
+fileprivate var IsThemingEnabledKey: UInt8 = 0
+
+public extension Themeable where Self: NSObject {
+  /// A boolean indicating if theming is enabled.
+  var isThemingEnabled: Bool {
+    get {
+      return AssociatedObject.get(base: self, key: &IsThemingEnabledKey) {
+        true
+      }
+    }
+    set(value) {
+      AssociatedObject.set(base: self, key: &IsThemingEnabledKey, value: value)
+    }
   }
 }
