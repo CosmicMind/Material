@@ -30,7 +30,7 @@
 
 import UIKit
 
-open class NavigationBar: UINavigationBar {
+open class NavigationBar: UINavigationBar, Themeable {
   /// Will layout the view.
   open var willLayout: Bool {
     return 0 < bounds.width && 0 < bounds.height && nil != superview
@@ -168,7 +168,32 @@ open class NavigationBar: UINavigationBar {
     let image = UIImage()
     shadowImage = image
     setBackgroundImage(image, for: .default)
-    backgroundColor = .white
+    applyCurrentTheme()
+  }
+  
+  open func apply(theme: Theme) {
+    backgroundColor = theme.primary
+    items?.forEach {
+      apply(theme: theme, to: $0)
+    }
+  }
+  
+  private func apply(theme: Theme, to item: UINavigationItem) {
+    item.toolbar.backgroundColor = .clear
+    (item.toolbar.leftViews + item.toolbar.rightViews + item.toolbar.centerViews).compactMap { $0 as? IconButton }
+      .filter { $0.isThemingEnabled }
+      .forEach {
+        $0.tintColor = theme.onPrimary
+        $0.pulseColor = theme.onPrimary
+      }
+    
+    if !((item.titleLabel as? Themeable)?.isThemingEnabled == false) {
+      item.titleLabel.textColor = theme.onPrimary
+    }
+    
+    if !((item.detailLabel as? Themeable)?.isThemingEnabled == false) {
+      item.detailLabel.textColor = theme.onPrimary
+    }
   }
 }
 
@@ -182,8 +207,11 @@ internal extension NavigationBar {
       return
     }
     
+    if isThemingEnabled {
+      apply(theme: .current, to: item)
+    }
+    
     let toolbar = item.toolbar
-    toolbar.backgroundColor = .clear
     toolbar.interimSpace = interimSpace
     toolbar.contentEdgeInsets = contentEdgeInsets
     
