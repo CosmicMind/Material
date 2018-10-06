@@ -89,9 +89,10 @@ public extension Theme {
   static var dark: Theme = {
     var t = Theme()
     t.primary = UIColor(rgb: 0x202020)
-    t.secondary = UIColor(rgb: 0x33776B)
+    t.secondary = Color.teal.base
     t.background = UIColor(rgb: 0x303030)
     t.onBackground = .white
+    t.onSurface = .white
     return t
   }()
 }
@@ -174,5 +175,14 @@ public extension Themeable where Self: NSObject {
     set(value) {
       AssociatedObject.set(base: self, key: &IsThemingEnabledKey, value: value)
     }
+  }
+  
+  /// Applies current theme to itself if theming is enabled.
+  internal func applyCurrentTheme() {
+    guard isThemingEnabled else {
+      return
+    }
+    
+    apply(theme: .current)
   }
 }
