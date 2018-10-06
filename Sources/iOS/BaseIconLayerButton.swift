@@ -123,7 +123,7 @@ open class BaseIconLayerButton: Button {
     ///
     /// This property affects `intrinsicContentSize` and `sizeThatFits(_:)`
     /// Use `iconEdgeInsets` to set margins.
-    open var iconSize: CGFloat = 16 {
+    open var iconSize: CGFloat = 18 {
         didSet {
             reloadImage()
         }
@@ -137,8 +137,8 @@ open class BaseIconLayerButton: Button {
     ///
     /// You can use `iconSize` and this property, or `titleEdgeInsets` and `contentEdgeInsets` to position
     /// the icon however you want.
-    /// For negative values, behavior is undefined. Default is `5.0` for all four margins
-    open var iconEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5) {
+    /// For negative values, behavior is undefined. Default is `8.0` for all four margins
+    open var iconEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8) {
         didSet {
             reloadImage()
         }
