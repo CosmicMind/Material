@@ -30,7 +30,7 @@
 
 import UIKit
 
-open class ViewController: UIViewController {
+open class ViewController: UIViewController, Themeable {
   open override func viewDidLoad() {
     super.viewDidLoad()
     prepare()
@@ -45,8 +45,8 @@ open class ViewController: UIViewController {
    */
   open func prepare() {
     view.clipsToBounds = true
-    view.backgroundColor = .white
     view.contentScaleFactor = Screen.scale
+    applyCurrentTheme()
   }
   
   open override func viewWillLayoutSubviews() {
@@ -61,4 +61,12 @@ open class ViewController: UIViewController {
    have a certain need.
    */
   open func layoutSubviews() { }
+  
+  /**
+   Applies given theme to the view controller.
+   - Parameter theme: A Theme.
+   */
+  open func apply(theme: Theme) {
+    view.backgroundColor = theme.background
+  }
 }
