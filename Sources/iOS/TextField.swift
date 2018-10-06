@@ -63,7 +63,7 @@ public protocol TextFieldDelegate: UITextFieldDelegate {
   optional func textField(textField: TextField, didClear text: String?)
 }
 
-open class TextField: UITextField {
+open class TextField: UITextField, Themeable {
   
   /// Minimum TextField text height.
   private let minimumTextHeight: CGFloat = 32
@@ -459,6 +459,21 @@ open class TextField: UITextField {
     prepareTargetHandlers()
     prepareTextAlignment()
     prepareRightView()
+    applyCurrentTheme()
+  }
+  
+  open func apply(theme: Theme) {
+    placeholderActiveColor = theme.secondary
+    placeholderNormalColor = theme.onSurface.withAlphaComponent(0.38)
+    
+    leftViewActiveColor = theme.secondary
+    leftViewNormalColor = theme.onSurface.withAlphaComponent(0.38)
+    
+    dividerActiveColor = theme.secondary
+    dividerNormalColor = theme.onSurface.withAlphaComponent(0.12)
+    
+    detailColor = theme.onSurface.withAlphaComponent(0.38)
+    textColor = theme.onSurface.withAlphaComponent(0.87)
   }
 }
 

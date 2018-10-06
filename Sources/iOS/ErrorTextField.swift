@@ -93,4 +93,10 @@ open class ErrorTextField: TextField {
     super.layoutSubviews()
     layoutBottomLabel(label: errorLabel, verticalOffset: errorVerticalOffset)
   }
+  
+  open override func apply(theme: Theme) {
+    super.apply(theme: theme)
+    
+    errorColor = theme.error
+  }
 }
