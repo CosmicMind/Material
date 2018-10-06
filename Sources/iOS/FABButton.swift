@@ -36,6 +36,14 @@ open class FABButton: Button {
     depthPreset = .depth1
     shapePreset = .circle
     pulseAnimation = .centerWithBacking
-    backgroundColor = .white
+  }
+  
+  open override func apply(theme: Theme) {
+    super.apply(theme: theme)
+    
+    backgroundColor = theme.secondary
+    titleColor = theme.onSecondary
+    tintColor = theme.onSecondary
+    pulseColor = theme.onSecondary
   }
 }

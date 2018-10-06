@@ -35,4 +35,11 @@ open class IconButton: Button {
     super.prepare()
     pulseAnimation = .center
   }
+  
+  open override func apply(theme: Theme) {
+    super.apply(theme: theme)
+    
+    tintColor = theme.secondary
+    pulseColor = theme.secondary
+  }
 }

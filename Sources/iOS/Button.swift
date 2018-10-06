@@ -31,7 +31,7 @@
 import UIKit
 import Motion
 
-open class Button: UIButton, Pulseable, PulseableLayer {
+open class Button: UIButton, Pulseable, PulseableLayer, Themeable {
   /**
    A CAShapeLayer used to manage elements that would be affected by
    the clipToBounds property of the backing layer. For example, this
@@ -281,7 +281,14 @@ open class Button: UIButton, Pulseable, PulseableLayer {
     contentScaleFactor = Screen.scale
     prepareVisualLayer()
     preparePulse()
+    applyCurrentTheme()
   }
+  
+  /**
+   Applies given theme to the view.
+   - Parameter theme: A Theme.
+  */
+  open func apply(theme: Theme) { }
 }
 
 extension Button {

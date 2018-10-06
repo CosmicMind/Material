@@ -31,6 +31,12 @@ open class CheckButton: BaseIconLayerButton {
         guard !isAnimating else { return }
         setSelected(!isSelected, animated: true)
     }
+  
+  open override func apply(theme: Theme) {
+    super.apply(theme: theme)
+    
+    checkmarkColor = theme.onSecondary
+  }
 }
 
 internal class CheckBoxLayer: BaseIconLayer {
@@ -86,6 +92,7 @@ internal class CheckBoxLayer: BaseIconLayer {
         if isSelected {
             borderLayer.borderWidth = borderLayerNormalBorderWidth
         } else {
+            borderLayer.borderWidth = 0
             borderLayer.backgroundColor = (isEnabled ? normalColor : disabledColor).cgColor
             checkMarkLeftLayer.strokeEnd = 1
             checkMarkRightLayer.strokeEnd = 1

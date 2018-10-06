@@ -142,6 +142,14 @@ open class BaseIconLayerButton: Button {
             reloadImage()
         }
     }
+  
+  open override func apply(theme: Theme) {
+    super.apply(theme: theme)
+    
+    setIconColor(theme.secondary, for: .selected)
+    setIconColor(theme.onSurface.withAlphaComponent(0.38), for: .normal)
+    titleColor = theme.onSurface.withAlphaComponent(0.60)
+  }
     
     
     /// This might be considered as a hackish way, but it's just manipulation
