@@ -84,6 +84,7 @@ open class BaseIconLayerButton: Button {
     open override func prepare() {
         super.prepare()
         layer.addSublayer(iconLayer)
+        iconLayer.prepare()
         contentHorizontalAlignment = .left // default was .center
         reloadImage()
     }
@@ -191,16 +192,6 @@ internal class BaseIconLayer: CALayer {
             normalColor = { normalColor }()
             disabledColor = { disabledColor }()
         }
-    }
-    
-    override init() {
-        super.init()
-        prepare()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        prepare()
     }
     
     func prepare() {
