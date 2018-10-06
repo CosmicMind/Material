@@ -20,6 +20,7 @@ open class BaseIconLayerButton: Button {
     open override var isSelected: Bool {
         didSet {
             iconLayer.setSelected(isSelected, animated: false)
+            updatePulseColor()
         }
     }
     
@@ -150,6 +151,10 @@ open class BaseIconLayerButton: Button {
     setIconColor(theme.secondary, for: .selected)
     setIconColor(theme.onSurface.withAlphaComponent(0.38), for: .normal)
     titleColor = theme.onSurface.withAlphaComponent(0.60)
+    
+    selectedPulseColor = theme.secondary
+    normalPulseColor = theme.onSurface
+    updatePulseColor()
   }
     
     
@@ -168,6 +173,18 @@ open class BaseIconLayerButton: Button {
         UIGraphicsEndImageContext()
         self.image = image
     }
+  
+  /// Pulse color for selected state.
+  open var selectedPulseColor = Color.white
+  
+  /// Pulse color for normal state.
+  open var normalPulseColor = Color.white
+}
+
+private extension BaseIconLayerButton {
+  func updatePulseColor() {
+    pulseColor = isSelected ? selectedPulseColor : normalPulseColor
+  }
 }
 
 // MARK: - BaseIconLayer
