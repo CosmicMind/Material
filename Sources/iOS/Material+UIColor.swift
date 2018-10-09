@@ -62,3 +62,40 @@ public extension UIColor {
     self.init(argb: (0xff000000 as UInt32) | rgb)
   }
 }
+
+internal extension UIColor {
+  /// A tuple of the rgba components.
+  var components: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
+    var r: CGFloat = 0
+    var g: CGFloat = 0
+    var b: CGFloat = 0
+    var a: CGFloat = 0
+    
+    getRed(&r, green: &g, blue: &b, alpha: &a)
+    
+    return (r, g, b, a)
+  }
+  
+  /**
+   Blends given coverColor over this color.
+   - Parameter with coverColor: A UIColor.
+   - Returns: Resultant color of blending.
+   */
+  func blend(with coverColor: UIColor) -> UIColor {
+    
+    /// Blends channels according to https://en.wikipedia.org/wiki/Alpha_compositing (see `over` operator).
+    func blendChannel(value: CGFloat, bValue: CGFloat, alpha: CGFloat, bAlpha: CGFloat) -> CGFloat {
+      return ((1 - alpha) * bValue * bAlpha + alpha * value) / (alpha + bAlpha * (1 - alpha))
+    }
+    
+    let (r, g, b, a) = coverColor.components
+    let (bR, bG, bB, bA) = components
+    
+    let newR = blendChannel(value: r, bValue: bR, alpha: a, bAlpha: bA)
+    let newG = blendChannel(value: g, bValue: bG, alpha: a, bAlpha: bA)
+    let newB = blendChannel(value: b, bValue: bB, alpha: a, bAlpha: bA)
+    let newA = a + bA * (1 - a)
+    
+    return UIColor(red: newR, green: newG, blue: newB, alpha: newA)
+  }
+}
