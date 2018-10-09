@@ -91,6 +91,7 @@ public extension Theme {
     t.primary = UIColor(rgb: 0x202020)
     t.secondary = Color.teal.base
     t.background = UIColor(rgb: 0x303030)
+    t.surface = t.background
     t.onBackground = .white
     t.onSurface = .white
     return t
