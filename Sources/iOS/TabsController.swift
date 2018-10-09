@@ -327,6 +327,7 @@ fileprivate extension TabsController {
   /// Prepares the TabBar.
   func prepareTabBar() {
     tabBar.lineAlignment = .bottom == tabBarAlignment ? .top : .bottom
+    tabBar.dividerAlignment = .bottom == tabBarAlignment ? .top : .bottom
     tabBar._delegate = self
     view.addSubview(tabBar)
   }
