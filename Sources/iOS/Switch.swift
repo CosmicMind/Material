@@ -30,12 +30,6 @@
 
 import UIKit
 
-@objc(SwitchStyle)
-public enum SwitchStyle: Int {
-  case light
-  case dark
-}
-
 @objc(SwitchState)
 public enum SwitchState: Int {
   case on
@@ -261,7 +255,7 @@ open class Switch: UIControl, Themeable {
    - Parameter style: A SwitchStyle value.
    - Parameter size: A SwitchSize value.
    */
-  public init(state: SwitchState = .off, style: SwitchStyle = .dark, size: SwitchSize = .medium) {
+  public init(state: SwitchState = .off, size: SwitchSize = .medium) {
     track = UIView()
     button = FABButton()
     super.init(frame: .zero)
