@@ -210,15 +210,6 @@ open class Editor: View, Themeable {
   open override func resignFirstResponder() -> Bool {
     return textView.resignFirstResponder()
   }
-  
-  open override var inputAccessoryView: UIView? {
-    get {
-      return textView.inputAccessoryView
-    }
-    set(value) {
-      textView.inputAccessoryView = value
-    }
-  }
 }
 
 
