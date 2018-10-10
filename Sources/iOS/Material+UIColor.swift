@@ -98,4 +98,24 @@ internal extension UIColor {
     
     return UIColor(red: newR, green: newG, blue: newB, alpha: newA)
   }
+  
+  
+  func adjustingBrightness(by value: CGFloat) -> UIColor {
+    var h: CGFloat = 0
+    var s: CGFloat = 0
+    var b: CGFloat = 0
+    var a: CGFloat = 0
+    
+    getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+    
+    return UIColor(hue: h, saturation: s, brightness: (b + value).clamp(0, 1), alpha: 1)
+  }
+  
+  var lighter: UIColor {
+    return adjustingBrightness(by: 0.05)
+  }
+  
+  var darker: UIColor {
+    return adjustingBrightness(by: -0.05)
+  }
 }
