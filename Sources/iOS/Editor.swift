@@ -35,7 +35,7 @@ public enum EditorPlaceholderAnimation {
   case hidden
 }
 
-open class Editor: View {
+open class Editor: View, Themeable {
   /// Reference to textView.
   public let textView = TextView()
   
@@ -173,11 +173,14 @@ open class Editor: View {
   
   open override func prepare() {
     super.prepare()
+    backgroundColor = nil
     prepareDivider()
     prepareTextView()
     preparePlaceholderLabel()
     prepareDetailLabel()
     prepareNotificationHandlers()
+    
+    applyCurrentTheme()
   }
   
   open override func layoutSubviews() {
@@ -185,6 +188,17 @@ open class Editor: View {
     layoutPlaceholderLabel()
     layoutDivider()
     layoutBottomLabel(label: detailLabel, verticalOffset: detailVerticalOffset)
+  }
+  
+  open func apply(theme: Theme) {
+    placeholderActiveColor = theme.secondary
+    placeholderNormalColor = theme.onSurface.withAlphaComponent(0.38)
+    
+    dividerActiveColor = theme.secondary
+    dividerNormalColor = theme.onSurface.withAlphaComponent(0.12)
+    
+    detailColor = theme.onSurface.withAlphaComponent(0.38)
+    textView.tintColor = theme.secondary
   }
   
   @discardableResult

@@ -87,7 +87,7 @@ public protocol TextViewDelegate : UITextViewDelegate {
   optional func textView(textView: TextView, didProcessEditing textStorage: TextStorage, text: String, range: NSRange)
 }
 
-open class TextView: UITextView {
+open class TextView: UITextView, Themeable {
   /// A boolean indicating whether the text is empty.
   open var isEmpty: Bool {
     return 0 == text?.utf16.count
@@ -289,6 +289,7 @@ open class TextView: UITextView {
     prepareNotificationHandlers()
     prepareRegularExpression()
     preparePlaceholderLabel()
+    applyCurrentTheme()
   }
   
   open override var contentSize: CGSize {
@@ -353,6 +354,11 @@ open class TextView: UITextView {
     fixTypingFont()
     super.paste(sender)
     fixTypingFont()
+  }
+  
+  open func apply(theme: Theme) {
+    textColor = theme.onSurface.withAlphaComponent(0.87)
+    placeholderColor = theme.onSurface.withAlphaComponent(0.38)
   }
 }
 
