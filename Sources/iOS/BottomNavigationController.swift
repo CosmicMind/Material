@@ -51,7 +51,7 @@ private class MaterialTabBar: UITabBar {
   }
 }
 
-open class BottomNavigationController: UITabBarController {
+open class BottomNavigationController: UITabBarController, Themeable {
   /// A Boolean that controls if the swipe feature is enabled.
   open var isSwipeEnabled = true {
     didSet {
@@ -168,6 +168,17 @@ open class BottomNavigationController: UITabBarController {
     prepareTabBar()
     isSwipeEnabled = true
     isMotionEnabled = true
+    applyCurrentTheme()
+  }
+  
+  open func apply(theme: Theme) {
+    tabBar.tintColor = theme.secondary
+    tabBar.barTintColor = theme.background
+    tabBar.dividerColor = theme.onSurface.withAlphaComponent(0.12)
+    
+    if #available(iOS 10.0, *) {
+      tabBar.unselectedItemTintColor = theme.onSurface.withAlphaComponent(0.54)
+    }
   }
 }
 
