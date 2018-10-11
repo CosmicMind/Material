@@ -167,6 +167,7 @@ open class TabsController: TransitionController {
   /// The tabBar alignment.
   open var tabBarAlignment = TabBarAlignment.bottom {
     didSet {
+      updateTabBarAlignment()
       layoutSubviews()
     }
   }
@@ -326,10 +327,14 @@ fileprivate extension TabsController {
   
   /// Prepares the TabBar.
   func prepareTabBar() {
-    tabBar.lineAlignment = .bottom == tabBarAlignment ? .top : .bottom
-    tabBar.dividerAlignment = .bottom == tabBarAlignment ? .top : .bottom
     tabBar._delegate = self
     view.addSubview(tabBar)
+    updateTabBarAlignment()
+  }
+  
+  func updateTabBarAlignment() {
+    tabBar.lineAlignment = .bottom == tabBarAlignment ? .top : .bottom
+    tabBar.dividerAlignment = .bottom == tabBarAlignment ? .top : .bottom
   }
   
   /// Prepares the `tabBar.tabItems`.
