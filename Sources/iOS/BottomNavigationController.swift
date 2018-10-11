@@ -171,6 +171,10 @@ open class BottomNavigationController: UITabBarController, Themeable {
     applyCurrentTheme()
   }
   
+  /**
+   Applies the given theme.
+   - Parameter theme: A Theme.
+   */
   open func apply(theme: Theme) {
     tabBar.tintColor = theme.secondary
     tabBar.barTintColor = theme.background

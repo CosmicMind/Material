@@ -327,6 +327,10 @@ open class Switch: UIControl, Themeable {
     applyCurrentTheme()
   }
   
+  /**
+   Applies the given theme.
+   - Parameter theme: A Theme.
+   */
   open func apply(theme: Theme) {
     buttonOnColor = theme.secondary
     trackOnColor = theme.secondary.withAlphaComponent(0.60)

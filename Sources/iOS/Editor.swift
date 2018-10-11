@@ -190,6 +190,10 @@ open class Editor: View, Themeable {
     layoutBottomLabel(label: detailLabel, verticalOffset: detailVerticalOffset)
   }
   
+  /**
+   Applies the given theme.
+   - Parameter theme: A Theme.
+   */
   open func apply(theme: Theme) {
     placeholderActiveColor = theme.secondary
     placeholderNormalColor = theme.onSurface.withAlphaComponent(0.38)

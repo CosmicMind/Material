@@ -356,6 +356,10 @@ open class TextView: UITextView, Themeable {
     fixTypingFont()
   }
   
+  /**
+   Applies the given theme.
+   - Parameter theme: A Theme.
+   */
   open func apply(theme: Theme) {
     textColor = theme.onSurface.withAlphaComponent(0.87)
     placeholderColor = theme.onSurface.withAlphaComponent(0.38)

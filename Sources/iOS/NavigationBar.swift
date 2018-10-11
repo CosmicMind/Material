@@ -171,6 +171,10 @@ open class NavigationBar: UINavigationBar, Themeable {
     applyCurrentTheme()
   }
   
+  /**
+   Applies the given theme.
+   - Parameter theme: A Theme.
+   */
   open func apply(theme: Theme) {
     backgroundColor = theme.primary
     items?.forEach {
@@ -178,6 +182,11 @@ open class NavigationBar: UINavigationBar, Themeable {
     }
   }
   
+  /**
+   Applies the given theme to the navigation item.
+   - Parameter theme: A Theme.
+   - Parameter to item: A UINavigationItem.
+   */
   private func apply(theme: Theme, to item: UINavigationItem) {
     Theme.apply(theme: theme, to: item.toolbar)
     item.toolbar.backgroundColor = .clear

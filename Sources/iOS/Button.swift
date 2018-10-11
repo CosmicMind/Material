@@ -285,9 +285,9 @@ open class Button: UIButton, Pulseable, PulseableLayer, Themeable {
   }
   
   /**
-   Applies given theme to the view.
+   Applies the given theme.
    - Parameter theme: A Theme.
-  */
+   */
   open func apply(theme: Theme) { }
 }
 

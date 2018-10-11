@@ -147,6 +147,10 @@ open class Toolbar: Bar, Themeable {
     prepareDetailLabel()
   }
   
+  /**
+   Applies the given theme.
+   - Parameter theme: A Theme.
+   */
   open func apply(theme: Theme) {
     backgroundColor = theme.primary
     (leftViews + rightViews + centerViews).forEach {
