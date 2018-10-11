@@ -238,7 +238,7 @@ open class TabsController: TransitionController {
     super.apply(theme: theme)
     
     switch tabBarThemingStyle {
-    case .auto where parent is NavigationController && tabBarAlignment == .top:
+    case .auto where (parent is NavigationController || parent is ToolbarController) && tabBarAlignment == .top:
       fallthrough
       
     case .primary:
