@@ -179,21 +179,8 @@ open class NavigationBar: UINavigationBar, Themeable {
   }
   
   private func apply(theme: Theme, to item: UINavigationItem) {
+    Theme.apply(theme: theme, to: item.toolbar)
     item.toolbar.backgroundColor = .clear
-    (item.toolbar.leftViews + item.toolbar.rightViews + item.toolbar.centerViews).compactMap { $0 as? IconButton }
-      .filter { $0.isThemingEnabled }
-      .forEach {
-        $0.tintColor = theme.onPrimary
-        $0.pulseColor = theme.onPrimary
-      }
-    
-    if !((item.titleLabel as? Themeable)?.isThemingEnabled == false) {
-      item.titleLabel.textColor = theme.onPrimary
-    }
-    
-    if !((item.detailLabel as? Themeable)?.isThemingEnabled == false) {
-      item.detailLabel.textColor = theme.onPrimary
-    }
   }
 }
 

@@ -30,7 +30,18 @@
 
 import UIKit
 
+public enum IconButtonThemingStyle {
+  /// Theming when background content is in background color.
+  case onBackground
+  
+  /// Theming when background content is in primary color.
+  case onPrimary
+}
+
 open class IconButton: Button {
+  /// A reference to IconButtonThemingStyle.
+  open var themingStyle = IconButtonThemingStyle.onBackground
+  
   open override func prepare() {
     super.prepare()
     pulseAnimation = .center
@@ -39,7 +50,13 @@ open class IconButton: Button {
   open override func apply(theme: Theme) {
     super.apply(theme: theme)
     
-    tintColor = theme.secondary
-    pulseColor = theme.secondary
+    switch themingStyle {
+    case .onBackground:
+      tintColor = theme.secondary
+      pulseColor = theme.secondary
+    case .onPrimary:
+      tintColor = theme.onPrimary
+      pulseColor = theme.onPrimary
+    }
   }
 }

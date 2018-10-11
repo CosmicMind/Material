@@ -73,24 +73,6 @@ open class ToolbarController: StatusBarController {
     
     prepareToolbar()
   }
-  
-  open override func apply(theme: Theme) {
-    super.apply(theme: theme)
-    
-    toolbar.backgroundColor = theme.primary
-    toolbar.titleLabel.textColor = theme.onPrimary
-    toolbar.detailLabel.textColor = theme.onPrimary
-    
-    (toolbar.leftViews + toolbar.rightViews + toolbar.centerViews).compactMap {
-      $0 as? IconButton
-    }.filter {
-      $0.isThemingEnabled
-    }.forEach {
-      $0.tintColor = theme.onPrimary
-      $0.titleColor = theme.onPrimary
-      $0.pulseColor = theme.onPrimary
-    }
-  }
 }
 
 fileprivate extension ToolbarController {
