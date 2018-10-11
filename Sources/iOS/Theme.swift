@@ -139,14 +139,14 @@ public extension Theme {
       return
     }
     
-    viewController.children.forEach {
+    viewController.allChildren.forEach {
       apply(theme: theme, to: $0)
       $0.view.isProcessed = true
     }
     
     apply(theme: theme, to: viewController.view)
     
-    viewController.children.forEach {
+    viewController.allChildren.forEach {
       $0.view.isProcessed = false
     }
     
@@ -191,6 +191,23 @@ public extension Themeable where Self: NSObject {
     }
     
     apply(theme: .current)
+  }
+}
+
+private extension UIViewController {
+  /// Returns all possible child view controllers.
+  var allChildren: [UIViewController] {
+    var all = children
+    
+    if let v = self as? TabsController {
+      all += v.viewControllers
+    }
+    
+    if let v = presentedViewController, v.presentingViewController === self {
+      all.append(v)
+    }
+    
+    return all
   }
 }
 
