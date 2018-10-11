@@ -42,9 +42,9 @@ public protocol Themeable: class {
   var isThemingEnabled: Bool { get set }
 }
 
-public struct Theme {
+public struct Theme: Hashable {
   /// The color displayed most frequently across the app.
-  public var primary = Color.blue.base
+  public var primary = Color.blue.darken2
   
   /// Accent color for some components such as FABMenu.
   public var secondary = Color.blue.base
