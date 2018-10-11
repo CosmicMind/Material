@@ -118,7 +118,7 @@ public extension Theme {
    - Parameter to view: A UIView.
    */
   static func apply(theme: Theme, to view: UIView) {
-    guard !((view as? Themeable)?.isThemingEnabled == false) else {
+    guard !((view as? Themeable)?.isThemingEnabled == false), !view.isProcessed else {
       return
     }
     
@@ -141,9 +141,15 @@ public extension Theme {
     
     viewController.children.forEach {
       apply(theme: theme, to: $0)
+      $0.view.isProcessed = true
     }
     
     apply(theme: theme, to: viewController.view)
+    
+    viewController.children.forEach {
+      $0.view.isProcessed = false
+    }
+    
     (viewController as? Themeable)?.apply(theme: theme)
   }
   
@@ -185,5 +191,22 @@ public extension Themeable where Self: NSObject {
     }
     
     apply(theme: .current)
+  }
+}
+
+/// A memory reference to the isProcessed for UIView.
+private var IsProcessedKey: UInt8 = 0
+
+private extension UIView {
+  /// A boolean indicating if view is already themed.
+  var isProcessed: Bool {
+    get {
+      return AssociatedObject.get(base: self, key: &IsProcessedKey) {
+        false
+      }
+    }
+    set(value) {
+      AssociatedObject.set(base: self, key: &IsProcessedKey, value: value)
+    }
   }
 }
