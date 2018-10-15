@@ -195,8 +195,8 @@ open class Button: UIButton, Pulseable, PulseableLayer, Themeable {
    */
   public init(image: UIImage?, tintColor: UIColor = Color.blue.base) {
     super.init(frame: .zero)
-    prepare(with: image, tintColor: tintColor)
     prepare()
+    prepare(with: image, tintColor: tintColor)
   }
   
   /**
@@ -206,8 +206,8 @@ open class Button: UIButton, Pulseable, PulseableLayer, Themeable {
    */
   public init(title: String?, titleColor: UIColor = Color.blue.base) {
     super.init(frame: .zero)
-    prepare(with: title, titleColor: titleColor)
     prepare()
+    prepare(with: title, titleColor: titleColor)
   }
   
   open override func layoutSubviews() {
