@@ -105,7 +105,7 @@ open class Dialog: NSObject {
     super.init()
     
     /// Set callbacks for delegate.
-    _ = shouldDismiss(handler: nil)
+    shouldDismiss(handler: nil)
     .positive(nil, handler: nil)
     .negative(nil, handler: nil)
     .neutral(nil, handler: nil)
@@ -119,6 +119,7 @@ open class Dialog: NSObject {
    - Parameter _ text: A string.
    - Returns: Dialog itself to allow chaining.
    */
+  @discardableResult
   open func title(_ text: String?) -> Dialog {
     dialogView.titleLabel.text = text
     return self
@@ -129,6 +130,7 @@ open class Dialog: NSObject {
    - Parameter _ text: A string.
    - Returns: Dialog itself to allow chaining.
    */
+  @discardableResult
   open func details(_ text: String?) -> Dialog {
     dialogView.detailsLabel.text = text
     return self
@@ -140,6 +142,7 @@ open class Dialog: NSObject {
    - Parameter handler: A closure handling tap.
    - Returns: Dialog itself to allow chaining.
    */
+  @discardableResult
   open func positive(_ title: String?, handler: (() -> Void)?) -> Dialog {
     dialogView.positiveButton.title = title
     controller.didTapPositiveButtonHandler = { [unowned self] in
@@ -155,6 +158,7 @@ open class Dialog: NSObject {
    - Parameter handler: A closure handling tap.
    - Returns: Dialog itself to allow chaining.
    */
+  @discardableResult
   open func negative(_ title: String?, handler: (() -> Void)?) -> Dialog {
     dialogView.negativeButton.title = title
     controller.didTapNegativeButtonHandler = { [unowned self] in
@@ -170,6 +174,7 @@ open class Dialog: NSObject {
    - Parameter handler: A closure handling tap.
    - Returns: Dialog itself to allow chaining.
    */
+  @discardableResult
   open func neutral(_ title: String?, handler: (() -> Void)?) -> Dialog {
     dialogView.neutralButton.title = title
     controller.didTapNeutralButtonHandler = { [unowned self] in
@@ -185,6 +190,7 @@ open class Dialog: NSObject {
    - Parameter handler: A closure handling cancellation.
    - Returns: Dialog itself to allow chaining.
    */
+  @discardableResult
   open func isCancelable(_ value: Bool, handler: (() -> Void)? = nil) -> Dialog {
     controller.isCancelable = value
     controller.didCancelHandler = { [unowned self] in
@@ -200,6 +206,7 @@ open class Dialog: NSObject {
    - Parameter handler: A closure handling if dialog can be dismissed.
    - Returns: Dialog itself to allow chaining.
    */
+  @discardableResult
   open func shouldDismiss(handler: ((DialogView, Button?) -> Bool)?) -> Dialog {
     controller.shouldDismissHandler = { [unowned self] dialogView, button in
       let d = self.delegate?.dialog?(self, shouldDismiss: button) ?? true
@@ -214,6 +221,7 @@ open class Dialog: NSObject {
    - Parameter handler: A closure handling the event.
    - Returns: Dialog itself to allow chaining.
    */
+  @discardableResult
   open func willAppear(handler: (() -> Void)?) -> Dialog {
     controller.willAppear = { [unowned self] in
       self.delegate?.dialogWillAppear?(self)
@@ -227,6 +235,7 @@ open class Dialog: NSObject {
    - Parameter handler: A closure handling the event.
    - Returns: Dialog itself to allow chaining.
    */
+  @discardableResult
   open func didDisappear(handler: (() -> Void)?) -> Dialog {
     controller.didDisappear = { [unowned self] in
       self.delegate?.dialogDidDisappear?(self)
@@ -241,6 +250,7 @@ open class Dialog: NSObject {
    - Parameter delegate: A DialogDelegate.
    - Returns: Dialog itself to allow chaining.
    */
+  @discardableResult
   open func delegate(_ delegate: DialogDelegate) -> Dialog {
     self.delegate = delegate
     return self
