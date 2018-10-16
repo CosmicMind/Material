@@ -33,6 +33,30 @@
 
 import UIKit
 
+private struct Constants {
+    struct titleArea {
+        static let insets = UIEdgeInsets(top: 24, left: 24, bottom: 20, right: 24)
+    }
+    
+    struct contentArea {
+        static let insets = UIEdgeInsets(top: 0, left: 24, bottom: 24, right: 24)
+        static let insetsNoTitle = UIEdgeInsets(top: 20, left: 24, bottom: 24, right: 24)
+    }
+    
+    struct buttonArea {
+        static let insets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        static let insetsStacked = UIEdgeInsets(top: 6, left: 8, bottom: 14, right: 8)
+    }
+    
+    struct button {
+        static let insets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        static let minWidth: CGFloat = 64
+        static let height: CGFloat = 36
+        static let interimStacked: CGFloat = 12
+        static let interim: CGFloat = 8
+    }
+}
+
 private class DialogScrollView: UIScrollView {
   /// A weak reference to DialogView.
   weak var dialogView: DialogView?
@@ -99,14 +123,14 @@ open class DialogView: View, Themeable {
   
   open override func sizeThatFits(_ size: CGSize) -> CGSize {
     var w: CGFloat = 0
-    func setW(_ newW: CGFloat) {
-      w = max(w, newW)
+    func setMaxWidth(_ width: CGFloat) {
+      w = max(w, width)
       w = min(w, size.width)
     }
     
-    setW(titleAreaSizeThatFits(width: size.width).width)
-    setW(buttonAreaSizeThatFits(width: size.width).width)
-    setW(contentAreaSizeThatFits(width: size.width).width)
+    setMaxWidth(titleAreaSizeThatFits(width: size.width).width)
+    setMaxWidth(buttonAreaSizeThatFits(width: size.width).width)
+    setMaxWidth(contentAreaSizeThatFits(width: size.width).width)
     
     var h: CGFloat = 0
     h += titleAreaSizeThatFits(width: w).height
@@ -402,29 +426,5 @@ private extension UILabel {
     let empty = text?.isEmpty ?? true
     isHidden = empty
     return empty
-  }
-}
-
-private struct Constants {
-  struct titleArea {
-    static let insets = UIEdgeInsets(top: 24, left: 24, bottom: 20, right: 24)
-  }
-  
-  struct contentArea {
-    static let insets = UIEdgeInsets(top: 0, left: 24, bottom: 24, right: 24)
-    static let insetsNoTitle = UIEdgeInsets(top: 20, left: 24, bottom: 24, right: 24)
-  }
-  
-  struct buttonArea {
-    static let insets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-    static let insetsStacked = UIEdgeInsets(top: 6, left: 8, bottom: 14, right: 8)
-  }
-  
-  struct button {
-    static let insets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-    static let minWidth: CGFloat = 64
-    static let height: CGFloat = 36
-    static let interimStacked: CGFloat = 12
-    static let interim: CGFloat = 8
   }
 }
