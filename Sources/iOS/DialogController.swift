@@ -119,7 +119,6 @@ open class DialogController<T: DialogView>: UIViewController {
     }
     
     dismiss(isTriggeredByUserInteraction: true, isAnimated: true)
-    didCancelHandler?()
   }
   
   /// Handler for when one of 3 dialog buttons is tapped.
@@ -177,5 +176,11 @@ private extension DialogController {
     }
     
     presentingViewController?.dismiss(animated: isAnimated, completion: nil)
+    
+    guard isTriggeredByUserInteraction, nil == button else {
+      return
+    }
+    
+    didCancelHandler?()
   }
 }
