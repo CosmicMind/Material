@@ -59,6 +59,12 @@ open class DialogController<T: DialogView>: UIViewController {
   /// A reference to handler for when neutralButton is tapped.
   open var didTapNeutralButtonHandler: (() -> Void)?
   
+  /// A reference to handler for when controller will appear.
+  open var willAppear: (() -> Void)?
+  
+  /// A reference to handler for when controller did disappear.
+  open var didDisappear: (() -> Void)?
+  
   public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     prepare()
@@ -80,6 +86,16 @@ open class DialogController<T: DialogView>: UIViewController {
     super.viewDidLoad()
     prepareView()
     prepareDialogView()
+  }
+  
+  open override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    willAppear?()
+  }
+  
+  open override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    didDisappear?()
   }
   
   open override func viewWillLayoutSubviews() {
