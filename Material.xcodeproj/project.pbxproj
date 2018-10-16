@@ -175,6 +175,9 @@
 		9D054A6620D175AC00D0528D /* Material+UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D054A6420D175AC00D0528D /* Material+UILabel.swift */; };
 		9D39A81B20FE8ED100BA8FA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D39A81A20FE8ED100BA8FA1 /* ViewController.swift */; };
 		9D9089B92118914500605DC9 /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9089B82118914500605DC9 /* Editor.swift */; };
+		9DE25DE02170D7AF000C04DF /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE25DDF2170D7AF000C04DF /* Dialog.swift */; };
+		9DE25DE22170D7C0000C04DF /* DialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE25DE12170D7C0000C04DF /* DialogController.swift */; };
+		9DE25DE42170D7FF000C04DF /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE25DE32170D7FF000C04DF /* DialogView.swift */; };
 		9DE84D721FF0252600586C8B /* RadioButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE84D6F1FF0252500586C8B /* RadioButtonGroup.swift */; };
 		9DE84D731FF0252600586C8B /* BaseButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE84D701FF0252500586C8B /* BaseButtonGroup.swift */; };
 		9DE84D741FF0252600586C8B /* CheckButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE84D711FF0252500586C8B /* CheckButtonGroup.swift */; };
@@ -298,6 +301,9 @@
 		9D054A6420D175AC00D0528D /* Material+UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UILabel.swift"; sourceTree = "<group>"; };
 		9D39A81A20FE8ED100BA8FA1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9D9089B82118914500605DC9 /* Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
+		9DE25DDF2170D7AF000C04DF /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
+		9DE25DE12170D7C0000C04DF /* DialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogController.swift; sourceTree = "<group>"; };
+		9DE25DE32170D7FF000C04DF /* DialogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
 		9DE84D6F1FF0252500586C8B /* RadioButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonGroup.swift; sourceTree = "<group>"; };
 		9DE84D701FF0252500586C8B /* BaseButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseButtonGroup.swift; sourceTree = "<group>"; };
 		9DE84D711FF0252500586C8B /* CheckButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckButtonGroup.swift; sourceTree = "<group>"; };
@@ -550,6 +556,7 @@
 				96BCB8001CB40F0300C806FE /* Color */,
 				96328B9A1E05C135009A4C90 /* Data */,
 				96BCB80B1CB410CC00C806FE /* Device */,
+				9DE25DDE2170D779000C04DF /* Dialogs */,
 				96230AB61D6A51FD00AF47DC /* Divider */,
 				96BCB80A1CB410A100C806FE /* Extension */,
 				963FBF021D6696D0008F8512 /* FABMenu */,
@@ -769,6 +776,16 @@
 				9D00EBB3216675FB00DBCD69 /* Theme.swift */,
 			);
 			name = Theme;
+			sourceTree = "<group>";
+		};
+		9DE25DDE2170D779000C04DF /* Dialogs */ = {
+			isa = PBXGroup;
+			children = (
+				9DE25DDF2170D7AF000C04DF /* Dialog.swift */,
+				9DE25DE12170D7C0000C04DF /* DialogController.swift */,
+				9DE25DE32170D7FF000C04DF /* DialogView.swift */,
+			);
+			name = Dialogs;
 			sourceTree = "<group>";
 		};
 		9DE84D6E1FF0250E00586C8B /* ButtonGroup */ = {
@@ -1015,9 +1032,12 @@
 				9DE84D721FF0252600586C8B /* RadioButtonGroup.swift in Sources */,
 				9D00EBB4216675FB00DBCD69 /* Theme.swift in Sources */,
 				965E80FE1DD4D59500D61E4B /* ToolbarController.swift in Sources */,
+				9DE25DE22170D7C0000C04DF /* DialogController.swift in Sources */,
+				9DE25DE42170D7FF000C04DF /* DialogView.swift in Sources */,
 				96328B971E05C0BB009A4C90 /* TableView.swift in Sources */,
 				965E80F81DD4D59500D61E4B /* ImageCard.swift in Sources */,
 				96328B991E05C0CE009A4C90 /* TableViewController.swift in Sources */,
+				9DE25DE02170D7AF000C04DF /* Dialog.swift in Sources */,
 				965E80F91DD4D59500D61E4B /* PresenterCard.swift in Sources */,
 				96E09DC81F2287E50000B121 /* TabsController.swift in Sources */,
 				961154CC1F32A7B100A78D74 /* ChipBar.swift in Sources */,

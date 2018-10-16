@@ -191,9 +191,9 @@ open class Button: UIButton, Pulseable, PulseableLayer, Themeable {
   /**
    A convenience initializer that acceps an image and tint
    - Parameter image: A UIImage.
-   - Parameter tintColor: A UI
+   - Parameter tintColor: A UIColor.
    */
-  public init(image: UIImage?, tintColor: UIColor = Color.blue.base) {
+  public init(image: UIImage?, tintColor: UIColor? = nil) {
     super.init(frame: .zero)
     prepare()
     prepare(with: image, tintColor: tintColor)
@@ -202,9 +202,9 @@ open class Button: UIButton, Pulseable, PulseableLayer, Themeable {
   /**
    A convenience initializer that acceps a title and title
    - Parameter title: A String.
-   - Parameter titleColor: A UI
+   - Parameter titleColor: A UIColor.
    */
-  public init(title: String?, titleColor: UIColor = Color.blue.base) {
+  public init(title: String?, titleColor: UIColor? = nil) {
     super.init(frame: .zero)
     prepare()
     prepare(with: title, titleColor: titleColor)
@@ -309,9 +309,9 @@ extension Button {
    - Parameter image: A UIImage.
    - Parameter tintColor: A UI
    */
-  fileprivate func prepare(with image: UIImage?, tintColor: UIColor) {
+  fileprivate func prepare(with image: UIImage?, tintColor: UIColor?) {
     self.image = image
-    self.tintColor = tintColor
+    self.tintColor = tintColor ?? self.tintColor
   }
   
   /**
@@ -319,9 +319,9 @@ extension Button {
    - Parameter title: A String.
    - Parameter titleColor: A UI
    */
-  fileprivate func prepare(with title: String?, titleColor: UIColor) {
+  fileprivate func prepare(with title: String?, titleColor: UIColor?) {
     self.title = title
-    self.titleColor = titleColor
+    self.titleColor = titleColor ?? self.titleColor
   }
 }
 
