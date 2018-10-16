@@ -39,6 +39,12 @@ public enum TabBarAlignment: Int {
   case bottom
 }
 
+public enum TabBarThemingStyle {
+  case auto
+  case primary
+  case secondary
+}
+
 extension UIViewController {
   /// TabItem reference.
   @objc
@@ -161,9 +167,13 @@ open class TabsController: TransitionController {
   /// The tabBar alignment.
   open var tabBarAlignment = TabBarAlignment.bottom {
     didSet {
+      updateTabBarAlignment()
       layoutSubviews()
     }
   }
+  
+  /// The tabBar theming style.
+  open var tabBarThemingStyle = TabBarThemingStyle.auto
   
   /**
    A UIPanGestureRecognizer property internally used for the interactive
@@ -218,10 +228,54 @@ open class TabsController: TransitionController {
     prepareTabBar()
     prepareTabItems()
     prepareSelectedIndexViewController()
+    applyCurrentTheme()
   }
   
   open override func transition(to viewController: UIViewController, completion: ((Bool) -> Void)?) {
     transition(to: viewController, isTriggeredByUserInteraction: false, completion: completion)
+  }
+  
+  open override func apply(theme: Theme) {
+    super.apply(theme: theme)
+    
+    switch tabBarThemingStyle {
+    case .auto where (parent is NavigationController || parent is ToolbarController) && tabBarAlignment == .top:
+      fallthrough
+      
+    case .primary:
+      applyPrimary(theme: theme)
+      
+    default:
+      applySecondary(theme: theme)
+    }
+  }
+}
+
+private extension TabsController {
+  /**
+   Applies theming taking primary color as base.
+   - Parameter theme: A Theme
+   */
+  func applyPrimary(theme: Theme) {
+    tabBar.lineColor = theme.onPrimary.withAlphaComponent(0.68)
+    tabBar.backgroundColor = theme.primary
+    tabBar.setTabItemsColor(theme.onPrimary, for: .normal)
+    tabBar.setTabItemsColor(theme.onPrimary, for: .selected)
+    tabBar.setTabItemsColor(theme.onPrimary, for: .highlighted)
+    tabBar.isDividerHidden = true
+  }
+  
+  /**
+   Applies theming taking secondary color as base.
+   - Parameter theme: A Theme
+   */
+  func applySecondary(theme: Theme) {
+    tabBar.lineColor = theme.secondary
+    tabBar.backgroundColor = theme.background
+    tabBar.setTabItemsColor(theme.onSurface.withAlphaComponent(0.60), for: .normal)
+    tabBar.setTabItemsColor(theme.secondary, for: .selected)
+    tabBar.setTabItemsColor(theme.secondary, for: .highlighted)
+    tabBar.dividerColor = theme.onSurface.withAlphaComponent(0.12)
   }
 }
 
@@ -273,9 +327,14 @@ fileprivate extension TabsController {
   
   /// Prepares the TabBar.
   func prepareTabBar() {
-    tabBar.lineAlignment = .bottom == tabBarAlignment ? .top : .bottom
     tabBar._delegate = self
     view.addSubview(tabBar)
+    updateTabBarAlignment()
+  }
+  
+  func updateTabBarAlignment() {
+    tabBar.lineAlignment = .bottom == tabBarAlignment ? .top : .bottom
+    tabBar.dividerAlignment = .bottom == tabBarAlignment ? .top : .bottom
   }
   
   /// Prepares the `tabBar.tabItems`.

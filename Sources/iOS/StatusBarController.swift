@@ -120,6 +120,12 @@ open class StatusBarController: TransitionController {
     super.prepare()
     prepareStatusBar()
   }
+  
+  open override func apply(theme: Theme) {
+    super.apply(theme: theme)
+    
+    statusBar.backgroundColor = theme.primary.darker
+  }
 }
 
 fileprivate extension StatusBarController {

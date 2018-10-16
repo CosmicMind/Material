@@ -35,6 +35,14 @@ open class RaisedButton: Button {
     super.prepare()
     depthPreset = .depth1
     cornerRadiusPreset = .cornerRadius1
-    backgroundColor = .white
+  }
+  
+  open override func apply(theme: Theme) {
+    super.apply(theme: theme)
+    
+    backgroundColor = theme.secondary
+    titleColor = theme.onSecondary
+    pulseColor = theme.onSecondary
+    tintColor = theme.onSecondary
   }
 }

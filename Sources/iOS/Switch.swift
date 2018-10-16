@@ -30,12 +30,6 @@
 
 import UIKit
 
-@objc(SwitchStyle)
-public enum SwitchStyle: Int {
-  case light
-  case dark
-}
-
 @objc(SwitchState)
 public enum SwitchState: Int {
   case on
@@ -59,7 +53,7 @@ public protocol SwitchDelegate {
   func switchDidChangeState(control: Switch, state: SwitchState)
 }
 
-open class Switch: UIControl {
+open class Switch: UIControl, Themeable {
   /// Will layout the view.
   open var willLayout: Bool {
     return 0 < bounds.width && 0 < bounds.height && nil != superview
@@ -200,32 +194,6 @@ open class Switch: UIControl {
     }
   }
   
-  /// Switch style.
-  open var switchStyle = SwitchStyle.dark {
-    didSet {
-      switch switchStyle {
-      case .light:
-        buttonOnColor = Color.blue.darken2
-        trackOnColor = Color.blue.lighten3
-        buttonOffColor = Color.blueGrey.lighten4
-        trackOffColor = Color.grey.lighten2
-        buttonOnDisabledColor = Color.grey.lighten2
-        trackOnDisabledColor = Color.grey.lighten2
-        buttonOffDisabledColor = Color.grey.lighten2
-        trackOffDisabledColor = Color.grey.lighten2
-      case .dark:
-        buttonOnColor = Color.blue.lighten1
-        trackOnColor = Color.blue.lighten2.withAlphaComponent(0.5)
-        buttonOffColor = Color.grey.lighten2
-        trackOffColor = Color.blueGrey.lighten4.withAlphaComponent(0.5)
-        buttonOnDisabledColor = Color.grey.darken3
-        trackOnDisabledColor = Color.grey.lighten1.withAlphaComponent(0.2)
-        buttonOffDisabledColor = Color.grey.darken3
-        trackOffDisabledColor = Color.grey.lighten1.withAlphaComponent(0.2)
-      }
-    }
-  }
-  
   /// Switch size.
   open var switchSize = SwitchSize.medium {
     didSet {
@@ -287,13 +255,12 @@ open class Switch: UIControl {
    - Parameter style: A SwitchStyle value.
    - Parameter size: A SwitchSize value.
    */
-  public init(state: SwitchState = .off, style: SwitchStyle = .dark, size: SwitchSize = .medium) {
+  public init(state: SwitchState = .off, size: SwitchSize = .medium) {
     track = UIView()
     button = FABButton()
     super.init(frame: .zero)
     prepare()
     prepareSwitchState(state: state)
-    prepareSwitchStyle(style: style)
     prepareSwitchSize(size: size)
   }
   
@@ -356,8 +323,24 @@ open class Switch: UIControl {
     prepareTrack()
     prepareButton()
     prepareSwitchState()
-    prepareSwitchStyle()
     prepareSwitchSize()
+    applyCurrentTheme()
+  }
+  
+  /**
+   Applies the given theme.
+   - Parameter theme: A Theme.
+   */
+  open func apply(theme: Theme) {
+    buttonOnColor = theme.secondary
+    trackOnColor = theme.secondary.withAlphaComponent(0.60)
+    buttonOffColor = theme.surface.blend(with: theme.onSurface.withAlphaComponent(0.15).blend(with: theme.secondary.withAlphaComponent(0.06)))
+    trackOffColor = theme.onSurface.withAlphaComponent(0.12)
+    
+    buttonOnDisabledColor = theme.surface.blend(with: theme.onSurface.withAlphaComponent(0.15))
+    trackOnDisabledColor = theme.onSurface.withAlphaComponent(0.15)
+    buttonOffDisabledColor = buttonOnDisabledColor
+    trackOffDisabledColor = trackOnDisabledColor
   }
 }
 
@@ -562,15 +545,6 @@ fileprivate extension Switch {
    */
   func prepareSwitchState(state: SwitchState = .off) {
     updateSwitchState(state: state, animated: false, isTriggeredByUserInteraction: false)
-  }
-  
-  /**
-   Prepares the switchStyle property. This is used mainly to allow
-   init to set the state value and have an effect.
-   - Parameter style: The SwitchStyle to set.
-   */
-  func prepareSwitchStyle(style: SwitchStyle = .light) {
-    switchStyle = style
   }
   
   /**

@@ -614,6 +614,7 @@ internal extension TabBar {
    */
   func finishLineTransition(isAnimated: Bool = true) {
     line.motionViewTransition.finish(isAnimated: isAnimated)
+    line.transition([])
   }
 
   /**
@@ -622,6 +623,7 @@ internal extension TabBar {
    */
   func cancelLineTransition(isAnimated: Bool = true) {
     line.motionViewTransition.cancel(isAnimated: isAnimated)
+    line.transition([])
   }
 }
 

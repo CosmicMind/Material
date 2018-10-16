@@ -35,4 +35,13 @@ open class FlatButton: Button {
     super.prepare()
     cornerRadiusPreset = .cornerRadius1
   }
+  
+  open override func apply(theme: Theme) {
+    super.apply(theme: theme)
+    
+    backgroundColor = .clear
+    titleColor = theme.secondary
+    tintColor = theme.secondary
+    pulseColor = theme.secondary
+  }
 }

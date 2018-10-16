@@ -30,7 +30,7 @@
 
 import UIKit
 
-open class Toolbar: Bar {
+open class Toolbar: Bar, Themeable {
   /// A convenience property to set the titleLabel.text.
   @IBInspectable
   open var title: String? {
@@ -62,6 +62,24 @@ open class Toolbar: Bar {
   /// Detail label.
   @IBInspectable
   public let detailLabel = UILabel()
+  
+  open override var leftViews: [UIView] {
+    didSet {
+      prepareIconButtons(leftViews)
+    }
+  }
+  
+  open override var centerViews: [UIView] {
+    didSet {
+      prepareIconButtons(centerViews)
+    }
+  }
+  
+  open override var rightViews: [UIView] {
+    didSet {
+      prepareIconButtons(rightViews)
+    }
+  }
   
   /**
    An initializer that initializes the object with a NSCoder object.
@@ -129,6 +147,29 @@ open class Toolbar: Bar {
     prepareDetailLabel()
   }
   
+  /**
+   Applies the given theme.
+   - Parameter theme: A Theme.
+   */
+  open func apply(theme: Theme) {
+    backgroundColor = theme.primary
+    (leftViews + rightViews + centerViews).forEach {
+      guard let v = $0 as? IconButton, v.isThemingEnabled else {
+        return
+      }
+      
+     v.apply(theme: theme)
+    }
+    
+    if !((titleLabel as? Themeable)?.isThemingEnabled == false) {
+      titleLabel.textColor = theme.onPrimary
+    }
+    
+    if !((detailLabel as? Themeable)?.isThemingEnabled == false) {
+      detailLabel.textColor = theme.onPrimary
+    }
+  }
+  
   /// A reference to titleLabel.textAlignment observation.
   private var titleLabelTextAlignmentObserver: NSKeyValueObservation!
 }
@@ -151,5 +192,13 @@ private extension Toolbar {
     detailLabel.contentScaleFactor = Screen.scale
     detailLabel.font = RobotoFont.regular(with: 12)
     detailLabel.textColor = Color.darkText.secondary
+  }
+  
+  func prepareIconButtons(_ views: [UIView]) {
+    views.forEach {
+      ($0 as? IconButton)?.themingStyle = .onPrimary
+    }
+    
+    applyCurrentTheme()
   }
 }
