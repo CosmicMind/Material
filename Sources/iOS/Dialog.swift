@@ -33,13 +33,10 @@
 
 import UIKit
 
-/// A typealias referring to DialogBuilder<DialogView>.
-public typealias Dialog = DialogBuilder<DialogView>
-
 /// A builder for DialogController.
-open class DialogBuilder<T: DialogView> {
+open class Dialog {
   /// A reference to dialog controller.
-  public let controller = DialogController<T>()
+  public let controller = DialogController<DialogView>()
   
   /// An empty initializer.
   public init() { }
@@ -49,7 +46,7 @@ open class DialogBuilder<T: DialogView> {
    - Parameter _ text: A string.
    - Returns: DialogBuilder itself to allow chaining.
    */
-  open func title(_ text: String?) -> DialogBuilder {
+  open func title(_ text: String?) -> Dialog {
     dialogView.titleLabel.text = text
     return self
   }
@@ -59,7 +56,7 @@ open class DialogBuilder<T: DialogView> {
    - Parameter _ text: A string.
    - Returns: DialogBuilder itself to allow chaining.
    */
-  open func details(_ text: String?) -> DialogBuilder {
+  open func details(_ text: String?) -> Dialog {
     dialogView.detailsLabel.text = text
     return self
   }
@@ -70,7 +67,7 @@ open class DialogBuilder<T: DialogView> {
    - Parameter handler: A closure handling tap.
    - Returns: DialogBuilder itself to allow chaining.
    */
-  open func positive(_ title: String?, handler: (() -> Void)?) -> DialogBuilder {
+  open func positive(_ title: String?, handler: (() -> Void)?) -> Dialog {
     dialogView.positiveButton.title = title
     controller.didTapPositiveButtonHandler = handler
     return self
@@ -82,7 +79,7 @@ open class DialogBuilder<T: DialogView> {
    - Parameter handler: A closure handling tap.
    - Returns: DialogBuilder itself to allow chaining.
    */
-  open func negative(_ title: String?, handler: (() -> Void)?) -> DialogBuilder {
+  open func negative(_ title: String?, handler: (() -> Void)?) -> Dialog {
     dialogView.negativeButton.title = title
     controller.didTapNegativeButtonHandler = handler
     return self
@@ -94,7 +91,7 @@ open class DialogBuilder<T: DialogView> {
    - Parameter handler: A closure handling tap.
    - Returns: DialogBuilder itself to allow chaining.
    */
-  open func neutral(_ title: String?, handler: (() -> Void)?) -> DialogBuilder {
+  open func neutral(_ title: String?, handler: (() -> Void)?) -> Dialog {
     dialogView.neutralButton.title = title
     controller.didTapNeutralButtonHandler = handler
     return self
@@ -106,7 +103,7 @@ open class DialogBuilder<T: DialogView> {
    - Parameter handler: A closure handling cancellation.
    - Returns: DialogBuilder itself to allow chaining.
    */
-  open func isCancelable(_ value: Bool, handler: (() -> Void)? = nil) -> DialogBuilder {
+  open func isCancelable(_ value: Bool, handler: (() -> Void)? = nil) -> Dialog {
     controller.isCancelable = value
     controller.didCancelHandler = handler
     return self
@@ -118,7 +115,7 @@ open class DialogBuilder<T: DialogView> {
    - Parameter handler: A closure handling if dialog can be dismissed.
    - Returns: DialogBuilder itself to allow chaining.
    */
-  open func shouldDismiss(handler: ((T, Button?) -> Bool)?) -> DialogBuilder {
+  open func shouldDismiss(handler: ((DialogView, Button?) -> Bool)?) -> Dialog {
     controller.shouldDismissHandler = handler
     return self
   }
@@ -129,15 +126,15 @@ open class DialogBuilder<T: DialogView> {
    - Returns: DialogBuilder itself to allow chaining.
    */
   @discardableResult
-  open func show(_ viewController: UIViewController) -> DialogBuilder {
+  open func show(_ viewController: UIViewController) -> Dialog {
     viewController.present(controller, animated: true, completion: nil)
     return self
   }
 }
 
-private extension DialogBuilder {
+private extension Dialog {
   /// Returns dialogView of controller.
-  var dialogView: T {
+  var dialogView: DialogView {
     return controller.dialogView
   }
 }
