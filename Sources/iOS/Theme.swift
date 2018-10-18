@@ -190,7 +190,7 @@ public extension Themeable where Self: NSObject {
   /// A boolean indicating if theming is enabled.
   var isThemingEnabled: Bool {
     get {
-      return Self.isThemingEnabled && AssociatedObject.get(base: self, key: &IsThemingEnabledKey) {
+      return type(of: self).isThemingEnabled && AssociatedObject.get(base: self, key: &IsThemingEnabledKey) {
         true
       }
     }
