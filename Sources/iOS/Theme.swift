@@ -172,10 +172,22 @@ public extension Theme {
 private var IsThemingEnabledKey: UInt8 = 0
 
 public extension Themeable where Self: NSObject {
+  /// A class-wide boolean indicating if theming is enabled.
+  static var isThemingEnabled: Bool {
+    get {
+      return AssociatedObject.get(base: self, key: &IsThemingEnabledKey) {
+        true
+      }
+    }
+    set(value) {
+      AssociatedObject.set(base: self, key: &IsThemingEnabledKey, value: value)
+    }
+  }
+  
   /// A boolean indicating if theming is enabled.
   var isThemingEnabled: Bool {
     get {
-      return AssociatedObject.get(base: self, key: &IsThemingEnabledKey) {
+      return Self.isThemingEnabled && AssociatedObject.get(base: self, key: &IsThemingEnabledKey) {
         true
       }
     }
