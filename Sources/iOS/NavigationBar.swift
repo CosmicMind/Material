@@ -189,7 +189,6 @@ open class NavigationBar: UINavigationBar, Themeable {
    */
   private func apply(theme: Theme, to item: UINavigationItem) {
     Theme.apply(theme: theme, to: item.toolbar)
-    item.toolbar.backgroundColor = .clear
   }
 }
 
@@ -208,6 +207,7 @@ internal extension NavigationBar {
     }
     
     let toolbar = item.toolbar
+    toolbar.backgroundColor = .clear
     toolbar.interimSpace = interimSpace
     toolbar.contentEdgeInsets = contentEdgeInsets
     

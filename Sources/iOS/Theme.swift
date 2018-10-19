@@ -74,6 +74,9 @@ public struct Theme: Hashable {
   /// Text and iconography color to be used on error color.
   public var onError = Color.white
   
+  /// A boolean indicating if theming is enabled globally.
+  public static var isEnabled = true
+  
   /// An initializer.
   public init() { }
 }
@@ -172,10 +175,22 @@ public extension Theme {
 private var IsThemingEnabledKey: UInt8 = 0
 
 public extension Themeable where Self: NSObject {
+  /// A class-wide boolean indicating if theming is enabled.
+  static var isThemingEnabled: Bool {
+    get {
+      return Theme.isEnabled && AssociatedObject.get(base: self, key: &IsThemingEnabledKey) {
+        true
+      }
+    }
+    set(value) {
+      AssociatedObject.set(base: self, key: &IsThemingEnabledKey, value: value)
+    }
+  }
+  
   /// A boolean indicating if theming is enabled.
   var isThemingEnabled: Bool {
     get {
-      return AssociatedObject.get(base: self, key: &IsThemingEnabledKey) {
+      return type(of: self).isThemingEnabled && AssociatedObject.get(base: self, key: &IsThemingEnabledKey) {
         true
       }
     }
