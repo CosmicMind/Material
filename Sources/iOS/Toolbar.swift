@@ -184,7 +184,7 @@ private extension Toolbar {
   func prepareTitleLabel() {
     titleLabel.textAlignment = .center
     titleLabel.contentScaleFactor = Screen.scale
-    titleLabel.font = RobotoFont.medium(with: 17)
+    titleLabel.font = Theme.font.medium(with: 17)
     titleLabel.textColor = Color.darkText.primary
     titleLabelTextAlignmentObserver = titleLabel.observe(\.textAlignment) { [weak self] titleLabel, _ in
       self?.contentViewAlignment = .center == titleLabel.textAlignment ? .center : .full
@@ -195,7 +195,7 @@ private extension Toolbar {
   func prepareDetailLabel() {
     detailLabel.textAlignment = .center
     detailLabel.contentScaleFactor = Screen.scale
-    detailLabel.font = RobotoFont.regular(with: 12)
+    detailLabel.font = Theme.font.regular(with: 12)
     detailLabel.textColor = Color.darkText.secondary
   }
   

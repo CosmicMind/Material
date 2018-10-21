@@ -77,6 +77,9 @@ public struct Theme: Hashable {
   /// A boolean indicating if theming is enabled globally.
   public static var isEnabled = true
   
+  /// Global font for app.
+  public static var font: FontType.Type = RobotoFont.self
+  
   /// An initializer.
   public init() { }
 }

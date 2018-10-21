@@ -30,7 +30,28 @@
 
 import UIKit
 
-public protocol FontType {}
+public protocol FontType {
+  /**
+   Regular with size font.
+   - Parameter with size: A CGFLoat for the font size.
+   - Returns: A UIFont.
+   */
+  static func regular(with size: CGFloat) -> UIFont
+  
+  /**
+   Medium with size font.
+   - Parameter with size: A CGFLoat for the font size.
+   - Returns: A UIFont.
+   */
+  static func medium(with size: CGFloat) -> UIFont
+  
+  /**
+   Bold with size font.
+   - Parameter with size: A CGFLoat for the font size.
+   - Returns: A UIFont.
+   */
+  static func bold(with size: CGFloat) -> UIFont
+}
 
 public struct Font {
   /// Size of font.

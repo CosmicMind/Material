@@ -233,7 +233,7 @@ private extension DialogView {
   /// Prepares titleTitle.
   func prepareTitleLabel() {
     titleArea.addSubview(titleLabel)
-    titleLabel.font = RobotoFont.bold(with: 20)
+    titleLabel.font = Theme.font.bold(with: 20)
     titleLabel.textColor = Color.darkText.primary
     titleLabel.numberOfLines = 0
   }
@@ -250,7 +250,7 @@ private extension DialogView {
   func prepareButtons() {
     [positiveButton, negativeButton, neutralButton].forEach {
       buttonArea.addSubview($0)
-      $0.titleLabel?.font = RobotoFont.medium(with: 14)
+      $0.titleLabel?.font = Theme.font.medium(with: 14)
       $0.contentEdgeInsets = Constants.button.insets
       $0.cornerRadiusPreset = .cornerRadius1
     }

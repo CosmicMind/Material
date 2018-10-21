@@ -283,7 +283,7 @@ open class TextView: UITextView, Themeable {
     contentScaleFactor = Screen.scale
     textContainerInset = .zero
     backgroundColor = nil
-    font = RobotoFont.regular(with: 16)
+    font = Theme.font.regular(with: 16)
     textColor = Color.darkText.primary
     
     prepareNotificationHandlers()

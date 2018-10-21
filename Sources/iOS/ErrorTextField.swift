@@ -83,7 +83,7 @@ open class ErrorTextField: TextField {
   
   /// Prepares the errorLabel.
   func prepareErrorLabel() {
-    errorLabel.font = RobotoFont.regular(with: 12)
+    errorLabel.font = Theme.font.regular(with: 12)
     errorLabel.numberOfLines = 0
     errorColor = { errorColor }() // call didSet
     addSubview(errorLabel)

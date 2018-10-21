@@ -45,6 +45,7 @@ open class ViewController: UIViewController, Themeable {
    */
   open func prepare() {
     view.clipsToBounds = true
+    view.backgroundColor = .white
     view.contentScaleFactor = Screen.scale
     applyCurrentTheme()
   }

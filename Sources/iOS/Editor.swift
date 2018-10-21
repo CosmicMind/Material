@@ -251,7 +251,7 @@ private extension Editor {
   
   /// Prepares the detailLabel.
   func prepareDetailLabel() {
-    detailLabel.font = RobotoFont.regular(with: 12)
+    detailLabel.font = Theme.font.regular(with: 12)
     detailLabel.numberOfLines = 0
     detailColor = Color.darkText.others
     addSubview(detailLabel)

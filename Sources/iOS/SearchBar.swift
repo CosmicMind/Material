@@ -213,7 +213,7 @@ fileprivate extension SearchBar {
   /// Prepares the textField.
   func prepareTextField() {
     textField.contentScaleFactor = Screen.scale
-    textField.font = RobotoFont.regular(with: 17)
+    textField.font = Theme.font.regular(with: 17)
     textField.backgroundColor = Color.clear
     textField.clearButtonMode = .whileEditing
     textField.addTarget(self, action: #selector(handleEditingChanged(textField:)), for: .editingChanged)
