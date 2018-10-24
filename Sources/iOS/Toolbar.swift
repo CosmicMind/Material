@@ -80,7 +80,12 @@ open class Toolbar: Bar, Themeable {
       prepareIconButtons(rightViews)
     }
   }
-  
+
+  deinit {
+    titleLabelTextAlignmentObserver.invalidate()
+    titleLabelTextAlignmentObserver = nil
+  }
+
   /**
    An initializer that initializes the object with a NSCoder object.
    - Parameter aDecoder: A NSCoder instance.

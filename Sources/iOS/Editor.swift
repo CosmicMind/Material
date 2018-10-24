@@ -170,7 +170,15 @@ open class Editor: View, Themeable {
    Only observes programmatic changes.
    */
   private var textViewTextObserver: NSKeyValueObservation!
-  
+
+  deinit {
+    placeholderLabelTextObserver.invalidate()
+    placeholderLabelTextObserver = nil
+
+    textViewTextObserver.invalidate()
+    textViewTextObserver = nil
+  }
+
   open override func prepare() {
     super.prepare()
     backgroundColor = nil
