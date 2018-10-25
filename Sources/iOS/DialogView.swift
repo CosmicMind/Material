@@ -270,6 +270,7 @@ private extension DialogView {
   /// Prepares detailsLabel.
   func prepareDetailsLabel() {
     contentArea.addSubview(detailsLabel)
+    detailsLabel.font = Theme.font.regular(with: detailsLabel.fontSize)
     detailsLabel.numberOfLines = 0
     detailsLabel.textColor = Color.darkText.secondary
   }
