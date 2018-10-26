@@ -51,81 +51,81 @@ public struct LayoutAnchor {
 public extension Layout {
   /// A layout anchor representing top of the view.
   var top: LayoutAnchor {
-    return attribute(.top)
+    return anchor(.top)
   }
   
   /// A layout anchor representing bottom of the view.
   var bottom: LayoutAnchor {
-    return attribute(.bottom)
+    return anchor(.bottom)
   }
   
   /// A layout anchor representing left of the view.
   var left: LayoutAnchor {
-    return attribute(.left)
+    return anchor(.left)
   }
   
   /// A layout anchor representing right of the view.
   var right: LayoutAnchor {
-    return attribute(.right)
+    return anchor(.right)
   }
   
   /// A layout anchor representing top-left of the view.
   var topLeft: LayoutAnchor {
-    return attribute(.topLeft)
+    return acnhor(.topLeft)
   }
   
   /// A layout anchor representing top-right of the view.
   var topRight: LayoutAnchor {
-    return attribute(.topRight)
+    return acnhor(.topRight)
   }
   
   /// A layout anchor representing bottom-left of the view.
   var bottomLeft: LayoutAnchor {
-    return attribute(.bottomLeft)
+    return acnhor(.bottomLeft)
   }
   
   /// A layout anchor representing bottom-right of the view.
   var bottomRight: LayoutAnchor {
-    return attribute(.bottomRight)
+    return acnhor(.bottomRight)
   }
   
   /// A layout anchor representing top and bottom of the view.
   var topBottom: LayoutAnchor {
-    return attribute(.topBottom)
+    return acnhor(.topBottom)
   }
   
   /// A layout anchor representing left and right of the view.
   var leftRight: LayoutAnchor {
-    return attribute(.leftRight)
+    return acnhor(.leftRight)
   }
   
   /// A layout anchor representing center of the view.
   var center: LayoutAnchor {
-    return attribute(.center)
+    return acnhor(.center)
   }
   
   /// A layout anchor representing horizontal center of the view.
   var centerX: LayoutAnchor {
-    return attribute(.centerX)
+    return anchor(.centerX)
   }
   
   /// A layout anchor representing vertical center of the view.
   var centerY: LayoutAnchor {
-    return attribute(.centerY)
+    return anchor(.centerY)
   }
   
   /// A layout anchor representing top, left, bottom and right of the view.
   var edges: LayoutAnchor {
-    return attribute(.edges)
+    return acnhor(.edges)
   }
   
   /// A layout anchor representing width of the view.
   var width: LayoutAnchor {
-    return attribute(.width)
+    return anchor(.width)
   }
   /// A layout anchor representing height of the view.
   var height: LayoutAnchor {
-    return attribute(.height)
+    return anchor(.height)
   }
 }
 
@@ -135,7 +135,7 @@ private extension Layout {
    - Parameter attribute: A LayoutAttribute.
    - Returns: A LayoutAnchor.
    */
-  func attribute(_ attribute: LayoutAttribute) -> LayoutAnchor {
+  func anchor(_ attribute: LayoutAttribute) -> LayoutAnchor {
     return LayoutAnchor(view: view, attributes: [attribute])
   }
   
@@ -144,7 +144,7 @@ private extension Layout {
    - Parameter attributes: An array of LayoutAttribute.
    - Returns: A LayoutAnchor.
    */
-  func attribute(_ attributes: [LayoutAttribute]) -> LayoutAnchor {
+  func acnhor(_ attributes: [LayoutAttribute]) -> LayoutAnchor {
     return LayoutAnchor(view: view, attributes: attributes)
   }
 }
