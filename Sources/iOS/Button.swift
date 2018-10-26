@@ -279,6 +279,7 @@ open class Button: UIButton, Pulseable, PulseableLayer, Themeable {
    */
   open func prepare() {
     contentScaleFactor = Screen.scale
+    titleLabel?.font = Theme.font.regular(with: fontSize)
     prepareVisualLayer()
     preparePulse()
     applyCurrentTheme()

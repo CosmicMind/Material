@@ -450,7 +450,7 @@ open class TextField: UITextField, Themeable {
     borderStyle = .none
     backgroundColor = nil
     contentScaleFactor = Screen.scale
-    font = RobotoFont.regular(with: 16)
+    font = Theme.font.regular(with: 16)
     textColor = Color.darkText.primary
     
     prepareDivider()
@@ -496,7 +496,7 @@ fileprivate extension TextField {
   
   /// Prepares the detailLabel.
   func prepareDetailLabel() {
-    detailLabel.font = RobotoFont.regular(with: 12)
+    detailLabel.font = Theme.font.regular(with: 12)
     detailLabel.numberOfLines = 0
     detailColor = Color.darkText.others
     addSubview(detailLabel)

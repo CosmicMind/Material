@@ -129,7 +129,7 @@ extension FABMenuItem {
   
   /// Prepares the titleLabel.
   fileprivate func prepareTitleLabel() {
-    titleLabel.font = RobotoFont.regular(with: 14)
+    titleLabel.font = Theme.font.regular(with: 14)
     titleLabel.textAlignment = .center
     titleLabel.backgroundColor = .white
     titleLabel.depthPreset = fabButton.depthPreset

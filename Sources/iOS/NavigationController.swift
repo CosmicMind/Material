@@ -146,6 +146,22 @@ open class NavigationController: UINavigationController {
     navigationBar.setNeedsLayout()
     navigationBar.layoutIfNeeded()
   }
+  
+  /**
+   Sets whether the navigation bar is hidden.
+   - Parameter _ hidden: Specify true to hide the navigation bar or false to show it.
+   - Parameter animated: Specify true if you want to animate the change in visibility or false if you want the navigation bar to appear immediately.
+   */
+  open override func setNavigationBarHidden(_ hidden: Bool, animated: Bool) {
+    super.setNavigationBarHidden(hidden, animated: animated)
+    guard let items = navigationBar.items, items.count > 1 else {
+      return
+    }
+    
+    items.forEach {
+      prepareBackButton(for: $0, in: navigationBar)
+    }
+  }
 }
 
 extension NavigationController: UINavigationBarDelegate {
@@ -158,32 +174,12 @@ extension NavigationController: UINavigationBarDelegate {
    True is yes, false is no.
    */
   public func navigationBar(_ navigationBar: UINavigationBar, shouldPush item: UINavigationItem) -> Bool {
-    if let v = navigationBar as? NavigationBar {
-      if nil == item.backButton.image && nil == item.backButton.title {
-        item.backButton.image = v.backButtonImage
-      }
-      
-      if !item.backButton.isHidden {
-        item.leftViews.insert(item.backButton, at: 0)
-      }
-      
-      item.backButton.addTarget(self, action: #selector(handle(backButton:)), for: .touchUpInside)
-      
-      item.hidesBackButton = false
-      item.setHidesBackButton(true, animated: false)
-      
-      v.layoutNavigationItem(item: item)
-    }
-    
+    prepareBackButton(for: item, in: navigationBar)
     return true
   }
   
   public func navigationBar(_ navigationBar: UINavigationBar, didPop item: UINavigationItem) {
-    if let index = item.leftViews.index(of: item.backButton) {
-      item.leftViews.remove(at: index)
-    }
-    
-    item.backButton.removeTarget(self, action: #selector(handle(backButton:)), for: .touchUpInside)
+    removeBackButton(from: item)
   }
 }
 
@@ -192,6 +188,44 @@ internal extension NavigationController {
   @objc
   func handle(backButton: UIButton) {
     popViewController(animated: true)
+  }
+  
+  /**
+   Prepares back button of the navigation item in navigation bar.
+   - Parameter for item: A UINavigationItem.
+   - Parameter in navigationBar: A UINavigationBar.
+   */
+  func prepareBackButton(for item: UINavigationItem, in navigationBar: UINavigationBar) {
+    guard let v = navigationBar as? NavigationBar else {
+      return
+    }
+    
+    if nil == item.backButton.image && nil == item.backButton.title {
+      item.backButton.image = v.backButtonImage
+    }
+    
+    if !item.backButton.isHidden && !item.leftViews.contains(item.backButton) {
+      item.leftViews.insert(item.backButton, at: 0)
+    }
+    
+    item.backButton.addTarget(self, action: #selector(handle(backButton:)), for: .touchUpInside)
+    
+    item.hidesBackButton = false
+    item.setHidesBackButton(true, animated: false)
+    
+    v.layoutNavigationItem(item: item)
+  }
+  
+  /**
+   Removes back button of the navigation item.
+   - Parameter from item: A UINavigationItem.
+   */
+  func removeBackButton(from item: UINavigationItem) {
+    if let index = item.leftViews.index(of: item.backButton) {
+      item.leftViews.remove(at: index)
+    }
+    
+    item.backButton.removeTarget(self, action: #selector(handle(backButton:)), for: .touchUpInside)
   }
 }
 
