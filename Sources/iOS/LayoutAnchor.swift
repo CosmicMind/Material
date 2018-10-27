@@ -38,19 +38,19 @@ extension Layout: LayoutAnchorable { }
 extension LayoutAnchor: LayoutAnchorable { }
 
 public struct LayoutAnchor {
-  /// A weak reference to the view.
-  weak var view: Layoutable?
+  /// A weak reference to the constraintable.
+  weak var constraintable: Constraintable?
   
   /// An array of LayoutAttribute for the view.
   let attributes: [LayoutAttribute]
   
   /**
-   An initializer taking view and anchor attributes.
-   - Parameter view: A UIView.
+   An initializer taking constraintable and anchor attributes.
+   - Parameter view: A Constraintable.
    - Parameter attributes: An array of LayoutAtrribute.
   */
-  init(view: Layoutable?, attributes: [LayoutAttribute]) {
-    self.view = view
+  init(constraintable: Constraintable?, attributes: [LayoutAttribute]) {
+    self.constraintable = constraintable
     self.attributes = attributes
   }
 }
@@ -143,7 +143,7 @@ private extension Layout {
    - Returns: A LayoutAnchor.
    */
   func anchor(_ attribute: LayoutAttribute) -> LayoutAnchor {
-    return LayoutAnchor(view: view, attributes: [attribute])
+    return LayoutAnchor(constraintable: constraintable, attributes: [attribute])
   }
   
   /**
@@ -152,6 +152,6 @@ private extension Layout {
    - Returns: A LayoutAnchor.
    */
   func acnhor(_ attributes: [LayoutAttribute]) -> LayoutAnchor {
-    return LayoutAnchor(view: view, attributes: attributes)
+    return LayoutAnchor(constraintable: constraintable, attributes: attributes)
   }
 }

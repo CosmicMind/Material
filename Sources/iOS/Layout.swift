@@ -32,11 +32,11 @@ import UIKit
 import Motion
 
 /// A protocol that's conformed by UIView and UILayoutGuide.
-public protocol Layoutable: class { }
+public protocol Constraintable: class { }
 
 @available(iOS 9.0, *)
-extension UILayoutGuide: Layoutable { }
-extension UIView: Layoutable { }
+extension UILayoutGuide: Constraintable { }
+extension UIView: Constraintable { }
 
 /// Layout extension for UIView.
 public extension UIView {
@@ -53,7 +53,7 @@ public extension UIView {
   
   /// Layout instance for the view.
   var layout: Layout {
-    return Layout(view: self)
+    return Layout(constraintable: self)
   }
   
   /**
@@ -62,7 +62,7 @@ public extension UIView {
    */
   var safeLayout: Layout {
     if #available(iOS 11.0, *) {
-      return Layout(view: safeAreaLayoutGuide)
+      return Layout(constraintable: safeAreaLayoutGuide)
     } else {
       return layout
     }
@@ -70,20 +70,20 @@ public extension UIView {
 }
 
 public struct Layout {
-  /// A weak reference to the view.
-  weak var view: Layoutable?
+  /// A weak reference to the constraintable.
+  weak var constraintable: Constraintable?
   
   /// Parent view of the view.
   var parent: UIView? {
-    return (view as? UIView)?.superview
+    return (constraintable as? UIView)?.superview
   }
   
   /**
-   An initializer taking UIView.
-   - Parameter view: A UIView.
+   An initializer taking Constraintable.
+   - Parameter view: A Constraintable.
    */
-  init(view: Layoutable) {
-    self.view = view
+  init(constraintable: Constraintable) {
+    self.constraintable = constraintable
   }
 }
 
@@ -494,9 +494,9 @@ private extension Layout {
     
     if attributes == .constantHeight || attributes == .constantWidth {
       attributes.removeLast()
-      anchor = LayoutAnchor(view: nil, attributes: [.notAnAttribute])
+      anchor = LayoutAnchor(constraintable: nil, attributes: [.notAnAttribute])
     } else {
-      anchor = LayoutAnchor(view: parent, attributes: attributes)
+      anchor = LayoutAnchor(constraintable: parent, attributes: attributes)
     }
     return constraint(attributes, to: anchor, constants: constants)
   }
@@ -534,13 +534,13 @@ private extension Layout {
    - Returns: A Layout instance to allow chaining.
    */
   func constraint(_ attributes: [LayoutAttribute], to anchor: LayoutAnchorable, constants: [CGFloat]) -> Layout {
-    let from = LayoutAnchor(view: view, attributes: attributes)
-    let to =  anchor as? LayoutAnchor ?? LayoutAnchor(view: (anchor as? UIView) ?? (anchor as? Layout)?.view, attributes: attributes)
+    let from = LayoutAnchor(constraintable: constraintable, attributes: attributes)
+    let to =  anchor as? LayoutAnchor ?? LayoutAnchor(constraintable: (anchor as? UIView) ?? (anchor as? Layout)?.constraintable, attributes: attributes)
     let constraint = LayoutConstraint(fromAnchor: from, toAnchor: to, constants: constants)
     
-    var  v = view as? UIView
+    var  v = constraintable as? UIView
     if #available(iOS 9.0, *), v == nil {
-       v = (view as? UILayoutGuide)?.owningView
+       v = (constraintable as? UILayoutGuide)?.owningView
     }
     
     let constraints = (v?.constraints ?? []) + (v?.superview?.constraints ?? [])

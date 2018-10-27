@@ -67,10 +67,10 @@ internal extension LayoutConstraint {
     var v: [NSLayoutConstraint] = []
     
     zip(zip(fromAnchor.attributes, toAnchor.attributes), constants).forEach {
-      v.append(NSLayoutConstraint(item: fromAnchor.view as Any,
+      v.append(NSLayoutConstraint(item: fromAnchor.constraintable as Any,
                                   attribute: $0.0,
                                   relatedBy: .equal,
-                                  toItem: toAnchor.view,
+                                  toItem: toAnchor.constraintable,
                                   attribute: $0.1,
                                   multiplier: 1,
                                   constant: $1))
