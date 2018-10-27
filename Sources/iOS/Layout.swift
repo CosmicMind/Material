@@ -96,7 +96,7 @@ public extension Layout {
    */
   @discardableResult
   func right(_ offset: CGFloat = 0) -> Layout {
-    return constraint(.right, constant: offset)
+    return constraint(.right, constant: -offset)
   }
   
   /**
@@ -106,7 +106,7 @@ public extension Layout {
    */
   @discardableResult
   func bottom(_ offset: CGFloat = 0) -> Layout {
-    return constraint(.bottom, constant: offset)
+    return constraint(.bottom, constant: -offset)
   }
   
   /**
@@ -128,7 +128,7 @@ public extension Layout {
    */
   @discardableResult
   func topRight(top: CGFloat = 0, right: CGFloat = 0) -> Layout {
-    return constraint(.topRight, constants: top, right)
+    return constraint(.topRight, constants: top, -right)
   }
   
   /**
@@ -139,7 +139,7 @@ public extension Layout {
    */
   @discardableResult
   func bottomLeft(bottom: CGFloat = 0, left: CGFloat = 0) -> Layout {
-    return constraint(.bottomLeft, constants: bottom, left)
+    return constraint(.bottomLeft, constants: -bottom, left)
   }
   
   /**
@@ -150,7 +150,7 @@ public extension Layout {
    */
   @discardableResult
   func bottomRight(bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
-    return constraint(.bottomRight, constants: bottom, right)
+    return constraint(.bottomRight, constants: -bottom, -right)
   }
   
   /**
@@ -161,7 +161,7 @@ public extension Layout {
    */
   @discardableResult
   func leftRight(left: CGFloat = 0, right: CGFloat = 0) -> Layout {
-    return constraint(.leftRight, constants: left, right)
+    return constraint(.leftRight, constants: left, -right)
   }
   
   /**
@@ -172,7 +172,7 @@ public extension Layout {
    */
   @discardableResult
   func topBottom(top: CGFloat = 0, bottom: CGFloat = 0) -> Layout {
-    return constraint(.topBottom, constants: top, bottom)
+    return constraint(.topBottom, constants: top, -bottom)
   }
   
   /**
@@ -236,7 +236,7 @@ public extension Layout {
    */
   @discardableResult
   func edges(top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
-    return constraint(.edges, constants: top, left, bottom, right)
+    return constraint(.edges, constants: top, left, -bottom, -right)
   }
 }
 
@@ -293,7 +293,7 @@ public extension Layout {
    */
   @discardableResult
   func right(_ anchor: LayoutAnchor, _ offset: CGFloat = 0) -> Layout {
-    return constraint(.right, to: anchor, constant: offset)
+    return constraint(.right, to: anchor, constant: -offset)
   }
   
   /**
@@ -304,7 +304,7 @@ public extension Layout {
    */
   @discardableResult
   func bottom(_ anchor: LayoutAnchor, _ offset: CGFloat = 0) -> Layout {
-    return constraint(.bottom, to: anchor, constant: offset)
+    return constraint(.bottom, to: anchor, constant: -offset)
   }
   
   /**
@@ -328,7 +328,7 @@ public extension Layout {
    */
   @discardableResult
   func topRight(_ anchor: LayoutAnchor, top: CGFloat = 0, right: CGFloat = 0) -> Layout {
-    return constraint(.topRight, to: anchor, constants: top, right)
+    return constraint(.topRight, to: anchor, constants: top, -right)
   }
   
   /**
@@ -340,7 +340,7 @@ public extension Layout {
    */
   @discardableResult
   func bottomLeft(_ anchor: LayoutAnchor, bottom: CGFloat = 0, left: CGFloat = 0) -> Layout {
-    return constraint(.bottomLeft, to: anchor, constants: bottom, left)
+    return constraint(.bottomLeft, to: anchor, constants: -bottom, left)
   }
   
   /**
@@ -352,7 +352,7 @@ public extension Layout {
    */
   @discardableResult
   func bottomRight(_ anchor: LayoutAnchor, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
-    return constraint(.bottomRight, to: anchor, constants: bottom, right)
+    return constraint(.bottomRight, to: anchor, constants: -bottom, -right)
   }
   
   /**
@@ -364,7 +364,7 @@ public extension Layout {
    */
   @discardableResult
   func leftRight(_ anchor: LayoutAnchor, left: CGFloat = 0, right: CGFloat = 0) -> Layout {
-    return constraint(.leftRight, to: anchor, constants: left, right)
+    return constraint(.leftRight, to: anchor, constants: left, -right)
   }
   
   /**
@@ -376,7 +376,7 @@ public extension Layout {
    */
   @discardableResult
   func topBottom(_ anchor: LayoutAnchor, top: CGFloat = 0, bottom: CGFloat = 0) -> Layout {
-    return constraint(.topBottom, to: anchor, constants: top, bottom)
+    return constraint(.topBottom, to: anchor, constants: top, -bottom)
   }
   
   /**
@@ -446,7 +446,7 @@ public extension Layout {
    */
   @discardableResult
   func edges(_ anchor: LayoutAnchor, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
-    return constraint(.edges, to: anchor, constants: top, left, bottom, right)
+    return constraint(.edges, to: anchor, constants: top, left, -bottom, -right)
   }
 }
 
