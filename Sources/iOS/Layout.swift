@@ -31,6 +31,13 @@
 import UIKit
 import Motion
 
+/// A protocol that's conformed by UIView and UILayoutGuide.
+public protocol Layoutable: class { }
+
+@available(iOS 9.0, *)
+extension UILayoutGuide: Layoutable { }
+extension UIView: Layoutable { }
+
 /// Layout extension for UIView.
 public extension UIView {
   /**
@@ -48,22 +55,34 @@ public extension UIView {
   var layout: Layout {
     return Layout(view: self)
   }
+  
+  /**
+   Layout instance for safeAreaLayoutGuide.
+   Below iOS 11, it will be same as view.layout.
+   */
+  var safeLayout: Layout {
+    if #available(iOS 11.0, *) {
+      return Layout(view: safeAreaLayoutGuide)
+    } else {
+      return layout
+    }
+  }
 }
 
 public struct Layout {
   /// A weak reference to the view.
-  weak var view: UIView?
+  weak var view: Layoutable?
   
   /// Parent view of the view.
   var parent: UIView? {
-    return view?.superview
+    return (view as? UIView)?.superview
   }
   
   /**
    An initializer taking UIView.
    - Parameter view: A UIView.
    */
-  init(view: UIView) {
+  init(view: Layoutable) {
     self.view = view
   }
 }
@@ -516,10 +535,15 @@ private extension Layout {
    */
   func constraint(_ attributes: [LayoutAttribute], to anchor: LayoutAnchorable, constants: [CGFloat]) -> Layout {
     let from = LayoutAnchor(view: view, attributes: attributes)
-    let to =  anchor as? LayoutAnchor ?? LayoutAnchor(view: anchor as? UIView, attributes: attributes)
+    let to =  anchor as? LayoutAnchor ?? LayoutAnchor(view: (anchor as? UIView) ?? (anchor as? Layout)?.view, attributes: attributes)
     let constraint = LayoutConstraint(fromAnchor: from, toAnchor: to, constants: constants)
     
-    let constraints = (view?.constraints ?? []) + (parent?.constraints ?? [])
+    var  v = view as? UIView
+    if #available(iOS 9.0, *), v == nil {
+       v = (view as? UILayoutGuide)?.owningView
+    }
+    
+    let constraints = (v?.constraints ?? []) + (v?.superview?.constraints ?? [])
     let newConstraints = constraint.constraints
     for newConstraint in newConstraints {
       guard let activeConstraint = constraints.first(where: { $0.equalTo(newConstraint) }) else {

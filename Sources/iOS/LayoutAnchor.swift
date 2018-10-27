@@ -30,15 +30,16 @@
 
 import UIKit
 
-/// A protocol that's conformed by UIView and LayoutAnchor.
+/// A protocol that's conformed by UIView, LayoutAnchor, and Layout.
 public protocol LayoutAnchorable { }
 
 extension UIView: LayoutAnchorable { }
+extension Layout: LayoutAnchorable { }
 extension LayoutAnchor: LayoutAnchorable { }
 
 public struct LayoutAnchor {
   /// A weak reference to the view.
-  weak var view: UIView?
+  weak var view: Layoutable?
   
   /// An array of LayoutAttribute for the view.
   let attributes: [LayoutAttribute]
@@ -48,7 +49,7 @@ public struct LayoutAnchor {
    - Parameter view: A UIView.
    - Parameter attributes: An array of LayoutAtrribute.
   */
-  init(view: UIView?, attributes: [LayoutAttribute]) {
+  init(view: Layoutable?, attributes: [LayoutAttribute]) {
     self.view = view
     self.attributes = attributes
   }
