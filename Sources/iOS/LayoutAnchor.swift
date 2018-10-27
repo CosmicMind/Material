@@ -30,6 +30,12 @@
 
 import UIKit
 
+/// A protocol that's conformed by UIView and LayoutAnchor.
+public protocol LayoutAnchorable { }
+
+extension UIView: LayoutAnchorable { }
+extension LayoutAnchor: LayoutAnchorable { }
+
 public struct LayoutAnchor {
   /// A weak reference to the view.
   weak var view: UIView?
