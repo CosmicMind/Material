@@ -49,13 +49,13 @@ public struct LayoutAnchor {
    - Parameter view: A Constraintable.
    - Parameter attributes: An array of LayoutAtrribute.
   */
-  init(constraintable: Constraintable?, attributes: [LayoutAttribute]) {
+  init(constraintable: Constraintable?, attributes: [LayoutAttribute] = []) {
     self.constraintable = constraintable
     self.attributes = attributes
   }
 }
 
-public extension Layout {
+public extension LayoutAnchor {
   /// A layout anchor representing top of the view.
   var top: LayoutAnchor {
     return anchor(.top)
@@ -136,7 +136,7 @@ public extension Layout {
   }
 }
 
-private extension Layout {
+private extension LayoutAnchor {
   /**
    Creates LayoutAnchor with the given attribute.
    - Parameter attribute: A LayoutAttribute.

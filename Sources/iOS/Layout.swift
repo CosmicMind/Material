@@ -56,15 +56,20 @@ public extension UIView {
     return Layout(constraintable: self)
   }
   
+  /// Anchor instance for the view.
+  var anchor: LayoutAnchor {
+    return LayoutAnchor(constraintable: self)
+  }
+  
   /**
-   Layout instance for safeAreaLayoutGuide.
-   Below iOS 11, it will be same as view.layout.
+   Anchor instance for safeAreaLayoutGuide.
+   Below iOS 11, it will be same as view.anchor.
    */
-  var safeLayout: Layout {
+  var safeAnchor: LayoutAnchor {
     if #available(iOS 11.0, *) {
-      return Layout(constraintable: safeAreaLayoutGuide)
+      return LayoutAnchor(constraintable: safeAreaLayoutGuide)
     } else {
-      return layout
+      return anchor
     }
   }
 }
@@ -535,8 +540,12 @@ private extension Layout {
    */
   func constraint(_ attributes: [LayoutAttribute], to anchor: LayoutAnchorable, constants: [CGFloat]) -> Layout {
     let from = LayoutAnchor(constraintable: constraintable, attributes: attributes)
-    let to =  anchor as? LayoutAnchor ?? LayoutAnchor(constraintable: (anchor as? UIView) ?? (anchor as? Layout)?.constraintable, attributes: attributes)
-    let constraint = LayoutConstraint(fromAnchor: from, toAnchor: to, constants: constants)
+    var to = anchor as? LayoutAnchor
+    if to?.attributes.isEmpty ?? true {
+      let v = (anchor as? UIView) ?? (anchor as? LayoutAnchor)?.constraintable
+      to = LayoutAnchor(constraintable: v, attributes: attributes)
+    }
+    let constraint = LayoutConstraint(fromAnchor: from, toAnchor: to!, constants: constants)
     
     var  v = constraintable as? UIView
     if #available(iOS 9.0, *), v == nil {
