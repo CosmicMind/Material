@@ -59,6 +59,31 @@ internal extension Array where Element == LayoutAttribute {
     return [.left, .right]
   }
   
+  /// A LayoutAttribute array containing top and leading.
+  static var topLeading: [LayoutAttribute] {
+    return [.top, .leading]
+  }
+  
+  /// A LayoutAttribute array containing top and trailing.
+  static var topTrailing: [LayoutAttribute] {
+    return [.top, .trailing]
+  }
+  
+  /// A LayoutAttribute array containing bottom and leading.
+  static var bottomLeading: [LayoutAttribute] {
+    return [.bottom, .leading]
+  }
+  
+  /// A LayoutAttribute array containing bottom and trailing.
+  static var bottomTrailing: [LayoutAttribute] {
+    return [.bottom, .trailing]
+  }
+  
+  /// A LayoutAttribute array containing left and trailing.
+  static var leadingTrailing: [LayoutAttribute] {
+    return [.leading, .trailing]
+  }
+  
   /// A LayoutAttribute array containing top and bottom.
   static var topBottom: [LayoutAttribute] {
     return [.top, .bottom]

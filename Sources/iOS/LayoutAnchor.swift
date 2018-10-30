@@ -76,6 +76,16 @@ public extension LayoutAnchor {
     return anchor(.right)
   }
   
+  /// A layout anchor representing leading of the view.
+  var leading: LayoutAnchor {
+    return anchor(.leading)
+  }
+  
+  /// A layout anchor representing trailing of the view.
+  var trailing: LayoutAnchor {
+    return anchor(.trailing)
+  }
+  
   /// A layout anchor representing top-left of the view.
   var topLeft: LayoutAnchor {
     return acnhor(.topLeft)
@@ -96,6 +106,26 @@ public extension LayoutAnchor {
     return acnhor(.bottomRight)
   }
   
+  /// A layout anchor representing top-leading of the view.
+  var topLeading: LayoutAnchor {
+    return acnhor(.topLeading)
+  }
+  
+  /// A layout anchor representing top-trailing of the view.
+  var topTrailing: LayoutAnchor {
+    return acnhor(.topTrailing)
+  }
+  
+  /// A layout anchor representing bottom-leading of the view.
+  var bottomLeading: LayoutAnchor {
+    return acnhor(.bottomLeading)
+  }
+  
+  /// A layout anchor representing bottom-trailing of the view.
+  var bottomTrailing: LayoutAnchor {
+    return acnhor(.bottomTrailing)
+  }
+  
   /// A layout anchor representing top and bottom of the view.
   var topBottom: LayoutAnchor {
     return acnhor(.topBottom)
@@ -104,6 +134,11 @@ public extension LayoutAnchor {
   /// A layout anchor representing left and right of the view.
   var leftRight: LayoutAnchor {
     return acnhor(.leftRight)
+  }
+  
+  /// A layout anchor representing leading and trailing of the view.
+  var leadingTrailing: LayoutAnchor {
+    return acnhor(.leadingTrailing)
   }
   
   /// A layout anchor representing center of the view.

@@ -124,6 +124,26 @@ public extension Layout {
   }
   
   /**
+   Constraints leading of the view to its parent's.
+   - Parameter _ offset: A CGFloat offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func leading(_ offset: CGFloat = 0) -> Layout {
+    return constraint(.leading, constant: offset)
+  }
+  
+  /**
+   Constraints trailing of the view to its parent.
+   - Parameter _ offset: A CGFloat offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func trailing(_ offset: CGFloat = 0) -> Layout {
+    return constraint(.trailing, constant: -offset)
+  }
+  
+  /**
    Constraints bottom of the view to its parent's.
    - Parameter _ offset: A CGFloat offset.
    - Returns: A Layout instance to allow chaining.
@@ -186,6 +206,61 @@ public extension Layout {
   @discardableResult
   func leftRight(left: CGFloat = 0, right: CGFloat = 0) -> Layout {
     return constraint(.leftRight, constants: left, -right)
+  }
+  
+  /**
+   Constraints top-leading of the view to its parent's.
+   - Parameter top: A CGFloat offset for top.
+   - Parameter leading: A CGFloat offset for leading.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func topLeading(top: CGFloat = 0, leading: CGFloat = 0) -> Layout {
+    return constraint(.topLeading, constants: top, leading)
+  }
+  
+  /**
+   Constraints top-trailing of the view to its parent's.
+   - Parameter top: A CGFloat offset for top.
+   - Parameter trailing: A CGFloat offset for trailing.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func topTrailing(top: CGFloat = 0, trailing: CGFloat = 0) -> Layout {
+    return constraint(.topTrailing, constants: top, -trailing)
+  }
+  
+  /**
+   Constraints bottom-leading of the view to its parent's.
+   - Parameter bottom: A CGFloat offset for bottom.
+   - Parameter leading: A CGFloat offset for leading.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func bottomLeading(bottom: CGFloat = 0, leading: CGFloat = 0) -> Layout {
+    return constraint(.bottomLeading, constants: -bottom, leading)
+  }
+  
+  /**
+   Constraints bottom-trailing of the view to its parent's.
+   - Parameter bottom: A CGFloat offset for bottom.
+   - Parameter trailing: A CGFloat offset for trailing.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func bottomTrailing(bottom: CGFloat = 0, trailing: CGFloat = 0) -> Layout {
+    return constraint(.bottomTrailing, constants: -bottom, -trailing)
+  }
+  
+  /**
+   Constraints leading and trailing of the view to its parent's.
+   - Parameter leading: A CGFloat offset for leading.
+   - Parameter trailing: A CGFloat offset for trailing.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func leadingTrailing(leading: CGFloat = 0, trailing: CGFloat = 0) -> Layout {
+    return constraint(.leadingTrailing, constants: leading, -trailing)
   }
   
   /**
@@ -321,6 +396,28 @@ public extension Layout {
   }
   
   /**
+   Constraints leading of the view to the given anchor.
+   - Parameter _ anchor: A LayoutAnchorable.
+   - Parameter _ offset: A CGFloat offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func leading(_ anchor: LayoutAnchorable, _ offset: CGFloat = 0) -> Layout {
+    return constraint(.leading, to: anchor, constant: offset)
+  }
+  
+  /**
+   Constraints trailing of the view to the given anchor.
+   - Parameter _ anchor: A LayoutAnchorable.
+   - Parameter _ offset: A CGFloat offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func trailing(_ anchor: LayoutAnchorable, _ offset: CGFloat = 0) -> Layout {
+    return constraint(.trailing, to: anchor, constant: -offset)
+  }
+  
+  /**
    Constraints bottom of the view to the given anchor.
    - Parameter _ anchor: A LayoutAnchorable.
    - Parameter _ offset: A CGFloat offset.
@@ -329,6 +426,66 @@ public extension Layout {
   @discardableResult
   func bottom(_ anchor: LayoutAnchorable, _ offset: CGFloat = 0) -> Layout {
     return constraint(.bottom, to: anchor, constant: -offset)
+  }
+  
+  /**
+   Constraints top-leading of the view to the given anchor.
+   - Parameter _ anchor: A LayoutAnchorable.
+   - Parameter top: A CGFloat offset for top.
+   - Parameter leading: A CGFloat offset for leading.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func topLeading(_ anchor: LayoutAnchorable, top: CGFloat = 0, leading: CGFloat = 0) -> Layout {
+    return constraint(.topLeading, to: anchor, constants: top, leading)
+  }
+  
+  /**
+   Constraints top-trailing of the view to the given anchor.
+   - Parameter _ anchor: A LayoutAnchorable.
+   - Parameter top: A CGFloat offset for top.
+   - Parameter trailing: A CGFloat offset for trailing.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func topTrailing(_ anchor: LayoutAnchorable, top: CGFloat = 0, trailing: CGFloat = 0) -> Layout {
+    return constraint(.topTrailing, to: anchor, constants: top, -trailing)
+  }
+  
+  /**
+   Constraints bottom-leading of the view to the given anchor.
+   - Parameter _ anchor: A LayoutAnchorable.
+   - Parameter bottom: A CGFloat offset for bottom.
+   - Parameter leading: A CGFloat offset for leading.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func bottomLeading(_ anchor: LayoutAnchorable, bottom: CGFloat = 0, leading: CGFloat = 0) -> Layout {
+    return constraint(.bottomLeading, to: anchor, constants: -bottom, leading)
+  }
+  
+  /**
+   Constraints bottom-trailing of the view to the given anchor.
+   - Parameter _ anchor: A LayoutAnchorable.
+   - Parameter bottom: A CGFloat offset for bottom.
+   - Parameter trailing: A CGFloat offset for trailing.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func bottomTrailing(_ anchor: LayoutAnchorable, bottom: CGFloat = 0, trailing: CGFloat = 0) -> Layout {
+    return constraint(.bottomTrailing, to: anchor, constants: -bottom, -trailing)
+  }
+  
+  /**
+   Constraints leading and trailing of the view to the given anchor.
+   - Parameter _ anchor: A LayoutAnchorable.
+   - Parameter leading: A CGFloat offset for leading.
+   - Parameter trailing: A CGFloat offset for trailing.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func leadingTrailing(_ anchor: LayoutAnchorable, leading: CGFloat = 0, trailing: CGFloat = 0) -> Layout {
+    return constraint(.leadingTrailing, to: anchor, constants: leading, -trailing)
   }
   
   /**
