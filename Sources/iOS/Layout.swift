@@ -658,6 +658,11 @@ private extension Layout {
       attributes.removeLast()
       anchor = LayoutAnchor(constraintable: nil, attributes: [.notAnAttribute])
     } else {
+      
+      guard parent != nil else {
+        fatalError("[Material Error: Constraint requires view to have parent.")
+      }
+      
       anchor = LayoutAnchor(constraintable: parent, attributes: attributes)
     }
     return constraint(attributes, to: anchor, constants: constants)
