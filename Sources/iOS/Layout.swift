@@ -83,12 +83,78 @@ public struct Layout {
     return (constraintable as? UIView)?.superview
   }
   
+  /// Returns the view that is being laied out.
+  private var view: UIView? {
+    var  v = constraintable as? UIView
+    if #available(iOS 9.0, *), v == nil {
+      v = (constraintable as? UILayoutGuide)?.owningView
+    }
+    
+    return v
+  }
+  
   /**
    An initializer taking Constraintable.
    - Parameter view: A Constraintable.
    */
   init(constraintable: Constraintable) {
     self.constraintable = constraintable
+  }
+}
+
+public extension Layout {
+  /**
+   Sets multiplier of the last created constraint.
+   Not meant for updating the multiplier as it will re-create the constraint.
+   - Parameter _ multiplier: A CGFloat multiplier.
+   - Returns: A Layout instance to allow chaining.
+   */
+  func multiply(_ multiplier: CGFloat) -> Layout {
+    return resetLastConstraint(multiplier: multiplier)
+  }
+  
+  /**
+   Sets priority of the last created constraint.
+   Not meant for updating the multiplier as it will re-create the constraint.
+   - Parameter _ value: A Float priority.
+   - Returns: A Layout instance to allow chaining.
+   */
+  func priority(_ value: Float) -> Layout {
+    return priority(.init(rawValue: value))
+  }
+  
+  /**
+   Sets priority of the last created constraint.
+   Not meant for updating the priority as it will re-create the constraint.
+   - Parameter _ priority: A UILayoutPriority.
+   - Returns: A Layout instance to allow chaining.
+   */
+  func priority(_ priority: UILayoutPriority) -> Layout {
+    return resetLastConstraint(priority: priority)
+  }
+  
+  /**
+   Removes the last created constraint and creates new one with the new multiplier and/or priority (if provided).
+   - Parameter multiplier: An optional CGFloat.
+   - Parameter priority: An optional UILayoutPriority.
+   - Returns: A Layout instance to allow chaining.
+   */
+  private func resetLastConstraint(multiplier: CGFloat? = nil, priority: UILayoutPriority? = nil) -> Layout {
+    guard let v = view?.lastConstraint, v.isActive else {
+      return self
+    }
+    v.isActive = false
+    let newV = NSLayoutConstraint(item: v.firstItem as Any,
+                                  attribute: v.firstAttribute,
+                                  relatedBy: v.relation,
+                                  toItem: v.secondItem,
+                                  attribute: v.secondAttribute,
+                                  multiplier: multiplier ?? v.multiplier,
+                                  constant: v.constant)
+    newV.priority = priority ?? v.priority
+    newV.isActive = true
+    view?.lastConstraint = newV
+    return self
   }
 }
 
@@ -709,16 +775,13 @@ private extension Layout {
     }
     let constraint = LayoutConstraint(fromAnchor: from, toAnchor: to!, constants: constants)
     
-    var  v = constraintable as? UIView
-    if #available(iOS 9.0, *), v == nil {
-       v = (constraintable as? UILayoutGuide)?.owningView
-    }
     
-    let constraints = (v?.constraints ?? []) + (v?.superview?.constraints ?? [])
+    let constraints = (view?.constraints ?? []) + (view?.superview?.constraints ?? [])
     let newConstraints = constraint.constraints
     for newConstraint in newConstraints {
       guard let activeConstraint = constraints.first(where: { $0.equalTo(newConstraint) }) else {
         newConstraint.isActive = true
+        view?.lastConstraint = newConstraint
         continue
       }
       
@@ -740,5 +803,25 @@ private extension NSLayoutConstraint {
       && secondItem === other.secondItem
       && firstAttribute == other.firstAttribute
       && secondAttribute == other.secondAttribute
+  }
+}
+
+/// A memory reference to the lastConstraint of UIView.
+private var LastConstraintKey: UInt8 = 0
+
+private extension UIView {
+  /**
+   The last consntraint that's created by Layout system.
+   Used to set multiplier/priority on the last constraint.
+   */
+  var lastConstraint: NSLayoutConstraint? {
+    get {
+      return AssociatedObject.get(base: self, key: &LastConstraintKey) {
+        nil
+      }
+    }
+    set(value) {
+      AssociatedObject.set(base: self, key: &LastConstraintKey, value: value)
+    }
   }
 }
