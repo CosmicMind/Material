@@ -69,9 +69,10 @@ open class ErrorTextField: TextField {
     get {
       return !errorLabel.isHidden
     }
-    set {
-      errorLabel.isHidden = !newValue
-      detailLabel.isHidden = newValue
+    set(value) {
+      errorLabel.isHidden = !value
+      detailLabel.isHidden = value
+      layoutSubviews()
     }
   }
   

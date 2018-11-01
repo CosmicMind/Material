@@ -174,6 +174,9 @@
 		9D054A6520D175AC00D0528D /* Material+UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D054A6320D175AC00D0528D /* Material+UIButton.swift */; };
 		9D054A6620D175AC00D0528D /* Material+UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D054A6420D175AC00D0528D /* Material+UILabel.swift */; };
 		9D39A81B20FE8ED100BA8FA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D39A81A20FE8ED100BA8FA1 /* ViewController.swift */; };
+		9D494A38217F6B63003D66F1 /* LayoutAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D494A37217F6B63003D66F1 /* LayoutAttribute.swift */; };
+		9D494A3A217F6B70003D66F1 /* LayoutAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D494A39217F6B70003D66F1 /* LayoutAnchor.swift */; };
+		9D494A3C217F6B7D003D66F1 /* LayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D494A3B217F6B7D003D66F1 /* LayoutConstraint.swift */; };
 		9D9089B92118914500605DC9 /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9089B82118914500605DC9 /* Editor.swift */; };
 		9DE25DE02170D7AF000C04DF /* Dialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE25DDF2170D7AF000C04DF /* Dialog.swift */; };
 		9DE25DE22170D7C0000C04DF /* DialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE25DE12170D7C0000C04DF /* DialogController.swift */; };
@@ -300,6 +303,9 @@
 		9D054A6320D175AC00D0528D /* Material+UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIButton.swift"; sourceTree = "<group>"; };
 		9D054A6420D175AC00D0528D /* Material+UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UILabel.swift"; sourceTree = "<group>"; };
 		9D39A81A20FE8ED100BA8FA1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9D494A37217F6B63003D66F1 /* LayoutAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAttribute.swift; sourceTree = "<group>"; };
+		9D494A39217F6B70003D66F1 /* LayoutAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAnchor.swift; sourceTree = "<group>"; };
+		9D494A3B217F6B7D003D66F1 /* LayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutConstraint.swift; sourceTree = "<group>"; };
 		9D9089B82118914500605DC9 /* Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
 		9DE25DDF2170D7AF000C04DF /* Dialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dialog.swift; sourceTree = "<group>"; };
 		9DE25DE12170D7C0000C04DF /* DialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogController.swift; sourceTree = "<group>"; };
@@ -652,6 +658,9 @@
 			isa = PBXGroup;
 			children = (
 				96BCB7811CB40DC500C806FE /* Layout.swift */,
+				9D494A39217F6B70003D66F1 /* LayoutAnchor.swift */,
+				9D494A37217F6B63003D66F1 /* LayoutAttribute.swift */,
+				9D494A3B217F6B7D003D66F1 /* LayoutConstraint.swift */,
 			);
 			name = Layout;
 			sourceTree = "<group>";
@@ -993,6 +1002,7 @@
 				9DF352461FED210000B2A11B /* CheckButton.swift in Sources */,
 				965E810A1DD4D5C800D61E4B /* Font.swift in Sources */,
 				965E810B1DD4D5C800D61E4B /* RobotoFont.swift in Sources */,
+				9D494A3C217F6B7D003D66F1 /* LayoutConstraint.swift in Sources */,
 				965E810C1DD4D5C800D61E4B /* DynamicFontType.swift in Sources */,
 				965E81101DD4D5C800D61E4B /* NavigationBar.swift in Sources */,
 				965E81111DD4D5C800D61E4B /* NavigationController.swift in Sources */,
@@ -1015,6 +1025,7 @@
 				965E81211DD4D5C800D61E4B /* TextStorage.swift in Sources */,
 				965E81221DD4D5C800D61E4B /* TextView.swift in Sources */,
 				965E80E71DD4C55200D61E4B /* Material+UIView.swift in Sources */,
+				9D494A38217F6B63003D66F1 /* LayoutAttribute.swift in Sources */,
 				96B8D22D20CF82D5008BD149 /* FABMenu.swift in Sources */,
 				965E80E81DD4C55200D61E4B /* Material+CALayer.swift in Sources */,
 				965E80E91DD4C55200D61E4B /* Material+String.swift in Sources */,
@@ -1054,6 +1065,7 @@
 				965E80D21DD4C50600D61E4B /* Color.swift in Sources */,
 				96BFC1541E5E486F0075DE1F /* SpringAnimation.swift in Sources */,
 				9D054A6620D175AC00D0528D /* Material+UILabel.swift in Sources */,
+				9D494A3A217F6B70003D66F1 /* LayoutAnchor.swift in Sources */,
 				965E80D31DD4C50600D61E4B /* Device.swift in Sources */,
 				965E80FD1DD4D59500D61E4B /* Toolbar.swift in Sources */,
 				965E80D41DD4C50600D61E4B /* Divider.swift in Sources */,
