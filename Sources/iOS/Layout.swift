@@ -392,6 +392,16 @@ public extension Layout {
   }
   
   /**
+   The width and height of the view to its parent's.
+   - Parameter _ size: A CGSize offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func size(_ size: CGSize) -> Layout {
+    return width(size.width).height(size.height)
+  }
+  
+  /**
    Constraints edges of the view to its parent's.
    - Parameter top: A CGFloat offset for top.
    - Parameter left: A CGFloat offset for left.
