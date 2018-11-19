@@ -21,6 +21,6 @@ Pod::Spec.new do |s|
 			'com.cosmicmind.material.fonts' => ['Sources/**/*.ttf']
 		}
 
-		s.dependency 'Motion', '~> 1.5.0'
+		s.dependency 'Motion', '~> 2.0.0'
 	end
 end
