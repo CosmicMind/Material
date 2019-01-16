@@ -110,6 +110,13 @@ open class SnackbarController: TransitionController {
       layoutSubviews()
     }
   }
+
+  /**
+   A boolean that controls if layoutEdgeInsets of snackbar is adjusted
+   automatically.
+   */
+  @IBInspectable
+  open var automaticallyAdjustSnackbarLayoutEdgeInsets = true
   
   /**
    Animates to a SnackbarStatus.
@@ -179,17 +186,20 @@ open class SnackbarController: TransitionController {
     snackbar.frame.origin.x = snackbarEdgeInsets.left
     snackbar.frame.size.width = view.bounds.width - snackbarEdgeInsets.left - snackbarEdgeInsets.right
     snackbar.frame.size.height = snackbar.heightPreset.rawValue
-    snackbar.layoutEdgeInsets = .zero
-    if .bottom == snackbarAlignment {
-      snackbar.frame.size.height += bottomLayoutGuide.length
-      snackbar.layoutEdgeInsets.bottom += bottomLayoutGuide.length
-    } else {
-      snackbar.frame.size.height += topLayoutGuide.length
-      snackbar.layoutEdgeInsets.top += topLayoutGuide.length
-    }
     
-    rootViewController.view.frame = view.bounds
-    layoutSnackbar(status: snackbar.status)
+    if automaticallyAdjustSnackbarLayoutEdgeInsets {
+      snackbar.layoutEdgeInsets = .zero
+      if .bottom == snackbarAlignment {
+        snackbar.frame.size.height += bottomLayoutGuide.length
+        snackbar.layoutEdgeInsets.bottom += bottomLayoutGuide.length
+      } else {
+        snackbar.frame.size.height += topLayoutGuide.length
+        snackbar.layoutEdgeInsets.top += topLayoutGuide.length
+      }
+      
+      rootViewController.view.frame = view.bounds
+      layoutSnackbar(status: snackbar.status)
+    }
   }
   
   open override func prepare() {
