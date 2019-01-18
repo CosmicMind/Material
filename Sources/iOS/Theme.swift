@@ -75,7 +75,7 @@ public struct Theme: Hashable {
   public var onError = Color.white
   
   /// A boolean indicating if theming is enabled globally.
-  public static var isEnabled = true
+  public static var isEnabled = false
   
   /// Global font for app.
   public static var font: FontType.Type = RobotoFont.self
