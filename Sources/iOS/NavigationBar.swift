@@ -168,6 +168,7 @@ open class NavigationBar: UINavigationBar, Themeable {
     let image = UIImage()
     shadowImage = image
     setBackgroundImage(image, for: .default)
+    backgroundColor = .white
     applyCurrentTheme()
   }
   
