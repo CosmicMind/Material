@@ -314,18 +314,20 @@
 				96BCB7611CB40DC500C806FE /* Grid.swift */,
 			);
 			name = Grid;
+			path = Grid;
 			sourceTree = "<group>";
 		};
 		96090B031D9D709E00709CA6 /* Text */ = {
 			isa = PBXGroup;
 			children = (
-				96BCB79D1CB40DC500C806FE /* TextStorage.swift */,
-				96BCB79E1CB40DC500C806FE /* TextView.swift */,
-				96BCB79C1CB40DC500C806FE /* TextField.swift */,
 				961F18E71CD93E3E008927C5 /* ErrorTextField.swift */,
 				9DF58CED20C098C60098968D /* ErrorTextFieldValidator.swift */,
+				96BCB79C1CB40DC500C806FE /* TextField.swift */,
+				96BCB79D1CB40DC500C806FE /* TextStorage.swift */,
+				96BCB79E1CB40DC500C806FE /* TextView.swift */,
 			);
 			name = Text;
+			path = Text;
 			sourceTree = "<group>";
 		};
 		961154CA1F32999000A78D74 /* Chip */ = {
@@ -335,6 +337,7 @@
 				961527B81F3A509900E8B2AC /* ChipBarController.swift */,
 			);
 			name = Chip;
+			path = Chip;
 			sourceTree = "<group>";
 		};
 		961527531F393C0E00E8B2AC /* Motion */ = {
@@ -351,6 +354,7 @@
 				961E6BDE1DDA2A95004E6C93 /* Application.swift */,
 			);
 			name = Application;
+			path = Application;
 			sourceTree = "<group>";
 		};
 		961E6BE01DDA2ADD004E6C93 /* Screen */ = {
@@ -359,6 +363,7 @@
 				961E6BE11DDA2AF3004E6C93 /* Screen.swift */,
 			);
 			name = Screen;
+			path = Screen;
 			sourceTree = "<group>";
 		};
 		961E6BEF1DDA4B04004E6C93 /* NavigationDrawer */ = {
@@ -367,6 +372,7 @@
 				96BCB7971CB40DC500C806FE /* NavigationDrawerController.swift */,
 			);
 			name = NavigationDrawer;
+			path = NavigationDrawer;
 			sourceTree = "<group>";
 		};
 		96230AB61D6A51FD00AF47DC /* Divider */ = {
@@ -375,6 +381,7 @@
 				96230AB71D6A520C00AF47DC /* Divider.swift */,
 			);
 			name = Divider;
+			path = Divider;
 			sourceTree = "<group>";
 		};
 		96264BE41D833C8400576F37 /* Bar */ = {
@@ -383,6 +390,7 @@
 				96BCB7981CB40DC500C806FE /* Bar.swift */,
 			);
 			name = Bar;
+			path = Bar;
 			sourceTree = "<group>";
 		};
 		9626CA951DAB5370003E2611 /* Transition */ = {
@@ -392,6 +400,7 @@
 				96BCB7991CB40DC500C806FE /* TransitionController.swift */,
 			);
 			name = Transition;
+			path = Transition;
 			sourceTree = "<group>";
 		};
 		9626CBCC1DADA5F1003E2611 /* Height */ = {
@@ -400,6 +409,7 @@
 				9626CB9A1DAD3D1D003E2611 /* HeightPreset.swift */,
 			);
 			name = Height;
+			path = Height;
 			sourceTree = "<group>";
 		};
 		962DDD081D6FBBD0001C307C /* BottomTabBar */ = {
@@ -408,6 +418,7 @@
 				96BCB7581CB40DC500C806FE /* BottomNavigationController.swift */,
 			);
 			name = BottomTabBar;
+			path = BottomTabBar;
 			sourceTree = "<group>";
 		};
 		9630ACB71F29A26B00B4217D /* Frameworks */ = {
@@ -424,13 +435,14 @@
 				96BCB7771CB40DC500C806FE /* DataSourceItem.swift */,
 			);
 			name = Data;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		9638322C1B88DFD80015F710 = {
 			isa = PBXGroup;
 			children = (
-				96D88BF41C1328D800B91418 /* Sources */,
 				963832371B88DFD80015F710 /* Products */,
+				96D88BF41C1328D800B91418 /* Sources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -452,6 +464,7 @@
 				961EFC571D738FF600E84652 /* SnackbarController.swift */,
 			);
 			name = Snackbar;
+			path = Snackbar;
 			sourceTree = "<group>";
 		};
 		963FBF001D66964F008F8512 /* Toolbar */ = {
@@ -461,6 +474,7 @@
 				96BCB7A01CB40DC500C806FE /* ToolbarController.swift */,
 			);
 			name = Toolbar;
+			path = Toolbar;
 			sourceTree = "<group>";
 		};
 		963FBF011D6696AB008F8512 /* Tab */ = {
@@ -470,6 +484,7 @@
 				96E09DC71F2287E50000B121 /* TabsController.swift */,
 			);
 			name = Tab;
+			path = Tab;
 			sourceTree = "<group>";
 		};
 		963FBF021D6696D0008F8512 /* FABMenu */ = {
@@ -479,6 +494,7 @@
 				96A183641E0C6DD400083C30 /* FABMenuController.swift */,
 			);
 			name = FABMenu;
+			path = FABMenu;
 			sourceTree = "<group>";
 		};
 		963FBF031D6696EF008F8512 /* SearchBar */ = {
@@ -488,6 +504,7 @@
 				96BCB7961CB40DC500C806FE /* SearchBarController.swift */,
 			);
 			name = SearchBar;
+			path = SearchBar;
 			sourceTree = "<group>";
 		};
 		965689641F003476001C656D /* CardCollectionView */ = {
@@ -497,16 +514,18 @@
 				965689601F002F4C001C656D /* CardCollectionViewController.swift */,
 			);
 			name = CardCollectionView;
+			path = CardCollectionView;
 			sourceTree = "<group>";
 		};
 		966ECF2B1CF4C21B00BB0BDF /* Table */ = {
 			isa = PBXGroup;
 			children = (
-				96BCB7891CB40DC500C806FE /* TableViewCell.swift */,
 				96328B961E05C0BB009A4C90 /* TableView.swift */,
+				96BCB7891CB40DC500C806FE /* TableViewCell.swift */,
 				96328B981E05C0CE009A4C90 /* TableViewController.swift */,
 			);
 			name = Table;
+			path = Table;
 			sourceTree = "<group>";
 		};
 		967A48171D0F424B00B8CEB7 /* StatusBar */ = {
@@ -515,6 +534,7 @@
 				967A48181D0F425A00B8CEB7 /* StatusBarController.swift */,
 			);
 			name = StatusBar;
+			path = StatusBar;
 			sourceTree = "<group>";
 		};
 		968BA8321F8D201B0091852E /* Products */ = {
@@ -531,6 +551,7 @@
 				96BCB7881CB40DC500C806FE /* Switch.swift */,
 			);
 			name = Switch;
+			path = Switch;
 			sourceTree = "<group>";
 		};
 		96BCB7571CB40DC500C806FE /* iOS */ = {
@@ -601,6 +622,7 @@
 				96BCB7761CB40DC500C806FE /* Color.swift */,
 			);
 			name = Color;
+			path = Color;
 			sourceTree = "<group>";
 		};
 		96BCB8011CB40F1700C806FE /* Navigation */ = {
@@ -611,6 +633,7 @@
 				96BCB7921CB40DC500C806FE /* NavigationItem.swift */,
 			);
 			name = Navigation;
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 		96BCB8021CB40F3B00C806FE /* Card */ = {
@@ -621,21 +644,23 @@
 				9631A7C01D95E3AC00CFB109 /* PresenterCard.swift */,
 			);
 			name = Card;
+			path = Card;
 			sourceTree = "<group>";
 		};
 		96BCB8031CB40F4B00C806FE /* Button */ = {
 			isa = PBXGroup;
 			children = (
+				9DF352411FED20C900B2A11B /* BaseIconLayerButton.swift */,
 				96BCB7701CB40DC500C806FE /* Button.swift */,
+				9DF352451FED210000B2A11B /* CheckButton.swift */,
 				96BCB75F1CB40DC500C806FE /* FABButton.swift */,
 				96BCB7601CB40DC500C806FE /* FlatButton.swift */,
-				96BCB7931CB40DC500C806FE /* RaisedButton.swift */,
 				9658F2161CD6FA4700B902C1 /* IconButton.swift */,
-				9DF352411FED20C900B2A11B /* BaseIconLayerButton.swift */,
 				9DF352431FED20ED00B2A11B /* RadioButton.swift */,
-				9DF352451FED210000B2A11B /* CheckButton.swift */,
+				96BCB7931CB40DC500C806FE /* RaisedButton.swift */,
 			);
 			name = Button;
+			path = Button;
 			sourceTree = "<group>";
 		};
 		96BCB8041CB40F6C00C806FE /* Layout */ = {
@@ -644,44 +669,48 @@
 				96BCB7811CB40DC500C806FE /* Layout.swift */,
 			);
 			name = Layout;
+			path = Layout;
 			sourceTree = "<group>";
 		};
 		96BCB8051CB40F9C00C806FE /* Collection */ = {
 			isa = PBXGroup;
 			children = (
 				965689641F003476001C656D /* CardCollectionView */,
-				96328B791E020A41009A4C90 /* CollectionViewController.swift */,
-				96BCB7711CB40DC500C806FE /* CollectionView.swift */,
-				96BCB7751CB40DC500C806FE /* CollectionViewLayout.swift */,
 				966ECF291CF4C20100BB0BDF /* CollectionReusableView.swift */,
+				96BCB7711CB40DC500C806FE /* CollectionView.swift */,
 				96BCB7721CB40DC500C806FE /* CollectionViewCell.swift */,
+				96328B791E020A41009A4C90 /* CollectionViewController.swift */,
+				96BCB7751CB40DC500C806FE /* CollectionViewLayout.swift */,
 			);
 			name = Collection;
+			path = Collection;
 			sourceTree = "<group>";
 		};
 		96BCB8061CB40FD000C806FE /* Type */ = {
 			isa = PBXGroup;
 			children = (
 				96BCB76F1CB40DC500C806FE /* Border.swift */,
-				96BCB7871CB40DC500C806FE /* InterimSpace.swift */,
+				96BCB7851CB40DC500C806FE /* CornerRadius.swift */,
 				96BCB7781CB40DC500C806FE /* Depth.swift */,
 				96BCB77A1CB40DC500C806FE /* EdgeInsets.swift */,
 				96BCB77C1CB40DC500C806FE /* Gravity.swift */,
-				96BCB7851CB40DC500C806FE /* CornerRadius.swift */,
-				96BCB7861CB40DC500C806FE /* Shape.swift */,
+				96BCB7871CB40DC500C806FE /* InterimSpace.swift */,
 				968C99461D377849000074FF /* Offset.swift */,
+				96BCB7861CB40DC500C806FE /* Shape.swift */,
 			);
 			name = Type;
+			path = Type;
 			sourceTree = "<group>";
 		};
 		96BCB8071CB4101C00C806FE /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				9628645E1D540AF300690B69 /* DynamicFontType.swift */,
 				96BCB77B1CB40DC500C806FE /* Font.swift */,
 				96BCB7941CB40DC500C806FE /* RobotoFont.swift */,
-				9628645E1D540AF300690B69 /* DynamicFontType.swift */,
 			);
 			name = Font;
+			path = Font;
 			sourceTree = "<group>";
 		};
 		96BCB8081CB4105E00C806FE /* Icon */ = {
@@ -690,26 +719,28 @@
 				96BCB77D1CB40DC500C806FE /* Icon.swift */,
 			);
 			name = Icon;
+			path = Icon;
 			sourceTree = "<group>";
 		};
 		96BCB80A1CB410A100C806FE /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				961276621DCD8B1800A7D920 /* Material+NSMutableAttributedString.swift */,
-				96E3C3931D397AE90086A024 /* Material+UIView.swift */,
+				96C1C8801D42C62800E6608F /* Material+Array.swift */,
 				96F1DC871D654FDF0025F925 /* Material+CALayer.swift */,
+				966C17721F0439F600D3E83C /* Material+MotionAnimation.swift */,
+				961276621DCD8B1800A7D920 /* Material+NSMutableAttributedString.swift */,
 				96BCB7641CB40DC500C806FE /* Material+String.swift */,
+				9D054A6320D175AC00D0528D /* Material+UIButton.swift */,
+				9DF74C4D20D15D84003C1D66 /* Material+UIColor.swift */,
 				96BCB7651CB40DC500C806FE /* Material+UIFont.swift */,
 				96BCB76C1CB40DC500C806FE /* Material+UIImage.swift */,
-				96C1C8801D42C62800E6608F /* Material+Array.swift */,
-				962864591D53FE3E00690B69 /* Material+UIWindow.swift */,
-				966C17721F0439F600D3E83C /* Material+MotionAnimation.swift */,
-				9618006C1F4D384200CD77A1 /* Material+UIViewController.swift */,
-				9DF74C4D20D15D84003C1D66 /* Material+UIColor.swift */,
-				9D054A6320D175AC00D0528D /* Material+UIButton.swift */,
 				9D054A6420D175AC00D0528D /* Material+UILabel.swift */,
+				96E3C3931D397AE90086A024 /* Material+UIView.swift */,
+				9618006C1F4D384200CD77A1 /* Material+UIViewController.swift */,
+				962864591D53FE3E00690B69 /* Material+UIWindow.swift */,
 			);
 			name = Extension;
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		96BCB80B1CB410CC00C806FE /* Device */ = {
@@ -718,16 +749,18 @@
 				96BCB7791CB40DC500C806FE /* Device.swift */,
 			);
 			name = Device;
+			path = Device;
 			sourceTree = "<group>";
 		};
 		96BCB80C1CB410DD00C806FE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				96BCB7841CB40DC500C806FE /* PulseView.swift */,
 				96BCB78C1CB40DC500C806FE /* View.swift */,
 				9D39A81A20FE8ED100BA8FA1 /* ViewController.swift */,
-				96BCB7841CB40DC500C806FE /* PulseView.swift */,
 			);
 			name = View;
+			path = View;
 			sourceTree = "<group>";
 		};
 		96BCB80D1CB410FD00C806FE /* Layer */ = {
@@ -736,18 +769,19 @@
 				96BCB7801CB40DC500C806FE /* Layer.swift */,
 			);
 			name = Layer;
+			path = Layer;
 			sourceTree = "<group>";
 		};
 		96D88BF41C1328D800B91418 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				96D88BFD1C1328D800B91418 /* LICENSE */,
-				96D88BFC1C1328D800B91418 /* Info.plist */,
-				96D88C091C1328D800B91418 /* Material.h */,
-				96334EF51C8B84660083986B /* Assets.xcassets */,
-				9630ACB71F29A26B00B4217D /* Frameworks */,
 				96BCB7EC1CB40DE900C806FE /* Font */,
+				9630ACB71F29A26B00B4217D /* Frameworks */,
 				96BCB7571CB40DC500C806FE /* iOS */,
+				96334EF51C8B84660083986B /* Assets.xcassets */,
+				96D88BFC1C1328D800B91418 /* Info.plist */,
+				96D88BFD1C1328D800B91418 /* LICENSE */,
+				96D88C091C1328D800B91418 /* Material.h */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -759,16 +793,18 @@
 				965532281E47E388005C2792 /* SpringAnimation.swift */,
 			);
 			name = Animation;
+			path = Animation;
 			sourceTree = "<group>";
 		};
 		9DE84D6E1FF0250E00586C8B /* ButtonGroup */ = {
 			isa = PBXGroup;
 			children = (
 				9DE84D701FF0252500586C8B /* BaseButtonGroup.swift */,
-				9DE84D6F1FF0252500586C8B /* RadioButtonGroup.swift */,
 				9DE84D711FF0252500586C8B /* CheckButtonGroup.swift */,
+				9DE84D6F1FF0252500586C8B /* RadioButtonGroup.swift */,
 			);
 			name = ButtonGroup;
+			path = ButtonGroup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
