@@ -34,6 +34,7 @@ import UIKit
 public enum DeviceModel: Int {
   case iPodTouch5
   case iPodTouch6
+  case iPhone4
   case iPhone4s
   case iPhone5
   case iPhone5c
@@ -47,6 +48,9 @@ public enum DeviceModel: Int {
   case iPhone8
   case iPhone8Plus
   case iPhoneX
+  case iPhoneXS
+  case iPhoneXSMax
+  case iPhoneXR
   case iPhoneSE
   case iPad2
   case iPad3
@@ -63,6 +67,11 @@ public enum DeviceModel: Int {
   case iPadPro2
   case iPadProLarge2
   case iPad6
+  case iPadPro3       //iPad Pro (11-inch)
+  case iPadProLarge3  //iPad Pro (12.9-inch) (3rd generation)
+  case appleTv
+  case appleTv4k
+  case homePod
   case simulator
   case unknown
 }
@@ -118,6 +127,17 @@ public struct Device {
     case "iPad7,1", "iPad7,2":                          return .iPadProLarge2
     case "iPad7,5", "iPad7,6":                          return .iPad6
     case "i386", "x86_64":                              return .simulator
+        
+    case "iPhone3,1", "iPhone3,2", "iPhone3,3":         return .iPhone4
+    case "iPhone11,2":                                  return .iPhoneXS
+    case "iPhone11,4", "iPhone11,6":                    return .iPhoneXSMax
+    case "iPhone11,8":                                  return .iPhoneXR
+    case "iPad8,1", "iPad8,2", "iPad8,3", "iPad8,4":    return .iPadPro3
+    case "iPad8,5", "iPad8,6", "iPad8,7", "iPad8,8":    return .iPadProLarge3
+    case "AppleTV5,3":                                  return .appleTv
+    case "AppleTV6,2":                                  return .appleTv4k
+    case "AudioAccessory1,1":                           return .homePod
+        
     default:                                            return .unknown
     }
   }
