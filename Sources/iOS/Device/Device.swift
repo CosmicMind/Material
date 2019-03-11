@@ -127,17 +127,15 @@ public struct Device {
     case "iPad7,1", "iPad7,2":                          return .iPadProLarge2
     case "iPad7,5", "iPad7,6":                          return .iPad6
     case "i386", "x86_64":                              return .simulator
-        
     case "iPhone3,1", "iPhone3,2", "iPhone3,3":         return .iPhone4
     case "iPhone11,2":                                  return .iPhoneXS
     case "iPhone11,4", "iPhone11,6":                    return .iPhoneXSMax
     case "iPhone11,8":                                  return .iPhoneXR
-    case "iPad8,1", "iPad8,2", "iPad8,3", "iPad8,4":    return .iPadPro3
-    case "iPad8,5", "iPad8,6", "iPad8,7", "iPad8,8":    return .iPadProLarge3
+    case "iPad8,1", "iPad8,2", "iPad8,3", "iPad8,4":   return .iPadPro3
+    case "iPad8,5", "iPad8,6", "iPad8,7", "iPad8,8":   return .iPadProLarge3
     case "AppleTV5,3":                                  return .appleTv
     case "AppleTV6,2":                                  return .appleTv4k
     case "AudioAccessory1,1":                           return .homePod
-        
     default:                                            return .unknown
     }
   }
