@@ -390,17 +390,7 @@ public extension Layout {
   func height(offset: CGFloat = 0) -> Layout {
     return constraint(.height, constant: offset)
   }
-  
-  /**
-   The width and height of the view to its parent's.
-   - Parameter _ size: A CGSize offset.
-   - Returns: A Layout instance to allow chaining.
-   */
-  @discardableResult
-  func size(_ size: CGSize) -> Layout {
-    return width(size.width).height(size.height)
-  }
-  
+
   /**
    Constraints edges of the view to its parent's.
    - Parameter top: A CGFloat offset for top.
@@ -434,6 +424,16 @@ public extension Layout {
   @discardableResult
   func height(_ height: CGFloat) -> Layout {
     return constraint(.constantHeight, constants: height)
+  }
+  
+  /**
+   The width and height of the view to its parent's.
+   - Parameter _ size: A CGSize offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func size(_ size: CGSize) -> Layout {
+    return width(size.width).height(size.height)
   }
 }
 
