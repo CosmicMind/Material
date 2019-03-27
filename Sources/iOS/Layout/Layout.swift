@@ -390,17 +390,7 @@ public extension Layout {
   func height(offset: CGFloat = 0) -> Layout {
     return constraint(.height, constant: offset)
   }
-  
-  /**
-   The width and height of the view to its parent's.
-   - Parameter _ size: A CGSize offset.
-   - Returns: A Layout instance to allow chaining.
-   */
-  @discardableResult
-  func size(_ size: CGSize) -> Layout {
-    return width(size.width).height(size.height)
-  }
-  
+
   /**
    Constraints edges of the view to its parent's.
    - Parameter top: A CGFloat offset for top.
@@ -412,6 +402,253 @@ public extension Layout {
   @discardableResult
   func edges(top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
     return constraint(.edges, constants: top, left, -bottom, -right)
+  }
+}
+
+public extension Layout {
+  /**
+   Constraints top of the view to its parent's safeArea.
+   - Parameter _ offset: A CGFloat offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func topSafe(_ offset: CGFloat = 0) -> Layout {
+    return constraint(.top, constant: offset, useSafeArea: true)
+  }
+  
+  /**
+   Constraints left of the view to its parent's safeArea.
+   - Parameter _ offset: A CGFloat offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func leftSafe(_ offset: CGFloat = 0) -> Layout {
+    return constraint(.left, constant: offset, useSafeArea: true)
+  }
+  
+  /**
+   Constraints right of the view to its parent.
+   - Parameter _ offset: A CGFloat offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func rightSafe(_ offset: CGFloat = 0) -> Layout {
+    return constraint(.right, constant: -offset, useSafeArea: true)
+  }
+  
+  /**
+   Constraints leading of the view to its parent's safeArea.
+   - Parameter _ offset: A CGFloat offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func leadingSafe(_ offset: CGFloat = 0) -> Layout {
+    return constraint(.leading, constant: offset, useSafeArea: true)
+  }
+  
+  /**
+   Constraints trailing of the view to its parent.
+   - Parameter _ offset: A CGFloat offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func trailingSafe(_ offset: CGFloat = 0) -> Layout {
+    return constraint(.trailing, constant: -offset, useSafeArea: true)
+  }
+  
+  /**
+   Constraints bottom of the view to its parent's safeArea.
+   - Parameter _ offset: A CGFloat offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func bottomSafe(_ offset: CGFloat = 0) -> Layout {
+    return constraint(.bottom, constant: -offset, useSafeArea: true)
+  }
+  
+  /**
+   Constraints top-left of the view to its parent's safeArea.
+   - Parameter top: A CGFloat offset for top.
+   - Parameter left: A CGFloat offset for left.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func topLeftSafe(top: CGFloat = 0, left: CGFloat = 0) -> Layout {
+    return constraint(.topLeft, constants: top, left, useSafeArea: true)
+  }
+  
+  /**
+   Constraints top-right of the view to its parent's safeArea.
+   - Parameter top: A CGFloat offset for top.
+   - Parameter right: A CGFloat offset for right.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func topRightSafe(top: CGFloat = 0, right: CGFloat = 0) -> Layout {
+    return constraint(.topRight, constants: top, -right, useSafeArea: true)
+  }
+  
+  /**
+   Constraints bottom-left of the view to its parent's safeArea.
+   - Parameter bottom: A CGFloat offset for bottom.
+   - Parameter left: A CGFloat offset for left.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func bottomLeftSafe(bottom: CGFloat = 0, left: CGFloat = 0) -> Layout {
+    return constraint(.bottomLeft, constants: -bottom, left, useSafeArea: true)
+  }
+  
+  /**
+   Constraints bottom-right of the view to its parent's safeArea.
+   - Parameter bottom: A CGFloat offset for bottom.
+   - Parameter right: A CGFloat offset for right.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func bottomRightSafe(bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
+    return constraint(.bottomRight, constants: -bottom, -right, useSafeArea: true)
+  }
+  
+  /**
+   Constraints left and right of the view to its parent's safeArea.
+   - Parameter left: A CGFloat offset for left.
+   - Parameter right: A CGFloat offset for right.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func leftRightSafe(left: CGFloat = 0, right: CGFloat = 0) -> Layout {
+    return constraint(.leftRight, constants: left, -right, useSafeArea: true)
+  }
+  
+  /**
+   Constraints top-leading of the view to its parent's safeArea.
+   - Parameter top: A CGFloat offset for top.
+   - Parameter leading: A CGFloat offset for leading.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func topLeadingSafe(top: CGFloat = 0, leading: CGFloat = 0) -> Layout {
+    return constraint(.topLeading, constants: top, leading, useSafeArea: true)
+  }
+  
+  /**
+   Constraints top-trailing of the view to its parent's safeArea.
+   - Parameter top: A CGFloat offset for top.
+   - Parameter trailing: A CGFloat offset for trailing.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func topTrailingSafe(top: CGFloat = 0, trailing: CGFloat = 0) -> Layout {
+    return constraint(.topTrailing, constants: top, -trailing, useSafeArea: true)
+  }
+  
+  /**
+   Constraints bottom-leading of the view to its parent's safeArea.
+   - Parameter bottom: A CGFloat offset for bottom.
+   - Parameter leading: A CGFloat offset for leading.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func bottomLeadingSafe(bottom: CGFloat = 0, leading: CGFloat = 0) -> Layout {
+    return constraint(.bottomLeading, constants: -bottom, leading, useSafeArea: true)
+  }
+  
+  /**
+   Constraints bottom-trailing of the view to its parent's safeArea.
+   - Parameter bottom: A CGFloat offset for bottom.
+   - Parameter trailing: A CGFloat offset for trailing.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func bottomTrailingSafe(bottom: CGFloat = 0, trailing: CGFloat = 0) -> Layout {
+    return constraint(.bottomTrailing, constants: -bottom, -trailing, useSafeArea: true)
+  }
+  
+  /**
+   Constraints leading and trailing of the view to its parent's safeArea.
+   - Parameter leading: A CGFloat offset for leading.
+   - Parameter trailing: A CGFloat offset for trailing.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func leadingTrailingSafe(leading: CGFloat = 0, trailing: CGFloat = 0) -> Layout {
+    return constraint(.leadingTrailing, constants: leading, -trailing, useSafeArea: true)
+  }
+  
+  /**
+   Constraints top and bottom of the view to its parent's safeArea.
+   - Parameter top: A CGFloat offset for top.
+   - Parameter bottom: A CGFloat offset for bottom.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func topBottomSafe(top: CGFloat = 0, bottom: CGFloat = 0) -> Layout {
+    return constraint(.topBottom, constants: top, -bottom, useSafeArea: true)
+  }
+  
+  /**
+   Constraints center of the view to its parent's safeArea.
+   - Parameter offsetX: A CGFloat offset for horizontal center.
+   - Parameter offsetY: A CGFloat offset for vertical center.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func centerSafe(offsetX: CGFloat = 0, offsetY: CGFloat = 0) -> Layout {
+    return constraint(.center, constants: offsetX, offsetY, useSafeArea: true)
+  }
+  
+  /**
+   Constraints horizontal center of the view to its parent's safeArea.
+   - Parameter _ offset: A CGFloat offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func centerXSafe(_ offset: CGFloat = 0) -> Layout {
+    return constraint(.centerX, constant: offset, useSafeArea: true)
+  }
+  
+  /**
+   Constraints vertical center of the view to its parent's safeArea.
+   - Parameter _ offset: A CGFloat offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func centerYSafe(_ offset: CGFloat = 0) -> Layout {
+    return constraint(.centerY, constant: offset, useSafeArea: true)
+  }
+  
+  /**
+   Constraints width of the view to its parent's safeArea.
+   - Parameter offset: A CGFloat offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func widthSafe(offset: CGFloat = 0) -> Layout {
+    return constraint(.width, constant: offset, useSafeArea: true)
+  }
+  
+  /**
+   Constraints height of the view to its parent's safeArea.
+   - Parameter offset: A CGFloat offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func heightSafe(offset: CGFloat = 0) -> Layout {
+    return constraint(.height, constant: offset, useSafeArea: true)
+  }
+  
+  /**
+   Constraints edges of the view to its parent's safeArea.
+   - Parameter top: A CGFloat offset for top.
+   - Parameter left: A CGFloat offset for left.
+   - Parameter bottom: A CGFloat offset for bottom.
+   - Parameter right: A CGFloat offset for right.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func edgesSafe(top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
+    return constraint(.edges, constants: top, left, -bottom, -right, useSafeArea: true)
   }
 }
 
@@ -434,6 +671,16 @@ public extension Layout {
   @discardableResult
   func height(_ height: CGFloat) -> Layout {
     return constraint(.constantHeight, constants: height)
+  }
+  
+  /**
+   The width and height of the view to its parent's.
+   - Parameter _ size: A CGSize offset.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func size(_ size: CGSize) -> Layout {
+    return width(size.width).height(size.height)
   }
 }
 
@@ -715,8 +962,8 @@ private extension Layout {
    - Parameter constant: A CGFloat.
    - Returns: A Layout instance to allow chaining.
    */
-  func constraint(_ attribute: LayoutAttribute, constant: CGFloat) -> Layout {
-    return constraint([attribute], constants: constant)
+  func constraint(_ attribute: LayoutAttribute, constant: CGFloat, useSafeArea: Bool = false) -> Layout {
+    return constraint([attribute], constants: constant, useSafeArea: useSafeArea)
   }
   
   /**
@@ -726,7 +973,7 @@ private extension Layout {
    - Parameter constants: A list of CGFloat.
    - Returns: A Layout instance to allow chaining.
    */
-  func constraint(_ attributes: [LayoutAttribute], constants: CGFloat...) -> Layout {
+  func constraint(_ attributes: [LayoutAttribute], constants: CGFloat..., useSafeArea: Bool = false) -> Layout {
     var attributes = attributes
     var anchor: LayoutAnchor!
     
@@ -739,7 +986,7 @@ private extension Layout {
         fatalError("[Material Error: Constraint requires view to have parent.")
       }
       
-      anchor = LayoutAnchor(constraintable: parent, attributes: attributes)
+      anchor = LayoutAnchor(constraintable: useSafeArea ? parent?.safeAnchor.constraintable : parent, attributes: attributes)
     }
     return constraint(attributes, to: anchor, constants: constants)
   }
