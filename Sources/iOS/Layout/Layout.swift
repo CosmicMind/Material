@@ -918,7 +918,7 @@ public extension Layout {
   }
   
   /**
-   Constraints height of the view to the given anchor.
+   Constraints width of the view to the given anchor.
    - Parameter _ anchor: A LayoutAnchorable.
    - Parameter offset: A CGFloat offset.
    - Returns: A Layout instance to allow chaining.
