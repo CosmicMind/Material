@@ -76,7 +76,7 @@ public extension UIView {
 
 public struct Layout {
   /// A weak reference to the constraintable.
-  weak var constraintable: Constraintable?
+  public weak var constraintable: Constraintable?
   
   /// Parent view of the view.
   var parent: UIView? {
@@ -84,7 +84,7 @@ public struct Layout {
   }
   
   /// Returns the view that is being laied out.
-  private var view: UIView? {
+  public var view: UIView? {
     var  v = constraintable as? UIView
     if #available(iOS 9.0, *), v == nil {
       v = (constraintable as? UILayoutGuide)?.owningView
@@ -109,6 +109,7 @@ public extension Layout {
    - Parameter _ multiplier: A CGFloat multiplier.
    - Returns: A Layout instance to allow chaining.
    */
+  @discardableResult
   func multiply(_ multiplier: CGFloat) -> Layout {
     return resetLastConstraint(multiplier: multiplier)
   }
@@ -119,6 +120,7 @@ public extension Layout {
    - Parameter _ value: A Float priority.
    - Returns: A Layout instance to allow chaining.
    */
+  @discardableResult
   func priority(_ value: Float) -> Layout {
     return priority(.init(rawValue: value))
   }
@@ -129,6 +131,7 @@ public extension Layout {
    - Parameter _ priority: A UILayoutPriority.
    - Returns: A Layout instance to allow chaining.
    */
+  @discardableResult
   func priority(_ priority: UILayoutPriority) -> Layout {
     return resetLastConstraint(priority: priority)
   }

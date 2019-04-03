@@ -31,7 +31,7 @@
 import UIKit
 
 /// A typealias for NSLayoutConstraint.Attribute
-internal typealias LayoutAttribute = NSLayoutConstraint.Attribute
+public typealias LayoutAttribute = NSLayoutConstraint.Attribute
 
 internal extension Array where Element == LayoutAttribute {
   /// A LayoutAttribute array containing top and left.
