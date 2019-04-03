@@ -109,6 +109,7 @@ public extension Layout {
    - Parameter _ multiplier: A CGFloat multiplier.
    - Returns: A Layout instance to allow chaining.
    */
+  @discardableResult
   func multiply(_ multiplier: CGFloat) -> Layout {
     return resetLastConstraint(multiplier: multiplier)
   }
@@ -119,6 +120,7 @@ public extension Layout {
    - Parameter _ value: A Float priority.
    - Returns: A Layout instance to allow chaining.
    */
+  @discardableResult
   func priority(_ value: Float) -> Layout {
     return priority(.init(rawValue: value))
   }
@@ -129,6 +131,7 @@ public extension Layout {
    - Parameter _ priority: A UILayoutPriority.
    - Returns: A Layout instance to allow chaining.
    */
+  @discardableResult
   func priority(_ priority: UILayoutPriority) -> Layout {
     return resetLastConstraint(priority: priority)
   }
