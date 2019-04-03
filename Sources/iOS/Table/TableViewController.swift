@@ -69,6 +69,7 @@ extension TableViewController {
   fileprivate func prepareTableView() {
     tableView.delegate = self
     tableView.dataSource = self
+    tableView.backgroundColor = .clear
     view.layout(tableView).edges()
   }
 }

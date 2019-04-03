@@ -46,6 +46,19 @@ open class TransitionController: ViewController {
     }
   }
   
+  /// A Boolean indicating whether the controller is in transitioning state.
+  open var isTransitioning: Bool {
+    return MotionTransition.shared.isTransitioning && MotionTransition.shared.fromViewController == rootViewController
+  }
+  
+  open override var childForStatusBarStyle: UIViewController? {
+    return isTransitioning ? MotionTransition.shared.toViewController ?? rootViewController : rootViewController
+  }
+  
+  open override var childForStatusBarHidden: UIViewController? {
+    return childForStatusBarStyle
+  }
+  
   /// A reference to the container view.
   @IBInspectable
   public let container = UIView()
