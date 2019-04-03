@@ -39,17 +39,17 @@ extension LayoutAnchor: LayoutAnchorable { }
 
 public struct LayoutAnchor {
   /// A weak reference to the constraintable.
-  weak var constraintable: Constraintable?
+  public weak var constraintable: Constraintable?
   
   /// An array of LayoutAttribute for the view.
-  let attributes: [LayoutAttribute]
+  public let attributes: [LayoutAttribute]
   
   /**
    An initializer taking constraintable and anchor attributes.
    - Parameter view: A Constraintable.
    - Parameter attributes: An array of LayoutAtrribute.
   */
-  init(constraintable: Constraintable?, attributes: [LayoutAttribute] = []) {
+  public init(constraintable: Constraintable?, attributes: [LayoutAttribute] = []) {
     self.constraintable = constraintable
     self.attributes = attributes
   }

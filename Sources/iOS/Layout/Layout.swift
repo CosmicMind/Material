@@ -76,7 +76,7 @@ public extension UIView {
 
 public struct Layout {
   /// A weak reference to the constraintable.
-  weak var constraintable: Constraintable?
+  public weak var constraintable: Constraintable?
   
   /// Parent view of the view.
   var parent: UIView? {
@@ -84,7 +84,7 @@ public struct Layout {
   }
   
   /// Returns the view that is being laied out.
-  private var view: UIView? {
+  public var view: UIView? {
     var  v = constraintable as? UIView
     if #available(iOS 9.0, *), v == nil {
       v = (constraintable as? UILayoutGuide)?.owningView
