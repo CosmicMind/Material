@@ -59,6 +59,14 @@ open class TransitionController: ViewController {
     return childForStatusBarStyle
   }
   
+  open override var childForHomeIndicatorAutoHidden: UIViewController? {
+    return childForStatusBarStyle
+  }
+  
+  open override var childForScreenEdgesDeferringSystemGestures: UIViewController? {
+    return childForStatusBarStyle
+  }
+  
   /// A reference to the container view.
   @IBInspectable
   public let container = UIView()
