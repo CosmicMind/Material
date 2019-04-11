@@ -8,7 +8,7 @@ let package = Package(
         .library(name: "Material", targets: ["Material"])
     ],
     dependencies: [
-        .package(url: "https://github.com/AccioSupport/Motion.git", .branch("development")),
+        .package(url: "https://github.com/AccioSupport/Motion.git"),
     ],
     targets: [
         .target(
