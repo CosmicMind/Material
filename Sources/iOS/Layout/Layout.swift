@@ -74,6 +74,40 @@ public extension UIView {
   }
 }
 
+private extension NSLayoutConstraint {
+  /**
+   Checks if the constraint is equal to given constraint.
+   - Parameter _ other: An NSLayoutConstraint.
+   - Returns: A Bool indicating whether constraints are equal.
+   */
+  func equalTo(_ other: NSLayoutConstraint) -> Bool {
+    return firstItem === other.firstItem
+      && secondItem === other.secondItem
+      && firstAttribute == other.firstAttribute
+      && secondAttribute == other.secondAttribute
+  }
+}
+
+/// A memory reference to the lastConstraint of UIView.
+private var LastConstraintKey: UInt8 = 0
+
+private extension UIView {
+  /**
+   The last consntraint that's created by Layout system.
+   Used to set multiplier/priority on the last constraint.
+   */
+  var lastConstraint: NSLayoutConstraint? {
+    get {
+      return AssociatedObject.get(base: self, key: &LastConstraintKey) {
+        nil
+      }
+    }
+    set(value) {
+      AssociatedObject.set(base: self, key: &LastConstraintKey, value: value)
+    }
+  }
+}
+
 public struct Layout {
   /// A weak reference to the constraintable.
   public weak var constraintable: Constraintable?
@@ -957,6 +991,62 @@ public extension Layout {
   }
 }
 
+extension Layout {
+  /**
+   Constraints the object and sets it's anchor to `bottom`.
+   - Parameter _ view: A UIView.
+   - Parameter offset: A CGFloat offset for top.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func below(_ view: UIView, _ offset: CGFloat = 0) -> Layout {
+    return top(view.anchor.bottom, offset)
+  }
+  
+  /**
+   Constraints the object and sets it's anchor to `top`.
+   - Parameter _ view: A UIView.
+   - Parameter offset: A CGFloat offset for bottom.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func above(_ view: UIView, _ offset: CGFloat = 0) -> Layout {
+    return bottom(view.anchor.top, offset)
+  }
+  
+  /**
+   Constraints the object and sets it's anchor to `before/left`.
+   - Parameter _ view: A UIView.
+   - Parameter offset: A CGFloat offset for right.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func before(_ view: UIView, _ offset: CGFloat = 0) -> Layout {
+    return right(view.anchor.left, offset)
+  }
+  
+  /**
+   Constraints the object and sets it's anchor to `after/right`.
+   - Parameter _ view: A UIView.
+   - Parameter offset: A CGFloat offset for left.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func after(_ view: UIView, _ offset: CGFloat = 0) -> Layout {
+    return left(view.anchor.right, offset)
+  }
+  
+  /**
+   Constraints the object and sets it's aspect.
+   - Parameter ratio: A CGFloat ratio multiplier.
+   - Returns: A Layout instance to allow chaining.
+   */
+  @discardableResult
+  func aspect(_ ratio: CGFloat = 1) -> Layout {
+    return height(view!.anchor.width).multiply(ratio)
+  }
+}
+
 private extension Layout {
   /**
    Constraints the view to its parent according to the provided attribute.
@@ -1049,39 +1139,5 @@ private extension Layout {
     }
     
     return self
-  }
-}
-
-private extension NSLayoutConstraint {
-  /**
-   Checks if the constraint is equal to given constraint.
-   - Parameter _ other: An NSLayoutConstraint.
-   - Returns: A Bool indicating whether constraints are equal.
-   */
-  func equalTo(_ other: NSLayoutConstraint) -> Bool {
-    return firstItem === other.firstItem
-      && secondItem === other.secondItem
-      && firstAttribute == other.firstAttribute
-      && secondAttribute == other.secondAttribute
-  }
-}
-
-/// A memory reference to the lastConstraint of UIView.
-private var LastConstraintKey: UInt8 = 0
-
-private extension UIView {
-  /**
-   The last consntraint that's created by Layout system.
-   Used to set multiplier/priority on the last constraint.
-   */
-  var lastConstraint: NSLayoutConstraint? {
-    get {
-      return AssociatedObject.get(base: self, key: &LastConstraintKey) {
-        nil
-      }
-    }
-    set(value) {
-      AssociatedObject.set(base: self, key: &LastConstraintKey, value: value)
-    }
   }
 }
