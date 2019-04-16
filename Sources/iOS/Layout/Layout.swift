@@ -991,7 +991,7 @@ public extension Layout {
   }
 }
 
-extension Layout {
+public extension Layout {
   /**
    Constraints the object and sets it's anchor to `bottom`.
    - Parameter _ view: A UIView.
