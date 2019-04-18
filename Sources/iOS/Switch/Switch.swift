@@ -112,6 +112,22 @@ open class Switch: UIControl, Themeable {
     }
   }
   
+  /// Button on image.
+  @IBInspectable
+  open var buttonOnImage: UIImage? {
+    didSet {
+      styleForState(state: switchState)
+    }
+  }
+  
+  /// Button off image.
+  @IBInspectable
+  open var buttonOffImage: UIImage? {
+    didSet {
+      styleForState(state: switchState)
+    }
+  }
+  
   /// Track on color.
   @IBInspectable
   open var trackOnColor = Color.clear {
@@ -159,6 +175,23 @@ open class Switch: UIControl, Themeable {
       styleForState(state: switchState)
     }
   }
+  
+  /// Button on disabled image.
+  @IBInspectable
+  open var buttonOnDisabledImage: UIImage? {
+    didSet {
+      styleForState(state: switchState)
+    }
+  }
+  
+  /// Button off disabled image.
+  @IBInspectable
+  open var buttonOffDisabledImage: UIImage? {
+    didSet {
+      styleForState(state: switchState)
+    }
+  }
+  
   
   /// Track view reference.
   open fileprivate(set) var track: UIView {
@@ -416,9 +449,11 @@ fileprivate extension Switch {
     if .on == state {
       button.backgroundColor = buttonOnColor
       track.backgroundColor = trackOnColor
+      button.image = buttonOnImage
     } else {
       button.backgroundColor = buttonOffColor
       track.backgroundColor = trackOffColor
+      button.image = buttonOffImage
     }
   }
   
@@ -430,9 +465,11 @@ fileprivate extension Switch {
     if .on == state {
       button.backgroundColor = buttonOnDisabledColor
       track.backgroundColor = trackOnDisabledColor
+      button.image = buttonOnDisabledImage
     } else {
       button.backgroundColor = buttonOffDisabledColor
       track.backgroundColor = trackOffDisabledColor
+      button.image = buttonOffDisabledImage
     }
   }
   
