@@ -36,11 +36,11 @@ public enum SwitchState: Int {
   case off
 }
 
-@objc(SwitchSize)
-public enum SwitchSize: Int {
+public enum SwitchSize {
   case small
   case medium
   case large
+  case custom(width: CGFloat, height: CGFloat)
 }
 
 @objc(SwitchDelegate)
@@ -63,10 +63,18 @@ open class Switch: UIControl, Themeable {
   fileprivate var internalSwitchState = SwitchState.off
   
   /// Track thickness.
-  fileprivate var trackThickness: CGFloat = 0
+  open var trackThickness: CGFloat = 0 {
+    didSet {
+      layoutSubviews()
+    }
+  }
   
   /// Button diameter.
-  fileprivate var buttonDiameter: CGFloat = 0
+  open var buttonDiameter: CGFloat = 0 {
+    didSet {
+      layoutSubviews()
+    }
+  }
   
   /// Position when in the .on state.
   fileprivate var onPosition: CGFloat = 0
@@ -99,6 +107,22 @@ open class Switch: UIControl, Themeable {
   /// Button off color.
   @IBInspectable
   open var buttonOffColor = Color.clear {
+    didSet {
+      styleForState(state: switchState)
+    }
+  }
+  
+  /// Button on image.
+  @IBInspectable
+  open var buttonOnImage: UIImage? {
+    didSet {
+      styleForState(state: switchState)
+    }
+  }
+  
+  /// Button off image.
+  @IBInspectable
+  open var buttonOffImage: UIImage? {
     didSet {
       styleForState(state: switchState)
     }
@@ -151,6 +175,23 @@ open class Switch: UIControl, Themeable {
       styleForState(state: switchState)
     }
   }
+  
+  /// Button on disabled image.
+  @IBInspectable
+  open var buttonOnDisabledImage: UIImage? {
+    didSet {
+      styleForState(state: switchState)
+    }
+  }
+  
+  /// Button off disabled image.
+  @IBInspectable
+  open var buttonOffDisabledImage: UIImage? {
+    didSet {
+      styleForState(state: switchState)
+    }
+  }
+  
   
   /// Track view reference.
   open fileprivate(set) var track: UIView {
@@ -207,9 +248,11 @@ open class Switch: UIControl, Themeable {
       case .large:
         trackThickness = 24
         buttonDiameter = 28
+      case .custom:
+        break
       }
       
-      frame.size = intrinsicContentSize
+      invalidateIntrinsicContentSize()
     }
   }
   
@@ -221,6 +264,8 @@ open class Switch: UIControl, Themeable {
       return CGSize(width: 38, height: 38)
     case .large:
       return CGSize(width: 42, height: 42)
+    case .custom(let width, let height):
+      return CGSize(width: width, height: height)
     }
   }
   
@@ -408,9 +453,11 @@ fileprivate extension Switch {
     if .on == state {
       button.backgroundColor = buttonOnColor
       track.backgroundColor = trackOnColor
+      button.image = buttonOnImage
     } else {
       button.backgroundColor = buttonOffColor
       track.backgroundColor = trackOffColor
+      button.image = buttonOffImage
     }
   }
   
@@ -422,9 +469,11 @@ fileprivate extension Switch {
     if .on == state {
       button.backgroundColor = buttonOnDisabledColor
       track.backgroundColor = trackOnDisabledColor
+      button.image = buttonOnDisabledImage
     } else {
       button.backgroundColor = buttonOffDisabledColor
       track.backgroundColor = trackOffDisabledColor
+      button.image = buttonOffDisabledImage
     }
   }
   
