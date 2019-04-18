@@ -36,11 +36,11 @@ public enum SwitchState: Int {
   case off
 }
 
-@objc(SwitchSize)
-public enum SwitchSize: Int {
+public enum SwitchSize {
   case small
   case medium
   case large
+  case custom(width: CGFloat, height: CGFloat)
 }
 
 @objc(SwitchDelegate)
@@ -248,9 +248,11 @@ open class Switch: UIControl, Themeable {
       case .large:
         trackThickness = 24
         buttonDiameter = 28
+      case .custom:
+        break
       }
       
-      frame.size = intrinsicContentSize
+      invalidateIntrinsicContentSize()
     }
   }
   
@@ -262,6 +264,8 @@ open class Switch: UIControl, Themeable {
       return CGSize(width: 38, height: 38)
     case .large:
       return CGSize(width: 42, height: 42)
+    case .custom(let width, let height):
+      return CGSize(width: width, height: height)
     }
   }
   
