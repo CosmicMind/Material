@@ -63,10 +63,18 @@ open class Switch: UIControl, Themeable {
   fileprivate var internalSwitchState = SwitchState.off
   
   /// Track thickness.
-  fileprivate var trackThickness: CGFloat = 0
+  open var trackThickness: CGFloat = 0 {
+    didSet {
+      layoutSubviews()
+    }
+  }
   
   /// Button diameter.
-  fileprivate var buttonDiameter: CGFloat = 0
+  open var buttonDiameter: CGFloat = 0 {
+    didSet {
+      layoutSubviews()
+    }
+  }
   
   /// Position when in the .on state.
   fileprivate var onPosition: CGFloat = 0
