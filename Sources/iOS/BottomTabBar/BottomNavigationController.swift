@@ -127,29 +127,6 @@ open class BottomNavigationController: UITabBarController, Themeable {
    have a certain need.
    */
   open func layoutSubviews() {
-    if let v = tabBar.items {
-      for item in v {
-        if .phone == Device.userInterfaceIdiom {
-          if nil == item.title {
-            let inset: CGFloat = 7
-            item.imageInsets = UIEdgeInsets.init(top: inset, left: 0, bottom: -inset, right: 0)
-          } else {
-            let inset: CGFloat = 6
-            item.titlePositionAdjustment.vertical = -inset
-          }
-        } else {
-          if nil == item.title {
-            let inset: CGFloat = 9
-            item.imageInsets = UIEdgeInsets.init(top: inset, left: 0, bottom: -inset, right: 0)
-          } else {
-            let inset: CGFloat = 3
-            item.imageInsets = UIEdgeInsets.init(top: inset, left: 0, bottom: -inset, right: 0)
-            item.titlePositionAdjustment.vertical = -inset
-          }
-        }
-      }
-    }
-    
     tabBar.layoutDivider()
   }
   
