@@ -33,7 +33,7 @@ open class CheckButtonGroup: BaseButtonGroup<CheckButton> {
     /// Returns indexes of all selected check buttons within the group
     /// or empty array if none is seleceted.
     open var selectedIndices: [Int] {
-        return selecetedButtons.map { buttons.index(of: $0)! }
+        return selecetedButtons.map { buttons.firstIndex(of: $0)! }
     }
     
     open override func didTap(button: CheckButton, at index: Int) {

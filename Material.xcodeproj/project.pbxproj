@@ -326,7 +326,6 @@
 			children = (
 				96BCB7611CB40DC500C806FE /* Grid.swift */,
 			);
-			name = Grid;
 			path = Grid;
 			sourceTree = "<group>";
 		};
@@ -340,7 +339,6 @@
 				96BCB79D1CB40DC500C806FE /* TextStorage.swift */,
 				96BCB79E1CB40DC500C806FE /* TextView.swift */,
 			);
-			name = Text;
 			path = Text;
 			sourceTree = "<group>";
 		};
@@ -350,7 +348,6 @@
 				961154CB1F32A7B100A78D74 /* ChipBar.swift */,
 				961527B81F3A509900E8B2AC /* ChipBarController.swift */,
 			);
-			name = Chip;
 			path = Chip;
 			sourceTree = "<group>";
 		};
@@ -367,7 +364,6 @@
 			children = (
 				961E6BDE1DDA2A95004E6C93 /* Application.swift */,
 			);
-			name = Application;
 			path = Application;
 			sourceTree = "<group>";
 		};
@@ -376,7 +372,6 @@
 			children = (
 				961E6BE11DDA2AF3004E6C93 /* Screen.swift */,
 			);
-			name = Screen;
 			path = Screen;
 			sourceTree = "<group>";
 		};
@@ -385,7 +380,6 @@
 			children = (
 				96BCB7971CB40DC500C806FE /* NavigationDrawerController.swift */,
 			);
-			name = NavigationDrawer;
 			path = NavigationDrawer;
 			sourceTree = "<group>";
 		};
@@ -394,7 +388,6 @@
 			children = (
 				96230AB71D6A520C00AF47DC /* Divider.swift */,
 			);
-			name = Divider;
 			path = Divider;
 			sourceTree = "<group>";
 		};
@@ -403,7 +396,6 @@
 			children = (
 				96BCB7981CB40DC500C806FE /* Bar.swift */,
 			);
-			name = Bar;
 			path = Bar;
 			sourceTree = "<group>";
 		};
@@ -413,7 +405,6 @@
 				9626CA961DAB53A8003E2611 /* DisplayStyle.swift */,
 				96BCB7991CB40DC500C806FE /* TransitionController.swift */,
 			);
-			name = Transition;
 			path = Transition;
 			sourceTree = "<group>";
 		};
@@ -422,7 +413,6 @@
 			children = (
 				9626CB9A1DAD3D1D003E2611 /* HeightPreset.swift */,
 			);
-			name = Height;
 			path = Height;
 			sourceTree = "<group>";
 		};
@@ -431,7 +421,6 @@
 			children = (
 				96BCB7581CB40DC500C806FE /* BottomNavigationController.swift */,
 			);
-			name = BottomTabBar;
 			path = BottomTabBar;
 			sourceTree = "<group>";
 		};
@@ -448,7 +437,6 @@
 			children = (
 				96BCB7771CB40DC500C806FE /* DataSourceItem.swift */,
 			);
-			name = Data;
 			path = Data;
 			sourceTree = "<group>";
 		};
@@ -477,7 +465,6 @@
 				963FBEFC1D669510008F8512 /* Snackbar.swift */,
 				961EFC571D738FF600E84652 /* SnackbarController.swift */,
 			);
-			name = Snackbar;
 			path = Snackbar;
 			sourceTree = "<group>";
 		};
@@ -487,7 +474,6 @@
 				96BCB79F1CB40DC500C806FE /* Toolbar.swift */,
 				96BCB7A01CB40DC500C806FE /* ToolbarController.swift */,
 			);
-			name = Toolbar;
 			path = Toolbar;
 			sourceTree = "<group>";
 		};
@@ -497,7 +483,6 @@
 				96BCB79A1CB40DC500C806FE /* TabBar.swift */,
 				96E09DC71F2287E50000B121 /* TabsController.swift */,
 			);
-			name = Tab;
 			path = Tab;
 			sourceTree = "<group>";
 		};
@@ -507,7 +492,6 @@
 				96A183621E0C6CE200083C30 /* FABMenu.swift */,
 				96A183641E0C6DD400083C30 /* FABMenuController.swift */,
 			);
-			name = FABMenu;
 			path = FABMenu;
 			sourceTree = "<group>";
 		};
@@ -517,7 +501,6 @@
 				96BCB7951CB40DC500C806FE /* SearchBar.swift */,
 				96BCB7961CB40DC500C806FE /* SearchBarController.swift */,
 			);
-			name = SearchBar;
 			path = SearchBar;
 			sourceTree = "<group>";
 		};
@@ -527,7 +510,6 @@
 				9656895E1F002F16001C656D /* CardCollectionViewCell.swift */,
 				965689601F002F4C001C656D /* CardCollectionViewController.swift */,
 			);
-			name = CardCollectionView;
 			path = CardCollectionView;
 			sourceTree = "<group>";
 		};
@@ -538,7 +520,6 @@
 				96BCB7891CB40DC500C806FE /* TableViewCell.swift */,
 				96328B981E05C0CE009A4C90 /* TableViewController.swift */,
 			);
-			name = Table;
 			path = Table;
 			sourceTree = "<group>";
 		};
@@ -547,7 +528,6 @@
 			children = (
 				967A48181D0F425A00B8CEB7 /* StatusBarController.swift */,
 			);
-			name = StatusBar;
 			path = StatusBar;
 			sourceTree = "<group>";
 		};
@@ -564,7 +544,6 @@
 			children = (
 				96BCB7881CB40DC500C806FE /* Switch.swift */,
 			);
-			name = Switch;
 			path = Switch;
 			sourceTree = "<group>";
 		};
@@ -637,7 +616,6 @@
 			children = (
 				96BCB7761CB40DC500C806FE /* Color.swift */,
 			);
-			name = Color;
 			path = Color;
 			sourceTree = "<group>";
 		};
@@ -648,7 +626,6 @@
 				96BCB7911CB40DC500C806FE /* NavigationController.swift */,
 				96BCB7921CB40DC500C806FE /* NavigationItem.swift */,
 			);
-			name = Navigation;
 			path = Navigation;
 			sourceTree = "<group>";
 		};
@@ -659,7 +636,6 @@
 				96BCB7621CB40DC500C806FE /* ImageCard.swift */,
 				9631A7C01D95E3AC00CFB109 /* PresenterCard.swift */,
 			);
-			name = Card;
 			path = Card;
 			sourceTree = "<group>";
 		};
@@ -675,7 +651,6 @@
 				9DF352431FED20ED00B2A11B /* RadioButton.swift */,
 				96BCB7931CB40DC500C806FE /* RaisedButton.swift */,
 			);
-			name = Button;
 			path = Button;
 			sourceTree = "<group>";
 		};
@@ -687,7 +662,6 @@
 				9D494A37217F6B63003D66F1 /* LayoutAttribute.swift */,
 				9D494A3B217F6B7D003D66F1 /* LayoutConstraint.swift */,
 			);
-			name = Layout;
 			path = Layout;
 			sourceTree = "<group>";
 		};
@@ -701,7 +675,6 @@
 				96328B791E020A41009A4C90 /* CollectionViewController.swift */,
 				96BCB7751CB40DC500C806FE /* CollectionViewLayout.swift */,
 			);
-			name = Collection;
 			path = Collection;
 			sourceTree = "<group>";
 		};
@@ -716,7 +689,6 @@
 				968C99461D377849000074FF /* Offset.swift */,
 				96BCB7861CB40DC500C806FE /* Shape.swift */,
 			);
-			name = Type;
 			path = Type;
 			sourceTree = "<group>";
 		};
@@ -727,7 +699,6 @@
 				96BCB77B1CB40DC500C806FE /* Font.swift */,
 				96BCB7941CB40DC500C806FE /* RobotoFont.swift */,
 			);
-			name = Font;
 			path = Font;
 			sourceTree = "<group>";
 		};
@@ -736,7 +707,6 @@
 			children = (
 				96BCB77D1CB40DC500C806FE /* Icon.swift */,
 			);
-			name = Icon;
 			path = Icon;
 			sourceTree = "<group>";
 		};
@@ -757,7 +727,6 @@
 				9618006C1F4D384200CD77A1 /* Material+UIViewController.swift */,
 				962864591D53FE3E00690B69 /* Material+UIWindow.swift */,
 			);
-			name = Extension;
 			path = Extension;
 			sourceTree = "<group>";
 		};
@@ -766,7 +735,6 @@
 			children = (
 				96BCB7791CB40DC500C806FE /* Device.swift */,
 			);
-			name = Device;
 			path = Device;
 			sourceTree = "<group>";
 		};
@@ -777,7 +745,6 @@
 				96BCB78C1CB40DC500C806FE /* View.swift */,
 				9D39A81A20FE8ED100BA8FA1 /* ViewController.swift */,
 			);
-			name = View;
 			path = View;
 			sourceTree = "<group>";
 		};
@@ -786,7 +753,6 @@
 			children = (
 				96BCB7801CB40DC500C806FE /* Layer.swift */,
 			);
-			name = Layer;
 			path = Layer;
 			sourceTree = "<group>";
 		};
@@ -810,7 +776,6 @@
 				96BCB7821CB40DC500C806FE /* PulseAnimation.swift */,
 				965532281E47E388005C2792 /* SpringAnimation.swift */,
 			);
-			name = Animation;
 			path = Animation;
 			sourceTree = "<group>";
 		};
@@ -819,7 +784,6 @@
 			children = (
 				9D00EBB3216675FB00DBCD69 /* Theme.swift */,
 			);
-			name = Theme;
 			path = Theme;
 			sourceTree = "<group>";
 		};
@@ -830,7 +794,6 @@
 				9DE25DE12170D7C0000C04DF /* DialogController.swift */,
 				9DE25DE32170D7FF000C04DF /* DialogView.swift */,
 			);
-			name = Dialogs;
 			path = Dialogs;
 			sourceTree = "<group>";
 		};
@@ -841,7 +804,6 @@
 				9DE84D711FF0252500586C8B /* CheckButtonGroup.swift */,
 				9DE84D6F1FF0252500586C8B /* RadioButtonGroup.swift */,
 			);
-			name = ButtonGroup;
 			path = ButtonGroup;
 			sourceTree = "<group>";
 		};
@@ -962,24 +924,25 @@
 			attributes = {
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "CosmicMind, Inc.";
 				TargetAttributes = {
 					963832351B88DFD80015F710 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 9Z76XCNLGL;
 						DevelopmentTeamName = "CosmicMind Inc.";
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 					};
 				};
 			};
 			buildConfigurationList = 963832301B88DFD80015F710 /* Build configuration list for PBXProject "Material" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 9638322C1B88DFD80015F710;
 			productRefGroup = 963832371B88DFD80015F710 /* Products */;
@@ -1144,6 +1107,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1207,6 +1171,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1280,7 +1245,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1305,7 +1270,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

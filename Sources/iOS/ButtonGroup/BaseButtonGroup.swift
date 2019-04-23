@@ -63,7 +63,7 @@ open class BaseButtonGroup<T: Button>: View {
     @objc
     private func didTap(_ sender: Button) {
         guard let sender = sender as? T,
-            let index = buttons.index(of: sender)
+            let index = buttons.firstIndex(of: sender)
             else { return }
         
         didTap(button: sender, at: index)

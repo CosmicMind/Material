@@ -287,11 +287,11 @@ fileprivate extension TabsController {
    - Parameter completion: An optional completion block.
    */
   func transition(to viewController: UIViewController, isTriggeredByUserInteraction: Bool, completion: ((Bool) -> Void)?) {
-    guard let fvcIndex = viewControllers.index(of: rootViewController) else {
+    guard let fvcIndex = viewControllers.firstIndex(of: rootViewController) else {
       return
     }
     
-    guard let tvcIndex = viewControllers.index(of: viewController) else {
+    guard let tvcIndex = viewControllers.firstIndex(of: viewController) else {
       return
     }
     
@@ -541,7 +541,7 @@ extension TabsController {
 extension TabsController: _TabBarDelegate {
   @objc
   func _tabBar(tabBar: TabBar, shouldSelect tabItem: TabItem) -> Bool {
-    guard let i = tabBar.tabItems.index(of: tabItem) else {
+    guard let i = tabBar.tabItems.firstIndex(of: tabItem) else {
       return false
     }
     

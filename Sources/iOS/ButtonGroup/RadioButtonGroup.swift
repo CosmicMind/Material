@@ -35,7 +35,7 @@ open class RadioButtonGroup: BaseButtonGroup<RadioButton> {
     /// If none is selected (e.g in initial state), -1 is returned.
     open var selectedIndex: Int {
         guard let b = selectedButton else { return -1 }
-        return buttons.index(of: b)!
+        return buttons.firstIndex(of: b)!
     }
     
     open override func didTap(button: RadioButton, at index: Int) {
