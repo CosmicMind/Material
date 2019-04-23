@@ -1218,6 +1218,8 @@ extension NavigationDrawerController: UIGestureRecognizerDelegate {
       }
       
     case .possible:break
+    @unknown default:
+      fatalError()
     }
   }
   
@@ -1275,6 +1277,8 @@ extension NavigationDrawerController: UIGestureRecognizerDelegate {
       }
       
     case .possible:break
+    @unknown default:
+      fatalError()
     }
   }
   
