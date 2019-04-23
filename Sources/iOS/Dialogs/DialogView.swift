@@ -1,60 +1,52 @@
 /*
- * Copyright (C) 2018, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * The MIT License (MIT)
+ *
+ * Copyright (C) 2019, CosmicMind, Inc. <http://cosmicmind.com>.
  * All rights reserved.
  *
- * Original Inspiration & Author
- * Copyright (C) 2018 Orkhan Alikhanov <orkhan.alikhanov@gmail.com>
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- *  * Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
- *
- *  * Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- *  * Neither the name of CosmicMind nor the names of its
- *    contributors may be used to endorse or promote products derived from
- *    this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 
 import UIKit
 
 private struct Constants {
-    struct titleArea {
-        static let insets = UIEdgeInsets(top: 24, left: 24, bottom: 20, right: 24)
-    }
-    
-    struct contentArea {
-        static let insets = UIEdgeInsets(top: 0, left: 24, bottom: 24, right: 24)
-        static let insetsNoTitle = UIEdgeInsets(top: 20, left: 24, bottom: 24, right: 24)
-    }
-    
-    struct buttonArea {
-        static let insets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        static let insetsStacked = UIEdgeInsets(top: 6, left: 8, bottom: 14, right: 8)
-    }
-    
-    struct button {
-        static let insets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-        static let minWidth: CGFloat = 64
-        static let height: CGFloat = 36
-        static let interimStacked: CGFloat = 12
-        static let interim: CGFloat = 8
-    }
+  struct titleArea {
+    static let insets = UIEdgeInsets(top: 24, left: 24, bottom: 20, right: 24)
+  }
+  
+  struct contentArea {
+    static let insets = UIEdgeInsets(top: 0, left: 24, bottom: 24, right: 24)
+    static let insetsNoTitle = UIEdgeInsets(top: 20, left: 24, bottom: 24, right: 24)
+  }
+  
+  struct buttonArea {
+    static let insets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    static let insetsStacked = UIEdgeInsets(top: 6, left: 8, bottom: 14, right: 8)
+  }
+  
+  struct button {
+    static let insets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+    static let minWidth: CGFloat = 64
+    static let height: CGFloat = 36
+    static let interimStacked: CGFloat = 12
+    static let interim: CGFloat = 8
+  }
 }
 
 private class DialogScrollView: UIScrollView {
@@ -266,7 +258,7 @@ private extension DialogView {
   func prepareContentArea() {
     scrollView.addSubview(contentArea)
   }
-
+  
   /// Prepares detailsLabel.
   func prepareDetailsLabel() {
     contentArea.addSubview(detailsLabel)
@@ -356,7 +348,7 @@ private extension DialogView {
   /**
    Layout the dividers.
    This method is also called (by scrollView) when scrolling happens
-  */
+   */
   func layoutDividers() {
     let isScrollable = contentArea.frame.height > scrollView.frame.height
     
