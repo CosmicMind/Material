@@ -410,7 +410,7 @@ fileprivate extension Switch {
    state was changed by a user interaction, true if yes, false otherwise.
    - Parameter completion: An Optional completion block.
    */
-  fileprivate func updateSwitchState(state: SwitchState, animated: Bool, isTriggeredByUserInteraction: Bool, completion: ((Switch) -> Void)? = nil) {
+  func updateSwitchState(state: SwitchState, animated: Bool, isTriggeredByUserInteraction: Bool, completion: ((Switch) -> Void)? = nil) {
     guard isEnabled && internalSwitchState != state else {
       return
     }
