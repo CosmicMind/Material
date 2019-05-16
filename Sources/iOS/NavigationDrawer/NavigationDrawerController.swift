@@ -1213,6 +1213,7 @@ extension NavigationDrawerController: UIGestureRecognizerDelegate {
       }
       
     case .possible:break
+    default:break
     }
   }
   
@@ -1270,6 +1271,7 @@ extension NavigationDrawerController: UIGestureRecognizerDelegate {
       }
       
     case .possible:break
+    default:break
     }
   }
   
