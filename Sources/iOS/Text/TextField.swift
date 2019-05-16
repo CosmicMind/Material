@@ -766,7 +766,7 @@ private extension TextField {
   
   /// Remove view from rightView.
   func removeFromRightView(view: UIView?) {
-    guard let v = view, let i = rightView?.grid.views.index(of: v) else {
+    guard let v = view, let i = rightView?.grid.views.firstIndex(of: v) else {
       return
     }
     

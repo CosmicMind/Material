@@ -216,7 +216,7 @@ internal extension NavigationController {
    - Parameter from item: A UINavigationItem.
    */
   func removeBackButton(from item: UINavigationItem) {
-    if let index = item.leftViews.index(of: item.backButton) {
+    if let index = item.leftViews.firstIndex(of: item.backButton) {
       item.leftViews.remove(at: index)
     }
     
