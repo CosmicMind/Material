@@ -399,6 +399,9 @@ open class TextField: UITextField, Themeable {
   public override init(frame: CGRect) {
     super.init(frame: frame)
     prepare()
+
+    /// Fire didSet here to update tintColor
+    placeholderActiveColor = { placeholderActiveColor }()
   }
   
   open override func layoutSubviews() {
