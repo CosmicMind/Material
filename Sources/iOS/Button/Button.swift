@@ -179,7 +179,9 @@ open class Button: UIButton, Pulseable, PulseableLayer, Themeable {
    */
   public override init(frame: CGRect) {
     super.init(frame: frame)
+    /// Set these here to avoid overriding storyboard values
     tintColor = Color.blue.base
+    titleLabel?.font = Theme.font.regular(with: fontSize)
     prepare()
   }
   
@@ -274,7 +276,6 @@ open class Button: UIButton, Pulseable, PulseableLayer, Themeable {
    */
   open func prepare() {
     contentScaleFactor = Screen.scale
-    titleLabel?.font = Theme.font.regular(with: fontSize)
     prepareVisualLayer()
     preparePulse()
     applyCurrentTheme()
