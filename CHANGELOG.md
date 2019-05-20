@@ -1,3 +1,41 @@
+## 3.1.1
+
+- [pr-2131](https://github.com/CosmicMind/Material/pull/2131): Storyboard TextField fixes.
+  - [issue-1229](https://github.com/CosmicMind/Material/issues/1229): TextField's tintColor doesn't support user setting.
+  - [issue-1230](https://github.com/CosmicMind/Material/issues/1230): Button's title font doesn't support user setting.
+
+## 3.1.0
+
+- Updated to swift 5.
+
+## 3.0.0
+
+- Updated to swift 4.2.
+- [pr-1124](https://github.com/CosmicMind/Material/pull/1124): Fixed issue-1123, TextField is not scrolling.
+  - [issue-1123](https://github.com/CosmicMind/Material/issues/1123): TextField is not scrolling when inputing characters and using a large Font size.
+- [pr-1126](https://github.com/CosmicMind/Material/pull/1126): Cleaned up TextField.
+- [pr-1130](https://github.com/CosmicMind/Material/pull/1130): Addressed multiple issues.
+  - [issue-1125](https://github.com/CosmicMind/Material/issues/1125): TextView with animated placeholder.
+  - [issue-1127](https://github.com/CosmicMind/Material/issues/1127): TextView auto-adjust height based on text lines.
+  - [issue-1128](https://github.com/CosmicMind/Material/issues/1128): TextField animates weird when text alignment is .right and we have textInset.
+  - Removed `textInset: CGFloat` and added `textInsets: EdgeInsets` to `TextField`.
+- [pr-1134](https://github.com/CosmicMind/Material/pull/1134): Added swipe feature to BottomNavigationController.
+  - [issue-1132](https://github.com/CosmicMind/Material/issues/1132): BottomNavigationController same swipe behaviour as TabsController.
+- [pr-1147](https://github.com/CosmicMind/Material/pull/1147): Allow framework to be linked from extensions.
+- [pr-1151](https://github.com/CosmicMind/Material/pull/1151): New features.
+  - Added `left/right/above/below` directions to `DepthPreset`.
+  - Added `.custom(x)` case for `HeightPreset`.
+  - Added support for `heightPreset` in `BottomNavigationController`. [issue-1150](https://github.com/CosmicMind/Material/issues/1150)
+- [pr-1165](https://github.com/CosmicMind/Material/pull/1165): Added interactive swipe.
+  - [issue-1135](https://github.com/CosmicMind/Material/issues/1135): Convert swiping in TabsController and BottomNavigationController to interactive.
+- [pr-1115](https://github.com/CosmicMind/Material/pull/1115): Introducing Theming to Material.
+- [pr-1173](https://github.com/CosmicMind/Material/pull/1173): Added dialogs.
+- [pr-1174](https://github.com/CosmicMind/Material/pull/1174): Added disabling theming globally and per-class.
+- [pr-1183](https://github.com/CosmicMind/Material/pull/1183): Added global theme font.
+- [pr-1185](https://github.com/CosmicMind/Material/pull/1185): Reworked layout system.
+- [pr-1186](https://github.com/CosmicMind/Material/pull/1186): Fixed SnackBar laid out incorrectly.
+- [pr-1187](https://github.com/CosmicMind/Material/pull/1187): Added option for disabling snackbar layout edge inset calculation 
+
 ## 2.17.0
 
 * Updated for Swift 4.2.
