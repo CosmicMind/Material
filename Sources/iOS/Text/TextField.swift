@@ -205,6 +205,8 @@ open class TextField: UITextField, Themeable {
   @IBInspectable
   open var placeholderActiveColor = Color.blue.base {
     didSet {
+      /// Keep tintColor update here. See #1229
+      tintColor = placeholderActiveColor
       updatePlaceholderLabelColor()
     }
   }
@@ -397,6 +399,9 @@ open class TextField: UITextField, Themeable {
   public override init(frame: CGRect) {
     super.init(frame: frame)
     prepare()
+
+    /// Fire didSet here to update tintColor
+    placeholderActiveColor = { placeholderActiveColor }()
   }
   
   open override func layoutSubviews() {
@@ -533,7 +538,6 @@ fileprivate extension TextField {
   
   /// Updates the placeholderLabel text color.
   func updatePlaceholderLabelColor() {
-    tintColor = placeholderActiveColor
     placeholderLabel.textColor = isEditing ? placeholderActiveColor : placeholderNormalColor
   }
   
