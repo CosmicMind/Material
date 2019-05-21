@@ -1,3 +1,8 @@
+## 3.1.2
+
+- [pr-1233](https://github.com/CosmicMind/Material/pull/1233): Fixed Layout breaks - subview ordering.
+  - [issue-1232](https://github.com/CosmicMind/Material/issues/1232): Layout breaks view arrangements.
+  
 ## 3.1.1
 
 - [pr-2131](https://github.com/CosmicMind/Material/pull/2131): Storyboard TextField fixes.
