@@ -41,7 +41,10 @@ public extension UIView {
    - Returns: A Layout instance.
    */
   func layout(_ child: UIView) -> Layout {
-    addSubview(child)
+    if self != child.superview {
+      addSubview(child)
+    }
+    
     child.translatesAutoresizingMaskIntoConstraints = false
     return child.layout
   }
