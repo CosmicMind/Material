@@ -83,6 +83,7 @@ private extension NSLayoutConstraint {
       && secondItem === other.secondItem
       && firstAttribute == other.firstAttribute
       && secondAttribute == other.secondAttribute
+      && relation == other.relation
   }
 }
 
@@ -1121,7 +1122,7 @@ private extension Layout {
       let v = (anchor as? UIView) ?? (anchor as? LayoutAnchor)?.constraintable
       to = LayoutAnchor(constraintable: v, attributes: attributes)
     }
-    let constraint = LayoutConstraint(fromAnchor: from, toAnchor: to!, constants: constants)
+    let constraint = LayoutConstraint(fromAnchor: from, toAnchor: to!, relation: .equal, constants: constants)
     
     
     let constraints = (view?.constraints ?? []) + (view?.superview?.constraints ?? [])
