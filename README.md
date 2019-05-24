@@ -61,7 +61,47 @@ Take a look at [Sample Projects](https://github.com/CosmicMind/Samples) to get y
 > **Embedded frameworks require a minimum deployment target of iOS 8+.**
 > - [Download Material](https://github.com/CosmicMind/Material/archive/master.zip)
 
-Read [Material - It's time to download](https://www.cosmicmind.com/danieldahan/lesson/6) to learn how to install Material & Motion using [GitHub](http://github.com), [CocoaPods](http://cocoapods.org), and [Carthage](https://github.com/Carthage/Carthage).
+## CocoaPods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+To integrate Material's core features into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'Material', '~> 3.1.0'
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
+
+## Carthage
+
+Carthage is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with Homebrew using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+To integrate Material into your Xcode project using Carthage, specify it in your Cartfile:
+
+```bash
+github "CosmicMind/Material"
+```
+
+Run `carthage update` to build the framework and drag the built `Material.framework` into your Xcode project.
 
 ## Change Log
 
