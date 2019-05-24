@@ -1,3 +1,10 @@
+## 3.1.3
+
+* Added installation instructions to README.
+
+- [pr-1236](https://github.com/CosmicMind/Material/pull/1236): Added Layout relations.
+  - [issue-1220](https://github.com/CosmicMind/Material/issues/1220): Support all relations for Layout constraints.
+
 ## 3.1.2
 
 - [pr-1233](https://github.com/CosmicMind/Material/pull/1233): Fixed Layout breaks - subview ordering.
