@@ -25,6 +25,9 @@
 
 import UIKit
 
+/// A typealias for NSLayoutConstraint.Relation
+public typealias LayoutRelation = NSLayoutConstraint.Relation
+
 internal struct LayoutConstraint {
   /// `From` anchor for the constraint.
   private let fromAnchor: LayoutAnchor
@@ -33,17 +36,23 @@ internal struct LayoutConstraint {
   private let toAnchor: LayoutAnchor
   
   /// An array of constants for the constraint.
-  private var constants: [CGFloat]
+  private let constants: [CGFloat]
+  
+  /// A LayoutRelation between anchors.
+  private let relation: LayoutRelation
+  
   
   /**
-   An initializer taking `from` and `to` anchors and constants for the constraint.
+   An initializer taking `from` and `to` anchors, their `relation` and constants for the constraint.
    - Parameter fromAnchor: A LayoutAnchor.
    - Parameter toAnchor: A LayoutAnchor.
+   - Parameter relation: A LayoutRelation between anchors.
    - Parameter constants: An array of CGFloat.
    */
-  init(fromAnchor: LayoutAnchor, toAnchor: LayoutAnchor, constants: [CGFloat]) {
+  init(fromAnchor: LayoutAnchor, toAnchor: LayoutAnchor, relation: LayoutRelation, constants: [CGFloat]) {
     self.fromAnchor = fromAnchor
     self.toAnchor = toAnchor
+    self.relation = relation
     self.constants = constants
   }
 }
@@ -64,7 +73,7 @@ internal extension LayoutConstraint {
     zip(zip(fromAnchor.attributes, toAnchor.attributes), constants).forEach {
       v.append(NSLayoutConstraint(item: fromAnchor.constraintable as Any,
                                   attribute: $0.0,
-                                  relatedBy: .equal,
+                                  relatedBy: relation,
                                   toItem: toAnchor.constraintable,
                                   attribute: $0.1,
                                   multiplier: 1,
