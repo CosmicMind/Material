@@ -247,7 +247,7 @@ open class Switch: UIControl, Themeable {
         break
       }
       
-      invalidateIntrinsicContentSize()
+      frame.size = intrinsicContentSize
     }
   }
   
