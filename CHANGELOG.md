@@ -1,3 +1,9 @@
+## 3.1.4
+
+- [pr-1239](https://github.com/CosmicMind/Material/pull/1239): Fixed regression with intrinsic content sizing in Switch control. 
+- [pr-1240](https://github.com/CosmicMind/Material/pull/1240): Fixed prepare method called twice.
+  - [issue-1215](https://github.com/CosmicMind/Material/issues/1215): prepare() is called twice on NavigationDrawerController.
+  
 ## 3.1.3
 
 * Added installation instructions to README.
