@@ -1,0 +1,80 @@
+# full script at https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb
+language: r
+r: bioc-devel
+cache:
+  packages: true
+  directories:
+    - ~/.AnnotationHub
+sudo: required
+warnings_are_errors: true
+dist: trusty
+
+# unfortunately apt packages are not cached
+# we could use these build dependencies just in the "Build" stage and
+# install their runtime libraries counter parts in "Check" but that would make
+# the script more complicated and saves just a few seconds
+addons:
+  apt:
+    packages:
+      - libnetcdf-dev
+      - netcdf-bin # libnetcdf-dev doesn't contain nc-config in ubuntu 12.04 (in 16.04 [xerus] it is part of libnetcdf-dev)
+      - libhdf5-dev
+      - libgit2-dev # git2r
+
+jobs:
+  include:
+    - stage: "Build"
+      r_packages:
+        - covr
+        - pkgdown
+        - testthat
+        - knitr
+        - roxygen2
+      before_install:
+        - mkdir -p ~/.R
+        - echo -e 'MAKEFLAGS = -j2' > ~/.R/Makevars
+        - echo 'options(Ncpus = 2)' > ~/.Rprofile
+      script: true
+      name: "Build dependencies and cache"
+    - stage: "Check"
+      r_build_args: --no-build-vignettes --no-manual
+      r_check_args: --as-cran --no-build-vignettes --no-vignettes --no-manual --no-tests
+      before_script: rm -rf vignettes
+      install: skip
+      name: "examples"
+    - r_build_args: --no-build-vignettes --no-manual
+      r_check_args: --as-cran --no-build-vignettes --no-vignettes --no-manual --no-codoc --no-examples
+      install: skip
+      before_script: rm -rf vignettes
+      name: "tests"
+    - r_build_args:
+      r_check_args: --as-cran --no-build-vignettes --no-codoc --no-examples --no-tests
+      install: skip
+      name: "vignettes"
+    - stage: "Deploy"
+      install: skip
+      script:
+        - travis_wait 20 Rscript -e 'covr::codecov()'
+      name: "codecov and pkgdown (on master)"
+      before_deploy:
+        - R CMD INSTALL .
+        - travis_wait 20 Rscript -e 'pkgdown::build_site()'
+      deploy:
+        provider: pages
+        skip-cleanup: true
+        github-token: $GITHUB_PAT
+        keep-history: true
+        local-dir: docs
+        on:
+          branch: master
+
+# In general the r-travis script automatically dump the logs after failure but
+# because of a bug in travis the output is often truncated. See
+# https://github.com/travis-ci/travis-ci/issues/6018
+after_failure: sleep 10
+
+notifications:
+  email:
+    recipients: laurent.gatto@gmail.com
+    on_failure: change
+    on_success: change
