@@ -132,6 +132,7 @@ public protocol NavigationDrawerControllerDelegate {
 }
 
 @objc(NavigationDrawerController)
+@objcMembers
 open class NavigationDrawerController: TransitionController {
   /// A boolean indicating if the panel is animating.
   fileprivate var isAnimating = false
@@ -666,7 +667,6 @@ open class NavigationDrawerController: TransitionController {
    velocity of the user interaction when animating the
    leftView. Defaults to 0.
    */
-  @objc
   open func toggleLeftView(velocity: CGFloat = 0) {
     isLeftViewOpened ? closeLeftView(velocity: velocity) : openLeftView(velocity: velocity)
   }
@@ -678,7 +678,6 @@ open class NavigationDrawerController: TransitionController {
    velocity of the user interaction when animating the
    leftView. Defaults to 0.
    */
-  @objc
   open func toggleRightView(velocity: CGFloat = 0) {
     isRightViewOpened ? closeRightView(velocity: velocity) : openRightView(velocity: velocity)
   }
@@ -689,7 +688,6 @@ open class NavigationDrawerController: TransitionController {
    velocity of the user interaction when animating the
    leftView. Defaults to 0.
    */
-  @objc
   open func openLeftView(velocity: CGFloat = 0) {
     guard !isAnimating else {
       return
@@ -737,7 +735,6 @@ open class NavigationDrawerController: TransitionController {
    velocity of the user interaction when animating the
    leftView. Defaults to 0.
    */
-  @objc
   open func openRightView(velocity: CGFloat = 0) {
     guard !isAnimating else {
       return
@@ -786,7 +783,6 @@ open class NavigationDrawerController: TransitionController {
    velocity of the user interaction when animating the
    leftView. Defaults to 0.
    */
-  @objc
   open func closeLeftView(velocity: CGFloat = 0) {
     guard !isAnimating else {
       return
@@ -834,7 +830,6 @@ open class NavigationDrawerController: TransitionController {
    velocity of the user interaction when animating the
    leftView. Defaults to 0.
    */
-  @objc
   open func closeRightView(velocity: CGFloat = 0) {
     guard !isAnimating else {
       return
