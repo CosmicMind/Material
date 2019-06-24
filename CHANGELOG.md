@@ -1,3 +1,8 @@
+## 3.1.5
+
+- [pr-1248](https://github.com/CosmicMind/Material/pull/1248): Exposed Obj-C methods for NavigationDrawerController.
+  - [issue-1247](https://github.com/CosmicMind/Material/issues/1247): Several methods in NavigationDrawerController not visible in Obj-C.
+
 ## 3.1.4
 
 - [pr-1239](https://github.com/CosmicMind/Material/pull/1239): Fixed regression with intrinsic content sizing in Switch control. 
