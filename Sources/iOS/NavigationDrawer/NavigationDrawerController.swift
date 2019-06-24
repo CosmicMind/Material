@@ -132,6 +132,7 @@ public protocol NavigationDrawerControllerDelegate {
 }
 
 @objc(NavigationDrawerController)
+@objcMembers
 open class NavigationDrawerController: TransitionController {
   /// A boolean indicating if the panel is animating.
   fileprivate var isAnimating = false
