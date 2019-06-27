@@ -1,3 +1,6 @@
+## 3.1.6
+- [issue-1245](https://github.com/CosmicMind/Material/issues/1245): Fixed issue where completion block was not executed when calling Switch.toggle.
+
 ## 3.1.5
 
 - [pr-1248](https://github.com/CosmicMind/Material/pull/1248): Exposed Obj-C methods for NavigationDrawerController.
