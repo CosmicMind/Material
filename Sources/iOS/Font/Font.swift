@@ -25,27 +25,35 @@
 
 import UIKit
 
-public protocol FontType {
-  /**
-   Regular with size font.
-   - Parameter with size: A CGFLoat for the font size.
-   - Returns: A UIFont.
-   */
-  static func regular(with size: CGFloat) -> UIFont
-  
-  /**
-   Medium with size font.
-   - Parameter with size: A CGFLoat for the font size.
-   - Returns: A UIFont.
-   */
-  static func medium(with size: CGFloat) -> UIFont
-  
-  /**
-   Bold with size font.
-   - Parameter with size: A CGFLoat for the font size.
-   - Returns: A UIFont.
-   */
-  static func bold(with size: CGFloat) -> UIFont
+public protocol FontTheme {
+    static func regular(with size: CGFloat) -> UIFont
+    static func bold(with size: CGFloat) -> UIFont
+    static func medium(with size: CGFloat) -> UIFont
+}
+
+public protocol FontThemeable {
+    associatedtype Theme: FontTheme
+}
+
+public protocol FontType: RawRepresentable where RawValue == String {
+    /**
+    Font with size.
+    - Parameter value: A CGFloat for the font size.
+    - Returns: A UIFont.
+    */
+    
+    func size(_ value: CGFloat) -> UIFont
+    var font: UIFont { get }
+}
+
+public extension FontType {
+    public func size(_ value: CGFloat) -> UIFont {
+        return UIFont(name: self.rawValue, size: value)!
+    }
+
+    public var font: UIFont {
+        return self.size(Font.pointSize)
+    }
 }
 
 public struct Font {

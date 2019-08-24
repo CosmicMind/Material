@@ -25,109 +25,54 @@
 
 import UIKit
 
-public struct RobotoFont: FontType {
-  /// Size of font.
-  public static var pointSize: CGFloat {
-    return Font.pointSize
-  }
+public enum RobotoFont: String, FontType {
+    /// Thin font.
+    case thin = "Roboto-Thin"
   
-  /// Thin font.
-  public static var thin: UIFont {
-    return thin(with: Font.pointSize)
-  }
+    /// Light font.
+    case light = "Roboto-Light"
   
-  /// Light font.
-  public static var light: UIFont {
-    return light(with: Font.pointSize)
-  }
+    /// Regular font.
+    case regular = "Roboto-Regular"
   
-  /// Regular font.
-  public static var regular: UIFont {
-    return regular(with: Font.pointSize)
-  }
+    /// Medium font.
+    case medium = "Roboto-Medium"
   
-  /// Medium font.
-  public static var medium: UIFont {
-    return medium(with: Font.pointSize)
-  }
+    /// Bold font.
+    case bold = "Roboto-Bold"
   
-  /// Bold font.
-  public static var bold: UIFont {
-    return bold(with: Font.pointSize)
-  }
-  
-  /**
-   Thin with size font.
-   - Parameter with size: A CGFLoat for the font size.
-   - Returns: A UIFont.
-   */
-  public static func thin(with size: CGFloat) -> UIFont {
-    Font.loadFontIfNeeded(name: "Roboto-Thin")
-    
-    if let f = UIFont(name: "Roboto-Thin", size: size) {
-      return f
+    /**
+    Thin with size font.
+    - Parameter with size: A CGFLoat for the font size.
+    - Returns: A UIFont.
+    */
+    public func size(_ value: CGFloat) -> UIFont {
+        Font.loadFontIfNeeded(name: self.rawValue)
+        if let f = UIFont(name: self.rawValue, size: value) {
+            return f
+        }
+
+        return Font.systemFont(ofSize: value)
     }
     
-    return Font.systemFont(ofSize: size)
-  }
-  
-  /**
-   Light with size font.
-   - Parameter with size: A CGFLoat for the font size.
-   - Returns: A UIFont.
-   */
-  public static func light(with size: CGFloat) -> UIFont {
-    Font.loadFontIfNeeded(name: "Roboto-Light")
-    
-    if let f = UIFont(name: "Roboto-Light", size: size) {
-      return f
+    /// Size of font.
+    public static var pointSize: CGFloat {
+        return Font.pointSize
     }
-    
-    return Font.systemFont(ofSize: size)
-  }
-  
-  /**
-   Regular with size font.
-   - Parameter with size: A CGFLoat for the font size.
-   - Returns: A UIFont.
-   */
-  public static func regular(with size: CGFloat) -> UIFont {
-    Font.loadFontIfNeeded(name: "Roboto-Regular")
-    
-    if let f = UIFont(name: "Roboto-Regular", size: size) {
-      return f
+}
+
+extension RobotoFont: FontThemeable {
+    public class Theme: FontTheme {
+        public static func regular(with size: CGFloat) -> UIFont {
+            return RobotoFont.regular.size(size)
+        }
+        
+        public static func bold(with size: CGFloat) -> UIFont {
+            return RobotoFont.bold.size(size)
+        }
+        
+        public static func medium(with size: CGFloat) -> UIFont {
+            return RobotoFont.medium.size(size)
+        }
     }
-    
-    return Font.systemFont(ofSize: size)
-  }
-  
-  /**
-   Medium with size font.
-   - Parameter with size: A CGFLoat for the font size.
-   - Returns: A UIFont.
-   */
-  public static func medium(with size: CGFloat) -> UIFont {
-    Font.loadFontIfNeeded(name: "Roboto-Medium")
-    
-    if let f = UIFont(name: "Roboto-Medium", size: size) {
-      return f
-    }
-    
-    return Font.boldSystemFont(ofSize: size)
-  }
-  
-  /**
-   Bold with size font.
-   - Parameter with size: A CGFLoat for the font size.
-   - Returns: A UIFont.
-   */
-  public static func bold(with size: CGFloat) -> UIFont {
-    Font.loadFontIfNeeded(name: "Roboto-Bold")
-    
-    if let f = UIFont(name: "Roboto-Bold", size: size) {
-      return f
-    }
-    
-    return Font.boldSystemFont(ofSize: size)
-  }
 }
