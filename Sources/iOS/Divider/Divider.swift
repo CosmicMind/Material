@@ -34,183 +34,179 @@ public enum DividerAlignment: Int {
   case right
 }
 
-public struct Divider {
-  /// A reference to the UIView.
-  internal weak var view: UIView?
-  
-  /// A reference to the divider UIView.
-  internal var line: UIView?
-  
-  /// A reference to the height.
-  public var thickness: CGFloat {
-    didSet {
-      reload()
-    }
-  }
-  
-  /// A preset wrapper around contentEdgeInsets.
-  public var contentEdgeInsetsPreset = EdgeInsetsPreset.none {
-    didSet {
-      contentEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
-    }
-  }
-  
-  /// A reference to EdgeInsets.
-  public var contentEdgeInsets = EdgeInsets.zero {
-    didSet {
-      reload()
-    }
-  }
-  
-  /// A UIColor.
-  public var color: UIColor? {
-    get {
-      return line?.backgroundColor
-    }
-    set(value) {
-      guard let v = value else {
-        line?.removeFromSuperview()
-        line = nil
-        return
-      }
-      if nil == line {
-        line = UIView()
-        line?.layer.zPosition = 5000
-        view?.addSubview(line!)
-        reload()
-      }
-      line?.backgroundColor = v
-    }
-  }
-  
-  /// A reference to the dividerAlignment.
-  public var alignment = DividerAlignment.bottom {
-    didSet {
-      reload()
-    }
-  }
-  
-  /**
-   Initializer that takes in a UIView.
-   - Parameter view: A UIView reference.
-   - Parameter thickness: A CGFloat value.
-   */
-  internal init(view: UIView?, thickness: CGFloat = 1) {
-    self.view = view
-    self.thickness = thickness
-  }
-  
-  /**
-   Hides the divier line.
-   */
-  internal var isHidden = false {
-    didSet {
-      line?.isHidden = isHidden
-    }
-  }
-  
-  /// Lays out the divider.
-  public func reload() {
-    guard let l = line, let v = view else {
-      return
+public class Divider: UIView {
+    
+    fileprivate static func from(view: UIView) -> Divider? {
+        guard let divider = view.subviews.first(where: { $0 is Divider }) as? Divider else {
+            return nil
+        }
+        
+        return divider
     }
     
-    let c = contentEdgeInsets
-    
-    switch alignment {
-    case .top:
-      l.frame = CGRect(x: c.left, y: c.top, width: v.bounds.width - c.left - c.right, height: thickness)
-    case .bottom:
-      l.frame = CGRect(x: c.left, y: v.bounds.height - thickness - c.bottom, width: v.bounds.width - c.left - c.right, height: thickness)
-    case .left:
-      l.frame = CGRect(x: c.left, y: c.top, width: thickness, height: v.bounds.height - c.top - c.bottom)
-    case .right:
-      l.frame = CGRect(x: v.bounds.width - thickness - c.right, y: c.top, width: thickness, height: v.bounds.height - c.top - c.bottom)
+    fileprivate static func orCreate(view: UIView) -> Divider {
+        if let divider = Divider.from(view: view) {
+            return divider
+        }
+        
+        let divider = Divider()
+        view.addSubview(divider)
+        
+        divider.update(thickness: 1)
+        
+        return divider
     }
-  }
+    
+    private(set) var thickness: CGFloat = 1
+    public func update(thickness: CGFloat) {
+        guard let superview = self.superview else {
+            return
+        }
+        
+        let c = contentEdgeInsets
+        
+        self.removeFromSuperview()
+        superview.addSubview(self)
+        self.layer.zPosition = 5000
+        
+        self.thickness = thickness
+        
+        switch self.dividerAlignment {
+        case .bottom, .top:
+            superview.layout(self)
+                .leading(c.left, { _, _ in .equal })
+                .trailing(c.right, {_, _ in .equal })
+                .height(thickness)
+            
+            if case .bottom = self.dividerAlignment {
+                superview.layout(self).bottom(c.bottom, { _, _ in .equal })
+            } else {
+                superview.layout(self).top(c.top, { _, _ in .equal })
+            }
+            
+        case .left, .right:
+            superview.layout(self)
+                .bottom(c.bottom, { _, _ in .equal })
+                .top(c.top, {_, _ in .equal })
+                .width(thickness)
+            
+            if case .left = self.dividerAlignment {
+                superview.layout(self).leading(c.left, { _, _ in .equal })
+            } else {
+                superview.layout(self).trailing(c.right, { _, _ in .equal })
+            }
+        }
+    }
+    
+    public var alignment: DividerAlignment = .bottom {
+        didSet {
+            self.update(thickness: self.thickness)
+        }
+    }
+    
+    /// A preset wrapper around contentEdgeInsets.
+    public var contentEdgeInsetsPreset = EdgeInsetsPreset.none {
+        didSet {
+            contentEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
+        }
+    }
+    
+    /// A reference to EdgeInsets.
+    public var contentEdgeInsets = EdgeInsets.zero {
+        didSet {
+            self.update(thickness: self.thickness)
+        }
+    }
+    
+    /// Lays out the divider.
+    public func reloadLayout() {
+        self.update(thickness: self.thickness)
+    }
 }
 
-/// A memory reference to the Divider instance.
-fileprivate var DividerKey: UInt8 = 0
-
-extension UIView {
-  /// TabBarItem reference.
-  public private(set) var divider: Divider {
-    get {
-      return AssociatedObject.get(base: self, key: &DividerKey) {
-        return Divider(view: self)
-      }
+public extension UIView {
+    
+    /// A preset wrapper around divider.contentEdgeInsets.
+    open var dividerContentEdgeInsetsPreset: EdgeInsetsPreset {
+        get {
+            return Divider.from(view: self)?.contentEdgeInsetsPreset ?? .none
+        }
+        set(value) {
+            Divider.orCreate(view: self).contentEdgeInsetsPreset = value
+        }
     }
-    set(value) {
-      AssociatedObject.set(base: self, key: &DividerKey, value: value)
+    
+    /// A reference to divider.contentEdgeInsets.
+    open var dividerContentEdgeInsets: EdgeInsets {
+        get {
+            return Divider.from(view: self)?.contentEdgeInsets ?? .zero
+        }
+        set(value) {
+            Divider.orCreate(view: self).contentEdgeInsets = value
+        }
     }
-  }
-  
-  /// A preset wrapper around divider.contentEdgeInsets.
-  open var dividerContentEdgeInsetsPreset: EdgeInsetsPreset {
-    get {
-      return divider.contentEdgeInsetsPreset
+    
+    /// Divider animation.
+    @IBInspectable
+    open var dividerAlignment: DividerAlignment {
+        get {
+            return Divider.from(view: self)?.alignment ?? .bottom
+        }
+        
+        set {
+            Divider.orCreate(view: self).alignment = newValue
+        }
     }
-    set(value) {
-      divider.contentEdgeInsetsPreset = value
+    
+    /// Divider color.
+    @IBInspectable
+    open var dividerColor: UIColor? {
+        get {
+            return Divider.from(view: self)?.backgroundColor
+        }
+        
+        set {
+            Divider.orCreate(view: self).backgroundColor = newValue
+        }
     }
-  }
-  
-  /// A reference to divider.contentEdgeInsets.
-  open var dividerContentEdgeInsets: EdgeInsets {
-    get {
-      return divider.contentEdgeInsets
+    
+    /// Divider visibility.
+    @IBInspectable
+    open var isDividerHidden: Bool {
+        get {
+            return Divider.from(view: self) == nil
+        }
+        
+        set {
+            if newValue {
+                Divider.from(view: self)?.isHidden = true
+                return
+            }
+            
+            Divider.orCreate(view: self).isHidden = false
+        }
     }
-    set(value) {
-      divider.contentEdgeInsets = value
+    
+    /// Divider thickness.
+    @IBInspectable
+    open var dividerThickness: CGFloat {
+        get {
+            return Divider.from(view: self)?.thickness ?? 0.0
+        }
+        
+        set {
+            guard newValue > 0 else {
+                Divider.from(view: self)?.isHidden = true
+                return
+            }
+            
+            Divider.orCreate(view: self).update(thickness: newValue)
+        }
     }
-  }
-  
-  /// Divider color.
-  @IBInspectable
-  open var dividerColor: UIColor? {
-    get {
-      return divider.color
+    
+    /// Sets the divider frame.
+    public func layoutDivider() {
+        Divider.orCreate(view: self).reloadLayout()
     }
-    set(value) {
-      divider.color = value
-    }
-  }
-  
-  /// Divider visibility.
-  @IBInspectable
-  open var isDividerHidden: Bool {
-    get {
-      return divider.isHidden
-    }
-    set(value) {
-      divider.isHidden = value
-    }
-  }
-  
-  /// Divider animation.
-  open var dividerAlignment: DividerAlignment {
-    get {
-      return divider.alignment
-    }
-    set(value) {
-      divider.alignment = value
-    }
-  }
-  
-  /// Divider thickness.
-  @IBInspectable
-  open var dividerThickness: CGFloat {
-    get {
-      return divider.thickness
-    }
-    set(value) {
-      divider.thickness = value
-    }
-  }
-  
-  /// Sets the divider frame.
-  open func layoutDivider() {
-    divider.reload()
-  }
+    
 }
