@@ -443,8 +443,8 @@
 		9638322C1B88DFD80015F710 = {
 			isa = PBXGroup;
 			children = (
-				963832371B88DFD80015F710 /* Products */,
 				96D88BF41C1328D800B91418 /* Sources */,
+				963832371B88DFD80015F710 /* Products */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
