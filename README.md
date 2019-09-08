@@ -113,7 +113,7 @@ Icons is a library of Google and CosmicMind icons that are available for use wit
 
 ![Icon](http://www.cosmicmind.com/gifs/marketplace/icons.png)
 
-[Learn More](http://cosmicmind.com/material/icons)
+[Learn More](https://github.com/CosmicMind/Material/blob/master/Sources/iOS/Icon/Icon.swift)
 
 ## Colors
 
