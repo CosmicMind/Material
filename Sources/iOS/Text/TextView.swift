@@ -422,8 +422,9 @@ fileprivate extension TextView {
     let rightPadding = insets.right + textContainer.lineFragmentPadding
     let w = bounds.width - leftPadding - rightPadding
     var h = placeholderLabel.sizeThatFits(CGSize(width: w, height: .greatestFiniteMagnitude)).height
-    h = max(h, minimumTextHeight)
-    h = min(h, bounds.height - insets.top - insets.bottom)
+    // fix placeorderlab position 
+//    h = max(h, minimumTextHeight)
+//    h = min(h, bounds.height - insets.top - insets.bottom)
     
     placeholderLabel.frame = CGRect(x: leftPadding, y: insets.top, width: w, height: h)
   }
