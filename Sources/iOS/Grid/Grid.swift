@@ -216,6 +216,13 @@ public struct Grid {
       return
     }
     
+    /// It is important to call `setNeedsLayout` and `layoutIfNeeded`
+    /// in order to have the parent view's `frame` calculation be set
+    /// for `Grid` to be able to then calculate the correct dimenions
+    /// of its `child` views.
+    canvas.setNeedsLayout()
+    canvas.layoutIfNeeded()
+    
     guard 0 < canvas.bounds.width && 0 < canvas.bounds.height else {
       return
     }

@@ -1,3 +1,8 @@
+## 3.1.7
+
+* Fixed Grid issues, where the layout calculations were being deferred and causing inconsistencies in layouts.
+* Updated to [Motion 3.1.2](https://github.com/CosmicMind/Motion/releases/tag/3.1.2).
+
 ## 3.1.6
 - [issue-1245](https://github.com/CosmicMind/Material/issues/1245): Fixed issue where completion block was not executed when calling Switch.toggle.
 
