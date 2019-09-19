@@ -274,6 +274,12 @@ public struct Grid {
       }
       
       i += 1
+      
+      /// reload the grid layout for each view on
+      /// each iteration, in order to ensure that
+      /// subviews are recalculated correctly.
+      if (isDeferred) { continue }
+      v.grid.reload()
     }
   }
 }
