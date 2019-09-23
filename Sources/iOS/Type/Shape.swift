@@ -23,6 +23,8 @@
  * THE SOFTWARE.
  */
 
+import Foundation
+
 @objc(ShapePreset)
 public enum ShapePreset: Int {
   case none
