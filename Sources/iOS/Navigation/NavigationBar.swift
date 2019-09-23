@@ -128,7 +128,15 @@ open class NavigationBar: UINavigationBar, Themeable {
     //since we do not want to unsafely access private view directly
     //iterate subviews to set `layoutMargin` to zero
     for v in subviews {
-      v.layoutMargins = .zero
+      if #available(iOS 13.0, *) {
+        let margins = v.layoutMargins
+        var frame = v.frame
+        frame.origin.x = -margins.left
+        frame.size.width += (margins.left + margins.right)
+        v.frame = frame
+      } else {
+        v.layoutMargins = .zero
+      }
     }
     
     if let v = topItem {
