@@ -2,7 +2,7 @@
 
 - [pr-1269](https://github.com/CosmicMind/Material/pull/1269): Fixed Xcode 11 crash, where layoutMargins are not available before iOS 13.
 - [pr-1270](https://github.com/CosmicMind/Material/pull/1270): Fixed missing argument in Swift Package Manager.
-
+* Updated to [Motion 3.1.3](https://github.com/CosmicMind/Motion/releases/tag/3.1.3). 
 
 ## 3.1.7
 
