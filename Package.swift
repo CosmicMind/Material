@@ -14,7 +14,8 @@ let package = Package(
         .target(
             name: "Material",
             dependencies: ["Motion"],
-            path: "Sources"
+            path: "Sources",
+            exclude: ["Frameworks"]
         )
     ]
 )
