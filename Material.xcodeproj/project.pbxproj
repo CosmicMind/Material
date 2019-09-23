@@ -443,6 +443,7 @@
 		9638322C1B88DFD80015F710 = {
 			isa = PBXGroup;
 			children = (
+				9630ACB71F29A26B00B4217D /* Frameworks */,
 				96D88BF41C1328D800B91418 /* Sources */,
 				963832371B88DFD80015F710 /* Products */,
 			);
@@ -760,7 +761,6 @@
 			isa = PBXGroup;
 			children = (
 				96BCB7EC1CB40DE900C806FE /* Font */,
-				9630ACB71F29A26B00B4217D /* Frameworks */,
 				96BCB7571CB40DC500C806FE /* iOS */,
 				96334EF51C8B84660083986B /* Assets.xcassets */,
 				96D88BFC1C1328D800B91418 /* Info.plist */,
