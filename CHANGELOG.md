@@ -1,3 +1,9 @@
+## 3.1.8
+
+- [pr-1269](https://github.com/CosmicMind/Material/pull/1269): Fixed Xcode 11 crash, where layoutMargins are not available before iOS 13.
+- [pr-1270](https://github.com/CosmicMind/Material/pull/1270): Fixed missing argument in Swift Package Manager.
+
+
 ## 3.1.7
 
 * Fixed Grid issues, where the layout calculations were being deferred and causing inconsistencies in layouts.
