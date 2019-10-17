@@ -137,8 +137,9 @@ open class Dialog: NSObject {
   @discardableResult
   open func positive(_ title: String?, handler: (() -> Void)?) -> Dialog {
     dialogView.positiveButton.title = title
-    controller.didTapPositiveButtonHandler = { [unowned self] in
-      self.delegate?.dialog?(self, didTapPositive: self.controller.dialogView.positiveButton)
+    controller.didTapPositiveButtonHandler = { [weak self] in
+      guard let strongSelf = self else { return }
+      strongSelf.delegate?.dialog?(strongSelf, didTapPositive: strongSelf.controller.dialogView.positiveButton)
       handler?()
     }
     return self
@@ -153,8 +154,9 @@ open class Dialog: NSObject {
   @discardableResult
   open func negative(_ title: String?, handler: (() -> Void)?) -> Dialog {
     dialogView.negativeButton.title = title
-    controller.didTapNegativeButtonHandler = { [unowned self] in
-      self.delegate?.dialog?(self, didTapNegative: self.controller.dialogView.negativeButton)
+    controller.didTapNegativeButtonHandler = { [weak self] in
+      guard let strongSelf = self else { return }
+      strongSelf.delegate?.dialog?(strongSelf, didTapNegative: strongSelf.controller.dialogView.negativeButton)
       handler?()
     }
     return self
@@ -169,8 +171,9 @@ open class Dialog: NSObject {
   @discardableResult
   open func neutral(_ title: String?, handler: (() -> Void)?) -> Dialog {
     dialogView.neutralButton.title = title
-    controller.didTapNeutralButtonHandler = { [unowned self] in
-      self.delegate?.dialog?(self, didTapNeutral: self.controller.dialogView.neutralButton)
+    controller.didTapNeutralButtonHandler = { [weak self] in
+      guard let strongSelf = self else { return }
+      strongSelf.delegate?.dialog?(strongSelf, didTapNeutral: strongSelf.controller.dialogView.neutralButton)
       handler?()
     }
     return self
@@ -185,8 +188,9 @@ open class Dialog: NSObject {
   @discardableResult
   open func isCancelable(_ value: Bool, handler: (() -> Void)? = nil) -> Dialog {
     controller.isCancelable = value
-    controller.didCancelHandler = { [unowned self] in
-      self.delegate?.dialogDidCancel?(self)
+    controller.didCancelHandler = { [weak self] in
+      guard let strongSelf = self else { return }
+      strongSelf.delegate?.dialogDidCancel?(strongSelf)
       handler?()
     }
     return self
@@ -200,8 +204,9 @@ open class Dialog: NSObject {
    */
   @discardableResult
   open func shouldDismiss(handler: ((DialogView, Button?) -> Bool)?) -> Dialog {
-    controller.shouldDismissHandler = { [unowned self] dialogView, button in
-      let d = self.delegate?.dialog?(self, shouldDismiss: button) ?? true
+    controller.shouldDismissHandler = { [weak self] dialogView, button in
+      guard let strongSelf = self else { return true }
+      let d = strongSelf.delegate?.dialog?(strongSelf, shouldDismiss: button) ?? true
       let h = handler?(dialogView, button) ?? true
       return d && h
     }
@@ -215,8 +220,9 @@ open class Dialog: NSObject {
    */
   @discardableResult
   open func willAppear(handler: (() -> Void)?) -> Dialog {
-    controller.willAppear = { [unowned self] in
-      self.delegate?.dialogWillAppear?(self)
+    controller.willAppear = { [weak self] in
+      guard let strongSelf = self else { return }
+      strongSelf.delegate?.dialogWillAppear?(strongSelf)
       handler?()
     }
     return self
@@ -229,10 +235,11 @@ open class Dialog: NSObject {
    */
   @discardableResult
   open func didDisappear(handler: (() -> Void)?) -> Dialog {
-    controller.didDisappear = { [unowned self] in
-      self.delegate?.dialogDidDisappear?(self)
+    controller.didDisappear = { [weak self] in
+      guard let strongSelf = self else { return }
+      strongSelf.delegate?.dialogDidDisappear?(strongSelf)
       handler?()
-      self.controller.dialog = nil
+      strongSelf.controller.dialog = nil
     }
     return self
   }
