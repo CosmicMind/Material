@@ -268,6 +268,7 @@ open class TextField: UITextField, Themeable {
   }
   
   /// A reference to the clearIconButton.
+  @objc
   open fileprivate(set) var clearIconButton: IconButton?
   
   /// Enables the clearIconButton.
@@ -314,6 +315,7 @@ open class TextField: UITextField, Themeable {
   }
   
   /// A reference to the visibilityIconButton.
+  @objc
   open fileprivate(set) var visibilityIconButton: IconButton?
   
   /// Icon for visibilityIconButton when in the on state.
