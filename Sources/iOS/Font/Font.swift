@@ -41,20 +41,110 @@ public protocol FontType: RawRepresentable where RawValue == String {
     - Parameter value: A CGFloat for the font size.
     - Returns: A UIFont.
     */
-    
+
     func size(_ value: CGFloat) -> UIFont
     var font: UIFont { get }
 }
 
+public protocol FontDynamicType where Self: FontType {
+    func style(_ value: UIFont.TextStyle) -> UIFont
+
+    @available(iOS 11, *)
+    func style(_ value: UIFont.TextStyle, maxScale: CGFloat) -> UIFont
+
+    @available(iOS 11, *)
+    func style(_ value: UIFont.TextStyle, maxSize: CGFloat) -> UIFont
+}
+
 public extension FontType {
-    public func size(_ value: CGFloat) -> UIFont {
-        return UIFont(name: self.rawValue, size: value)!
+
+    func size(_ value: CGFloat) -> UIFont {
+        Font.loadFontIfNeeded(name: self.rawValue)
+        if let f = UIFont(name: self.rawValue, size: value) {
+            return f
+        }
+
+        return Font.systemFont(ofSize: value)
     }
 
-    public var font: UIFont {
+    var font: UIFont {
         return self.size(Font.pointSize)
     }
 }
+
+public extension FontDynamicType {
+  func style(_ style: UIFont.TextStyle) -> UIFont {
+    Font.loadFontIfNeeded(name: self.rawValue)
+
+    let font = UIFont(name: self.rawValue, size: style.defaultSize) ?? self.size(style.defaultSize)
+
+    if #available(iOS 11, *) {
+      return style.metrics.scaledFont(for: font)
+    }
+
+    let scaler = UIFont.preferredFont(forTextStyle: .body).pointSize / style.defaultSize
+    return font.withSize(scaler * font.pointSize)
+  }
+
+  @available(iOS 11, *)
+  func style(_ style: UIFont.TextStyle, maxScale: CGFloat) -> UIFont {
+    Font.loadFontIfNeeded(name: self.rawValue)
+
+    let font = UIFont(name: self.rawValue, size: style.defaultSize) ?? self.size(style.defaultSize)
+    return style.metrics.scaledFont(for: font, maximumPointSize: style.defaultSize * (1 + maxScale))
+  }
+
+  @available(iOS 11, *)
+  func style(_ style: UIFont.TextStyle, maxSize: CGFloat) -> UIFont {
+    return self.style(style, maxScale: (maxSize - style.defaultSize) / style.defaultSize)
+  }
+}
+
+extension UIFont.TextStyle {
+  var defaultSize: CGFloat {
+    if #available(iOS 11, *) {
+        switch self {
+        case .largeTitle:
+            return 36.0
+        default:
+          break
+      }
+    }
+
+    if #available(iOS 9, *) {
+      switch self {
+      case .title1:
+          return 32.0
+      case .title2:
+          return 28.0
+      case .title3:
+          return 21.0
+      case .callout:
+      return 16.0
+      default:
+        break
+      }
+    }
+
+    switch self {
+    case .headline:
+        return 17.0
+    case .subheadline:
+        return 15.0
+    case .body:
+        return 17.0
+    case .footnote:
+        return 13.0
+    case .caption1:
+        return 12.0
+    case .caption2:
+        return 11.0
+    default:
+        return Font.pointSize
+      }
+  }
+}
+
 
 public struct Font {
   /// Size of font.
