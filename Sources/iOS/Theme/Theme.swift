@@ -73,7 +73,7 @@ public struct Theme: Hashable {
   public static var isEnabled = false
   
   /// Global font for app.
-  public static var font: FontType.Type = RobotoFont.self
+  public private(set) static var font: FontTheme.Type = RobotoFont.Theme.self
   
   /// An initializer.
   public init() { }
@@ -166,8 +166,11 @@ public extension Theme {
     execute()
     current = v
   }
+    
+    static func setFont<T: FontThemeable>(font: T.Type) {
+        self.font = font.Theme.self
+    }
 }
-
 
 /// A memory reference to the isThemingEnabled for Themeable NSObject subclasses.
 private var IsThemingEnabledKey: UInt8 = 0
