@@ -438,6 +438,10 @@ open class TextField: UITextField, Themeable {
     return textRect(forBounds: bounds)
   }
   
+  open override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
+    return CGRect(x: 0, y: 0, width: leftViewWidth , height: bounds.height)
+  }
+  
   /**
    Prepares the view instance when intialized. When subclassing,
    it is recommended to override the prepare method
