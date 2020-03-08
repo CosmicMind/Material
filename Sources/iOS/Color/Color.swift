@@ -65,6 +65,7 @@ public protocol ColorPalette {
   optional static var accent4: UIColor { get }
 }
 
+/*
 open class Color: UIColor {
   // dark text
   open class darkText {
@@ -414,3 +415,4 @@ open class Color: UIColor {
     public static let darken4 = UIColor(red: 38/255, green: 50/255, blue: 56/255, alpha: 1)
   }
 }
+*/
