@@ -457,7 +457,10 @@ extension FABMenu {
    - Returns: An optional UIView.
    */
   open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-    guard isOpened, isEnabled else {
+    
+    //under Catalyst, the FabMenu is hit with UIHover events.
+    //If we don't check that the event is a touch, the menu is prematurely closed
+    guard isOpened, isEnabled, event?.type == .touches else {
       return super.hitTest(point, with: event)
     }
     
