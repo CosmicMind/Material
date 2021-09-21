@@ -58,6 +58,7 @@ public protocol TextFieldDelegate: UITextFieldDelegate {
   optional func textField(textField: TextField, didClear text: String?)
 }
 
+@objc(MaterialTextField)
 open class TextField: UITextField, Themeable {
   
   /// Minimum TextField text height.
